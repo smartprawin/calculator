@@ -1,0 +1,271 @@
+'use strict';
+
+var $ = function (id) { return document.getElementById(id); };
+var fmt = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 2 });
+
+function currency(n) { return fmt.format(n); }
+
+function parseDigits(v) {
+  if (typeof v === 'number') return v;
+  var s = String(v == null ? '' : v).replace(/[^\d.]/g, '');
+  var n = parseFloat(s);
+  return isFinite(n) ? n : 0;
+}
+
+function groupIndian(n) {
+  if (n === '' || n == null || isNaN(n)) return '';
+  return new Intl.NumberFormat('en-IN', { maximumFractionDigits: 20 }).format(n);
+}
+
+// ---------- Internationalization (en / ta) ----------
+
+var TRANSLATIONS = {
+  en: {
+    heroTitle: 'Calculators',
+    heroSub: 'Choose a calculator to get started',
+    emiTitle: 'EMI Calculator',
+    emiDesc: 'Home loan, car loan & personal loan EMI, total interest and payment schedule.',
+    emiCta: 'Open calculator \u2192',
+    ebTitle: 'EB Bill Calculator',
+    ebDesc: 'Estimate your electricity bill from units consumed using editable slab tariffs.',
+    ebCta: 'Open calculator \u2192',
+    footer: 'Built for practice. Amounts are rounded to two decimals.',
+
+    back: '\u2190 All calculators',
+    emiH1: 'EMI Calculator',
+    emiSub: 'Home Loan, Car Loan & Personal Loan',
+    tabHome: 'Home Loan',
+    tabPersonal: 'Personal Loan',
+    tabCar: 'Car Loan',
+    loanAmount: 'Loan Amount',
+    interestRate: 'Interest Rate',
+    loanTenure: 'Loan Tenure',
+    emiScheme: 'EMI Scheme',
+    emiArrears: 'EMI in Arrears',
+    emiAdvance: 'EMI in Advance',
+    hint: 'EMI in advance lowers total interest because the first payment is made at disbursement.',
+    summary: 'Summary',
+    loanEmi: 'Loan EMI',
+    totalInterest: 'Total Interest Payable',
+    totalPayment: 'Total Payment (Principal + Interest)',
+    breakUp: 'Payment Break-up',
+    principalLbl: 'Principal',
+    interestLbl: 'Interest',
+    schedule: 'Payment Schedule',
+    yearWise: 'Year wise',
+    monthWise: 'Month wise',
+    colPayment: 'Payment',
+    colPrincipal: 'Principal',
+    colInterest: 'Interest',
+    colBalance: 'Balance',
+    year: 'Year',
+    month: 'Month',
+    validMsg: 'Enter valid loan details to see the result.',
+    principalCenter: 'principal',
+
+    ebH1: 'EB Bill Calculator',
+    ebSub: 'Estimate your electricity bill from units consumed using editable slab tariffs.',
+    unitsConsumed: 'Units Consumed',
+    connLoad: 'Connected Load (W)',
+    fixedCharge: 'Fixed Charge',
+    fixedChargesTitle: 'Fixed Charges (bi-monthly)',
+    connLoadCol: 'Connected Load',
+    fixedPerBi: 'Fixed Charge per Bi-Month',
+    above1kW: 'Above 1 kW',
+    cliffTitle: 'The 500-Unit Cliff: Why Tier 2 Hurts',
+    cliffP1: 'The biggest single jump in TANGEDCO’s domestic structure is not between slabs — it is between the two tiers. Cross 500 units bi-monthly and the subsidised free quota drops from 200 units to just 100 units. You also unlock the steep upper slabs (₹8.40 → ₹11.55 per unit).',
+    cliffEx1: '200 free + 200 × ₹4.70 + 100 × ₹6.30 = ₹1,570 energy charge',
+    cliffEx2: '100 free + 300 × ₹4.70 + 100 × ₹6.30 + 100 × ₹8.40 = ₹2,880 energy charge',
+    cliffP2: '100 extra units added ₹1,310 to the bill — an effective rate of ₹13.10 per unit for the extra consumption (because both the lost subsidy and the new top slab hit at once).',
+    cliffP3: 'This is precisely where a small solar system delivers outsized returns: even a 1 kW system generating 120–140 units bi-monthly can push you back under the 500-unit threshold, restoring the 200-unit subsidy and shaving off the ₹8.40 slab entirely.',
+    printHint: 'Download / Print: Use Ctrl+P (or ⌘+P) to save this page as PDF — the table is print-optimised.',
+    tariffSlabs: 'Tariff Slabs (\u20b9/unit)',
+    addSlab: '+ Add slab',
+    billSummary: 'Bill Summary',
+    energyCharge: 'Energy Charge',
+    totalBill: 'Total Bill',
+    effectiveRate: 'Effective Rate / Unit',
+    freeUnits: 'Free Units (Subsidy)',
+    phFrom: 'From',
+    phTo: 'To (\u221e)',
+    phRate: 'Rate',
+    perUnit: '/unit',
+
+    taxH1: 'Income Tax Calculator',
+    taxSub: 'Estimate your Indian income tax for FY 2025-26 (New & Old Regime).',
+    taxRegime: 'Tax Regime',
+    taxNew: 'New Regime',
+    taxOld: 'Old Regime',
+    taxAge: 'Age Category',
+    ageBelow: 'Below 60',
+    ageSenior: '60 - 80',
+    ageSuper: '80 & above',
+    taxIncome: 'Annual Income',
+    ded80C: 'Section 80C Deduction',
+    hraLbl: 'HRA Exemption',
+    otherDed: 'Other Deductions (80D, etc.)',
+    hintOld: '80C, HRA and other deductions apply only under the Old Regime. The New Regime allows only the standard deduction.',
+    resultSummary: 'Tax Summary',
+    stdDeduction: 'Standard Deduction',
+    totalDeductions: 'Total Deductions',
+    taxableIncome: 'Taxable Income',
+    incomeTax: 'Income Tax',
+    rebate: 'Rebate (Sec 87A)',
+    cess: 'Health & Education Cess (4%)',
+    totalTax: 'Total Tax Payable',
+    effectiveRate: 'Effective Tax Rate',
+    compareTitle: 'New vs Old Regime',
+    lowerTax: 'gives the lower tax',
+    note: 'Estimates for FY 2025-26. Illustrative only - not financial advice.',
+    taxDesc: 'Estimate Indian income tax and compare New vs Old regime for FY 2025-26.',
+    taxCta: 'Open calculator \u2192'
+  },
+  ta: {
+    heroTitle: '\u0b95\u0bbe\u0bb2\u0bcd\u0b95\u0bc1\u0bb2\u0bc7\u0b9f\u0bcd\u0b9f\u0bb0\u0bcd\u0b95\u0bb3\u0bcd',
+    heroSub: '\u0ba4\u0bca\u0b9f\u0b99\u0bcd\u0b95 \u0b92\u0bb0\u0bc1 \u0b95\u0bbe\u0bb2\u0bcd\u0b95\u0bc1\u0bb2\u0bc7\u0b9f\u0bcd\u0b9f\u0bb0\u0bc8\u0ba4\u0bcd \u0ba4\u0bc7\u0bb0\u0bcd\u0ba8\u0bcd\u0ba4\u0bc6\u0b9f\u0bc1\u0b95\u0bcd\u0b95\u0bb5\u0bc1\u0bae\u0bcd',
+    emiTitle: '\u0b88\u0b8e\u0bae\u0bc8 \u0b95\u0bbe\u0bb2\u0bcd\u0b95\u0bc1\u0bb2\u0bc7\u0b9f\u0bcd\u0b9f\u0bb0\u0bcd',
+    emiDesc: '\u0bb5\u0bc0\u0b9f\u0bcd\u0b9f\u0bc1\u0b95\u0bcd \u0b95\u0b9f\u0ba9\u0bcd, \u0b95\u0bbe\u0bb0\u0bcd \u0b95\u0b9f\u0ba9\u0bcd \u0bae\u0bb1\u0bcd\u0bb1\u0bc1\u0bae\u0bcd \u0ba4\u0ba9\u0bbf\u0baa\u0bcd\u0baa\u0b9f\u0bcd\u0b9f \u0b88\u0b8e\u0bae\u0bc8, \u0bae\u0bca\u0ba4\u0bcd\u0ba4 \u0bb5\u0b9f\u0bcd\u0b9f\u0bbf \u0bae\u0bb1\u0bcd\u0bb1\u0bc1\u0bae\u0bcd \u0b9a\u0bc6\u0bb2\u0bc1\u0ba4\u0bcd\u0ba4 \u0ba4\u0bbf\u0b9f\u0bcd\u0b9f\u0bae\u0bcd.',
+    emiCta: '\u0b95\u0bbe\u0bb2\u0bcd\u0b95\u0bc1\u0bb2\u0bc7\u0b9f\u0bcd\u0b9f\u0bb0\u0bc8\u0ba4\u0bcd \u0ba4\u0bbf\u0bb1 \u2192',
+    ebTitle: '\u0bae\u0bbf\u0ba9\u0bcd\u0b9a\u0bbe\u0bb0 \u0b95\u0b9f\u0bcd\u0b9f\u0ba3\u0bae\u0bcd \u0b95\u0bbe\u0bb2\u0bcd\u0b95\u0bc1\u0bb2\u0bc7\u0b9f\u0bcd\u0b9f\u0bb0\u0bcd',
+    ebDesc: '\u0ba4\u0bbf\u0bb0\u0bc1\u0ba4\u0bcd\u0ba4\u0b95\u0bcd\u0b95\u0ba4 \u0baf\u0bc2\u0ba9\u0bbf\u0b9f\u0bcd\u0b9f\u0bc1\u0b95\u0bb3\u0bbf\u0bb2\u0bbf\u0bb0\u0bc1\u0ba8\u0bcd\u0ba4 \u0bae\u0bbe\u0bb1\u0bcd\u0bb1\u0ba4 \u0b9a\u0bcd\u0bb2\u0bbe\u0baa\u0bcd \u0bb5\u0bb0\u0bbf \u0baa\u0baf\u0ba9\u0bcd\u0baa\u0b9f\u0bc1\u0ba4\u0bc8\u0baf\u0bc1\u0ba8\u0bcd \u0ba4\u0bbf\u0bb0\u0bc1\u0ba4\u0bcd\u0ba4\u0bb2\u0bc1\u0b95\u0bcd \u0bae\u0ba4\u0bbf\u0baa\u0bcd\u0baa\u0bbf\u0b9f\u0bb5\u0bc1\u0bae\u0bcd.',
+    ebCta: '\u0b95\u0bbe\u0bb2\u0bcd\u0b95\u0bc1\u0bb2\u0bc7\u0b9f\u0bcd\u0b9f\u0bb0\u0bc8\u0ba4\u0bcd \u0ba4\u0bbf\u0bb1 \u2192',
+    footer: '\u0baa\u0baf\u0bb1\u0bcd\u0b9a\u0bbf\u0b95\u0bcd\u0b95\u0bbe\u0b95 \u0b89\u0bb0\u0bc1\u0bb5\u0bbe\u0b95\u0bcd\u0b95\u0baa\u0b9f\u0bcd\u0b9f\u0ba4\u0bc1. \u0ba4\u0bca\u0b95\u0bc8\u0b95\u0bb3\u0bcd \u0b87\u0bb0\u0ba3\u0bcd\u0b9f\u0bc1 \u0ba4\u0b9a\u0bae\u0b99\u0bcd\u0b95\u0bb3\u0bbf\u0bb2\u0bcd \u0bb5\u0b9f\u0bcd\u0b9f\u0bae\u0bbf\u0b9f\u0baa\u0baa\u0b9f\u0bc1\u0ba4\u0bc1.',
+
+    back: '\u2190 \u0b85\u0ba9\u0bc8\u0ba4\u0bcd\u0ba4\u0bc1 \u0b95\u0bbe\u0bb2\u0bcd\u0b95\u0bc1\u0bb2\u0bc7\u0b9f\u0bcd\u0b9f\u0bb0\u0bcd\u0b95\u0bb3\u0bcd',
+    emiH1: '\u0b88\u0b8e\u0bae\u0bc8 \u0b95\u0bbe\u0bb2\u0bcd\u0b95\u0bc1\u0bb2\u0bc7\u0b9f\u0bcd\u0b9f\u0bb0\u0bcd',
+    emiSub: '\u0bb5\u0bc0\u0b9f\u0bcd\u0b9f\u0bc1\u0b95\u0bcd \u0b95\u0b9f\u0ba9\u0bcd, \u0b95\u0bbe\u0bb0\u0bcd \u0b95\u0b9f\u0ba9\u0bcd & \u0ba4\u0ba9\u0bbf\u0baa\u0bcd\u0baa\u0b9f\u0bcd\u0b9f \u0b95\u0b9f\u0ba9\u0bcd',
+    tabHome: '\u0bb5\u0bc0\u0b9f\u0bcd\u0b9f\u0bc1\u0b95\u0bcd \u0b95\u0b9f\u0ba9\u0bcd',
+    tabPersonal: '\u0ba4\u0ba9\u0bbf\u0baa\u0bcd\u0baa\u0b9f\u0bcd\u0b9f \u0b95\u0b9f\u0ba9\u0bcd',
+    tabCar: '\u0b95\u0bbe\u0bb0\u0bcd \u0b95\u0b9f\u0ba9\u0bcd',
+    loanAmount: '\u0b95\u0b9f\u0ba9\u0bcd \u0ba4\u0bca\u0b95\u0bc8',
+    interestRate: '\u0bb5\u0b9f\u0bcd\u0b9f\u0bbf \u0bb5\u0bbf\u0b95\u0bbf\u0ba4\u0bae\u0bcd',
+    loanTenure: '\u0b95\u0b9f\u0ba9\u0bcd \u0b95\u0bbe\u0bb2\u0bcd \u0b85\u0bb3\u0bb5\u0bc1',
+    emiScheme: '\u0b88\u0b8e\u0bae\u0bc8 \u0ba4\u0bbf\u0b9f\u0bcd\u0b9f\u0bae\u0bcd',
+    emiArrears: '\u0ba4\u0bbe\u0bae\u0ba4\u0baa\u0b9f\u0bc1\u0ba4\u0bcd\u0ba4\u0bca\u0bb0\u0bc1 \u0b88\u0b8e\u0bae\u0bc8',
+    emiAdvance: '\u0bae\u0bc1\u0ba9\u0bcd\u0baa\u0ba3\u0bc8 \u0b88\u0b8e\u0bae\u0bc8',
+    hint: '\u0bae\u0bc1\u0ba4\u0bb2\u0bcd \u0ba4\u0bb5\u0ba3\u0bc8 \u0bb5\u0bb4\u0b99\u0bcd\u0b95\u0bb2\u0bbf\u0bb2\u0bcd \u0b9a\u0bc6\u0bb2\u0bc1\u0ba4\u0bcd\u0ba4\u0baa\u0b9f\u0bc1\u0ba4\u0bc1\u0ba9\u0bcd \u0bae\u0bc1\u0ba9\u0bcd\u0baa\u0ba3\u0bc8 \u0b88\u0b8e\u0bae\u0bc8 \u0bae\u0bca\u0ba4\u0bcd\u0ba4 \u0bb5\u0b9f\u0bcd\u0b9f\u0bbf\u0baf\u0bc1\u0bae\u0bcd \u0b95\u0bc1\u0bb1\u0bc8\u0b95\u0bcd\u0b95\u0bbf\u0bb1\u0ba4\u0bc1.',
+    summary: '\u0b9a\u0bc1\u0bb0\u0bc1\u0b95\u0bcd\u0b95\u0bae\u0bcd',
+    loanEmi: '\u0b95\u0b9f\u0ba9\u0bcd \u0b88\u0b8e\u0bae\u0bc8',
+    totalInterest: '\u0b9a\u0bc6\u0bb2\u0bc1\u0ba4\u0bcd\u0ba4 \u0bb5\u0bc7\u0ba3\u0bcd\u0b9f\u0bbf\u0baf \u0bae\u0bca\u0ba4\u0bcd\u0ba4 \u0bb5\u0b9f\u0bcd\u0b9f\u0bbf',
+    totalPayment: '\u0bae\u0bca\u0ba4\u0bcd\u0ba4 \u0b9a\u0bc6\u0bb2\u0bc1\u0ba4\u0bcd\u0ba4 \u0ba4\u0bca\u0b95\u0bc8 (\u0b85\u0b9a\u0bb2\u0bcd + \u0bb5\u0b9f\u0bcd\u0b9f\u0bbf)',
+    breakUp: '\u0b9a\u0bc6\u0bb2\u0bc1\u0ba4\u0bcd\u0ba4 \u0ba4\u0bca\u0b95\u0bc8 \u0baa\u0bbf\u0bb0\u0bbf\u0bb5\u0bc1',
+    principalLbl: '\u0b85\u0b9a\u0bb2\u0bcd',
+    interestLbl: '\u0bb5\u0b9f\u0bcd\u0b9f\u0bbf',
+    schedule: '\u0b9a\u0bc6\u0bb2\u0bc1\u0ba4\u0bcd\u0ba4 \u0ba4\u0bbf\u0b9f\u0bcd\u0b9f\u0bae\u0bcd',
+    yearWise: '\u0b86\u0b83\u0b9f\u0bc1 \u0bb5\u0bbe\u0bb0\u0bbf\u0baf\u0bbe\u0b95',
+    monthWise: '\u0bae\u0bbe\u0ba4 \u0bb5\u0bbe\u0bb0\u0bbf\u0baf\u0bbe\u0b95',
+    colPayment: '\u0b9a\u0bc6\u0bb2\u0bc1\u0ba4\u0bcd\u0ba4 \u0ba4\u0bca\u0b95\u0bc8',
+    colPrincipal: '\u0b85\u0b9a\u0bb2\u0bcd',
+    colInterest: '\u0bb5\u0b9f\u0bcd\u0b9f\u0bbf',
+    colBalance: '\u0bae\u0bc0\u0ba4\u0bbf',
+    year: '\u0b86\u0b83\u0b9f\u0bc1',
+    month: '\u0bae\u0bbe\u0ba4\u0bae\u0bcd',
+    validMsg: '\u0bae\u0bc1\u0b9f\u0bbf\u0bb5\u0bc8 \u0b95\u0bbe\u0bb3\u0bcd\u0b95\u0bc1\u0bb2\u0bc7\u0b9f\u0bcd\u0b9f\u0bb0\u0bcd \u0bb5\u0bbf\u0bb5\u0bb0\u0b99\u0bcd\u0b95\u0bb3\u0bc8\u0b95\u0bcd \u0b9a\u0bb0\u0bbf\u0baf\u0bc1 \u0b89\u0bb3\u0bcd\u0bb3\u0bbf\u0b9f\u0bb5\u0bc1\u0bae\u0bcd.',
+    principalCenter: '\u0b85\u0b9a\u0bb2\u0bcd',
+
+    ebH1: '\u0bae\u0bbf\u0ba9\u0bcd\u0b9a\u0bbe\u0bb0 \u0b95\u0b9f\u0bcd\u0b9f\u0ba3\u0bae\u0bcd \u0b95\u0bbe\u0bb2\u0bcd\u0b95\u0bc1\u0bb2\u0bc7\u0b9f\u0bcd\u0b9f\u0bb0\u0bcd',
+    ebSub: '\u0ba4\u0bbf\u0bb0\u0bc1\u0ba4\u0bcd\u0ba4\u0b95\u0bcd\u0b95\u0ba4 \u0baf\u0bc2\u0ba9\u0bbf\u0b9f\u0bcd\u0b9f\u0bc1\u0b95\u0bb3\u0bbf\u0bb2\u0bbf\u0bb0\u0bc1\u0ba8\u0bcd\u0ba4 \u0bae\u0bbe\u0bb1\u0bcd\u0bb1\u0ba4 \u0b9a\u0bcd\u0bb2\u0bbe\u0baa\u0bcd \u0bb5\u0bb0\u0bbf \u0baa\u0baf\u0ba9\u0bcd\u0baa\u0b9f\u0bc1\u0ba4\u0bc8\u0baf\u0bc1\u0ba8\u0bcd \u0ba4\u0bbf\u0bb0\u0bc1\u0ba4\u0bcd\u0ba4\u0bb2\u0bc1\u0b95\u0bcd \u0bae\u0ba4\u0bbf\u0baa\u0bcd\u0baa\u0bbf\u0b9f\u0bb5\u0bc1\u0bae\u0bcd.',
+    unitsConsumed: '\u0ba8\u0bc1\u0b95\u0bb0\u0baa\u0bcd\u0baa\u0b9f\u0bcd\u0b9f \u0baf\u0bc2\u0ba9\u0bbf\u0b9f\u0bcd\u0b9f\u0bc1\u0b95\u0bb3\u0bcd',
+    connLoad: 'Connected Load (W)',
+    fixedCharge: '\u0ba8\u0bbf\u0bb2\u0bc8\u0baf\u0bbe\u0ba9 \u0b95\u0b9f\u0bcd\u0b9f\u0ba3\u0bae\u0bcd',
+    fixedChargesTitle: 'Fixed Charges (bi-monthly)',
+    connLoadCol: 'Connected Load',
+    fixedPerBi: 'Fixed Charge per Bi-Month',
+    above1kW: 'Above 1 kW',
+    cliffTitle: 'The 500-Unit Cliff: Why Tier 2 Hurts',
+    cliffP1: 'The biggest single jump in TANGEDCO’s domestic structure is not between slabs — it is between the two tiers. Cross 500 units bi-monthly and the subsidised free quota drops from 200 units to just 100 units. You also unlock the steep upper slabs (₹8.40 → ₹11.55 per unit).',
+    cliffEx1: '200 free + 200 × ₹4.70 + 100 × ₹6.30 = ₹1,570 energy charge',
+    cliffEx2: '100 free + 300 × ₹4.70 + 100 × ₹6.30 + 100 × ₹8.40 = ₹2,880 energy charge',
+    cliffP2: '100 extra units added ₹1,310 to the bill — an effective rate of ₹13.10 per unit for the extra consumption (because both the lost subsidy and the new top slab hit at once).',
+    cliffP3: 'This is precisely where a small solar system delivers outsized returns: even a 1 kW system generating 120–140 units bi-monthly can push you back under the 500-unit threshold, restoring the 200-unit subsidy and shaving off the ₹8.40 slab entirely.',
+    printHint: 'Download / Print: Use Ctrl+P (or ⌘+P) to save this page as PDF — the table is print-optimised.',
+    tariffSlabs: '\u0bb5\u0bb0\u0bbf \u0bb8\u0bcd\u0bb2\u0bbe\u0baa\u0bcd\u0b95\u0bb3\u0bcd (\u20b9/\u0baf\u0bc2\u0ba9\u0bbf\u0b9f\u0bcd\u0b9f\u0bc1)',
+    addSlab: '+ \u0bb8\u0bcd\u0bb2\u0bbe\u0baa\u0bcd \u0b9a\u0bc7\u0bb0\u0bcd',
+    billSummary: '\u0b95\u0b9f\u0bcd\u0b9f\u0ba3\u0bae\u0bcd \u0b9a\u0bc1\u0bb0\u0bc1\u0b95\u0bcd\u0b95\u0bae\u0bcd',
+    energyCharge: '\u0b86\u0bb1\u0bcd\u0bb1\u0bb2\u0bcd \u0b95\u0b9f\u0bcd\u0b9f\u0ba3\u0bae\u0bcd',
+    totalBill: '\u0bae\u0bca\u0ba4\u0bcd\u0ba4 \u0b95\u0b9f\u0bcd\u0b9f\u0ba3\u0bae\u0bcd',
+    effectiveRate: '\u0baa\u0baf\u0ba9\u0bcd\u0baa\u0b9f\u0bc1\u0ba4 \u0bb5\u0bbf\u0b95\u0bbf\u0ba4\u0bae\u0bcd / \u0baf\u0bc2\u0ba9\u0bbf\u0b9f\u0bcd\u0b9f\u0bc1',
+    freeUnits: '\u0b87\u0bb2\u0bc8\u0baf\u0bbe\u0ba9 \u0baf\u0bc2\u0ba9\u0bbf\u0b9f\u0bcd\u0b9f\u0bc1\u0b95\u0bb3\u0bcd',
+    phFrom: '\u0b87\u0bb0\u0bc1\u0ba8\u0bcd\u0ba4\u0bc1',
+    phTo: '\u0bb5\u0bb0\u0bc8 (\u221e)',
+    phRate: '\u0bb5\u0bbf\u0b95\u0bbf\u0ba4\u0bae\u0bcd',
+    perUnit: '/\u0baf\u0bc2\u0ba9\u0bbf\u0b9f\u0bcd\u0b9f\u0bc1',
+
+    taxH1: '\u0b95\u0bbf\u0bb0\u0bc1\u0bb5\u0bc8 \u0bb5\u0bb0\u0bbf \u0b95\u0bbe\u0bb2\u0bcd\u0b95\u0bc1\u0bb2\u0bc7\u0b9f\u0bcd\u0b9f\u0bb0\u0bcd',
+    taxSub: '\u0b89\u0b99\u0bcd\u0b95\u0bb3\u0bbf\u0ba9\u0bcd \u0b95\u0bbf\u0bb0\u0bc1\u0bb5\u0bc8 \u0bb5\u0bb0\u0bbf (FY 2025-26) \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0bae\u0bc1\u0bb1\u0bc8 \u0bae\u0bb1\u0bcd\u0bb1\u0bc1\u0bae\u0bcd \u0b95\u0bbe\u0bb2\u0bcd\u0b95\u0bc1\u0bb2\u0bc7\u0b9f\u0bcd\u0b9f\u0bb0\u0bcd.',
+    taxRegime: '\u0bb5\u0bb0\u0bbf \u0bae\u0bc1\u0bb1\u0bc8',
+    taxNew: '\u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0bae\u0bc1\u0bb1\u0bc8',
+    taxOld: '\u0baa\u0bb4\u0bc8\u0baf \u0bae\u0bc1\u0bb1\u0bc8',
+    taxAge: '\u0bb5\u0baf\u0bb8\u0bcd \u0b9a\u0bbf\u0bb1\u0baa\u0bcd\u0baa\u0bc1',
+    ageBelow: '60 \u0b95\u0bc0\u0bb4\u0bc7',
+    ageSenior: '60 - 80',
+    ageSuper: '80 \u0bae\u0bc7\u0bb2\u0bc1\u0bae\u0bcd',
+    taxIncome: '\u0b86\u0ba3\u0bcd\u0b9f\u0bc1 \u0bb5\u0bb0\u0bc1\u0bb5\u0bbe\u0baf\u0bae\u0bcd',
+    ded80C: '\u0b9a\u0bc6\u0b95\u0bcd\u0bb7\u0ba9\u0bcd 80C \u0b95\u0bb3\u0bbf\u0bb1\u0bcd\u0b95\u0bbf\u0bb4\u0ba4\u0bcd\u0ba4\u0bc1',
+    hraLbl: 'HRA \u0bb5\u0bbf\u0bb4\u0bc1\u0bb5\u0bbe\u0bae\u0bcd',
+    otherDed: '\u0bae\u0bb1\u0bcd\u0bb1\u0bc1 \u0b95\u0bb3\u0bbf\u0bb1\u0bcd\u0b95\u0bbf\u0bb4\u0ba4\u0bcd\u0ba4\u0bc1\u0b95\u0bb3\u0bcd (80D \u0bae\u0bc1.)',
+    hintOld: '\u0b9a\u0bc6\u0b95\u0bcd\u0bb7\u0ba9\u0bcd 80C, HRA \u0bae\u0bb1\u0bcd\u0bb1\u0bc1\u0bae\u0bcd \u0baa\u0bb4\u0bc8\u0baf \u0bae\u0bc1\u0bb1\u0bc8\u0baf\u0bbf\u0bb2\u0bcd \u0baa\u0baf\u0ba9\u0baa\u0b9f\u0bc1\u0ba4\u0bcd\u0ba4\u0bbe\u0bb2\u0bcd \u0baa\u0bcd\u0bb0\u0baf\u0bcb\u0b95\u0bcd\u0b95\u0baa\u0b9f\u0bc1\u0bae\u0bcd. \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0bae\u0bc1\u0bb1\u0bc8\u0baf\u0bbf\u0bb2\u0bcd \u0b9a\u0bbf\u0b9f\u0bcd\u0b9f \u0ba4\u0b9f\u0bcd\u0b9f\u0bb5\u0bc1 \u0b95\u0bb3\u0bbf\u0bb1\u0bcd\u0b95\u0bbf\u0bb4\u0ba4\u0bcd\u0ba4\u0bc1 \u0bae\u0b9f\u0bcd\u0b9f\u0bc1\u0bae\u0bcd.',
+    resultSummary: '\u0bb5\u0bb0\u0bbf \u0b9a\u0bc1\u0bb0\u0bc1\u0b95\u0bcd\u0b95\u0bae\u0bcd',
+    stdDeduction: '\u0b9a\u0bbf\u0b9f\u0bcd\u0b9f \u0b95\u0bb3\u0bbf\u0bb1\u0bcd\u0b95\u0bbf\u0bb4\u0ba4\u0bcd\u0ba4\u0bc1',
+    totalDeductions: '\u0bae\u0bca\u0ba4\u0bcd\u0ba4 \u0b95\u0bb3\u0bbf\u0bb1\u0bcd\u0b95\u0bbf\u0bb4\u0ba4\u0bcd\u0ba4\u0bc1\u0b95\u0bb3\u0bcd',
+    taxableIncome: '\u0bb5\u0bb0\u0bbf\u0b95\u0bcd\u0b95\u0bc1\u0bb0\u0bbf\u0baf \u0bb5\u0bb0\u0bc1\u0bb5\u0bbe\u0baf\u0bae\u0bcd',
+    incomeTax: '\u0bb5\u0bb0\u0bc1\u0bb5\u0bc1 \u0bb5\u0bb0\u0bbf',
+    rebate: '\u0b95\u0bb1\u0bb1\u0bc1\u0baa\u0bcd\u0baa\u0bc1 (\u0b9a\u0bc6\u0b95\u0bcd\u0bb7\u0ba9\u0bcd 87A)',
+    cess: '\u0b9a\u0bc1\u0b95\u0bbe\u0ba4\u0bbe\u0bb0 \u0bae\u0bb1\u0bcd\u0bb1\u0bc1\u0bae\u0bcd & \u0b95\u0bb2\u0bcd\u0bb5\u0bbf (4%)',
+    totalTax: '\u0bae\u0bca\u0ba4\u0bcd\u0ba4 \u0bb5\u0bb0\u0bbf \u0b95\u0b9f\u0ba9\u0bcd\u0b9f\u0bb5\u0bc1\u0bae\u0bcd',
+    effectiveRate: '\u0ba8\u0bc1\u0b9f\u0baa\u0b9f\u0bbf\u0b9f \u0bb5\u0bb0\u0bbf \u0bb5\u0bbf\u0b95\u0bbf\u0ba4\u0bae\u0bcd',
+    compareTitle: '\u0baa\u0bc1\u0ba4\u0bbf\u0baf vs \u0baa\u0bb4\u0bc8\u0baf \u0bae\u0bc1\u0bb1\u0bc8',
+    lowerTax: '\u0b95\u0bc1\u0bb1\u0bc8\u0baf \u0bb5\u0bb0\u0bbf \u0b95\u0bc1\u0bb1\u0bc8\u0bb5\u0bbe\u0b95 \u0b89\u0bb3\u0bcd\u0bb3\u0ba4\u0bc1',
+    note: 'FY 2025-26 \u0b95\u0bcd\u0b95\u0bbe\u0ba9 \u0b95\u0ba3\u0b95\u0bcd\u0b95\u0bc1\u0baa\u0bbf\u0b9f\u0bb5\u0bc1\u0bae\u0bcd. \u0b87\u0ba4\u0bc1 \u0b89\u0ba4\u0bbe\u0bb0\u0ba3\u0bae\u0bbe\u0ba9 \u0b95\u0bbe\u0b9f\u0bcd\u0b9f\u0bbf\u0b9f\u0bae\u0bcd \u0bae\u0b9f\u0bcd\u0b9f\u0bc1\u0bae\u0bcd.',
+    taxDesc: '\u0b87\u0ba8\u0bcd\u0ba4\u0bbf\u0baf \u0b95\u0bbf\u0bb0\u0bc1\u0bb5\u0bc8 \u0bb5\u0bb0\u0bbf\u0baf\u0bc8 \u0b95\u0ba3\u0b95\u0bcd\u0b95\u0bc1\u0baa\u0bbf\u0b9f\u0bcd\u0b9f\u0bc1 \u0bae\u0bb1\u0bcd\u0bb1\u0bc1\u0bae\u0bcd \u0baa\u0bc1\u0ba4\u0bbf\u0baf vs \u0baa\u0bb4\u0bc8\u0baf \u0bae\u0bc1\u0bb1\u0bc8\u0baf\u0bc8 FY 2025-26 \u0bb2\u0bbf\u0ba4\u0bcd \u0b8f\u0ba9\u0bcd\u0baa\u0bbf\u0b9f\u0bc1\u0b95\u0bcd\u0b95\u0baa\u0b9f\u0bc1\u0bae\u0bcd.',
+    taxCta: '\u0b95\u0bbe\u0bb2\u0bcd\u0b95\u0bc1\u0bb2\u0bc7\u0b9f\u0bcd\u0b9f\u0bb0\u0bc8\u0ba4\u0bcd \u0ba4\u0bbf\u0bb1 \u2192'
+  }
+};
+
+var currentLang = (function () {
+  try { return localStorage.getItem('lang') || 'en'; } catch (e) { return 'en'; }
+})();
+
+function t(key) {
+  var dict = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
+  if (dict[key] !== undefined) return dict[key];
+  if (TRANSLATIONS.en[key] !== undefined) return TRANSLATIONS.en[key];
+  return key;
+}
+
+function applyLanguage(lang) {
+  currentLang = lang;
+  try { localStorage.setItem('lang', lang); } catch (e) {}
+  document.documentElement.lang = lang === 'ta' ? 'ta' : 'en';
+
+  document.querySelectorAll('[data-i18n]').forEach(function (el) {
+    el.textContent = t(el.getAttribute('data-i18n'));
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
+    el.setAttribute('placeholder', t(el.getAttribute('data-i18n-placeholder')));
+  });
+  document.querySelectorAll('[data-i18n-title]').forEach(function (el) {
+    el.setAttribute('title', t(el.getAttribute('data-i18n-title')));
+  });
+  document.querySelectorAll('.lang-switch button').forEach(function (b) {
+    b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+  });
+
+  document.dispatchEvent(new Event('langchange'));
+}
+
+function initLang() {
+  var sw = document.querySelector('.lang-switch');
+  if (sw) {
+    sw.querySelectorAll('button').forEach(function (b) {
+      b.addEventListener('click', function () { applyLanguage(b.getAttribute('data-lang')); });
+    });
+  }
+  applyLanguage(currentLang);
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initLang);
+} else {
+  initLang();
+}

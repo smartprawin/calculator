@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Income Tax Calculator India - New & Old Regime (FY 2025-26)</title>
+<meta name="description" content="Free Indian income tax calculator for FY 2025-26. Enter annual income (slider or box), choose New or Old regime and age, add 80C/HRA and compare both regimes.">
+<meta name="keywords" content="income tax calculator India, new regime tax calculator, old regime tax calculator, 80C, HRA, section 87A rebate, FY 2025-26 tax">
+<meta name="author" content="Simple EMI calculator project">
+<meta name="theme-color" content="#16a34a">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://your-username.github.io/your-repo/tax.html">
+<link rel="stylesheet" href="style.css?v=2">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Income Tax Calculator India">
+<meta property="og:description" content="Free Indian income tax calculator comparing New and Old regimes for FY 2025-26.">
+<meta property="og:site_name" content="Calculators">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Income Tax Calculator",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+}
+</script>
+</head>
+<body>
+<div class="app">
+  <div class="lang-switch">
+    <button type="button" data-lang="en">EN</button>
+    <button type="button" data-lang="ta">தமிழ்</button>
+  </div>
+  <a class="back-link" href="index.html" data-i18n="back">← All calculators</a>
+  <header>
+    <h1 data-i18n="taxH1">Income Tax Calculator</h1>
+    <p data-i18n="taxSub">Estimate your Indian income tax for FY 2025-26 (New &amp; Old Regime).</p>
+  </header>
+
+  <main class="layout">
+    <section class="card">
+      <label class="field">
+        <div class="field-head"><span data-i18n="taxIncome">Annual Income</span>
+          <span class="input-box"><span class="unit">₹</span><input type="text" id="taxIncomeInput" inputmode="numeric" autocomplete="off"></span>
+        </div>
+        <input type="range" id="taxIncome" min="0" max="5000000" step="50000">
+        <div class="field-scale"><span>₹0</span><span>₹50L</span></div>
+      </label>
+
+      <div class="field">
+        <span class="field-head" data-i18n="taxRegime">Tax Regime</span>
+        <div class="segmented" id="regimeTabs">
+          <button type="button" class="active" data-regime="new" data-i18n="taxNew">New Regime</button>
+          <button type="button" data-regime="old" data-i18n="taxOld">Old Regime</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="field-head" data-i18n="taxAge">Age Category</span>
+        <div class="segmented" id="ageTabs">
+          <button type="button" class="active" data-age="below" data-i18n="ageBelow">Below 60</button>
+          <button type="button" data-age="senior" data-i18n="ageSenior">60 - 80</button>
+          <button type="button" data-age="super" data-i18n="ageSuper">80 &amp; above</button>
+        </div>
+      </div>
+
+      <label class="field">
+        <div class="field-head"><span data-i18n="ded80C">Section 80C Deduction</span>
+          <span class="input-box"><span class="unit">₹</span><input type="text" id="ded80CInput" inputmode="numeric" autocomplete="off"></span>
+        </div>
+        <input type="range" id="ded80C" min="0" max="150000" step="1000">
+        <div class="field-scale"><span>₹0</span><span>₹1.5L</span></div>
+      </label>
+
+      <label class="field">
+        <div class="field-head"><span data-i18n="hraLbl">HRA Exemption</span>
+          <span class="input-box"><span class="unit">₹</span><input type="text" id="hra" inputmode="numeric" autocomplete="off"></span>
+        </div>
+      </label>
+
+      <label class="field">
+        <div class="field-head"><span data-i18n="otherDed">Other Deductions (80D, etc.)</span>
+          <span class="input-box"><span class="unit">₹</span><input type="text" id="other" inputmode="numeric" autocomplete="off"></span>
+        </div>
+      </label>
+
+      <p class="hint" data-i18n="hintOld">80C, HRA and other deductions apply only under the Old Regime. The New Regime allows only the standard deduction.</p>
+    </section>
+
+    <div class="results" id="results">
+      <div class="card">
+        <h2 data-i18n="resultSummary">Tax Summary</h2>
+        <dl class="summary-list">
+          <div class="summary-item"><dt data-i18n="stdDeduction">Standard Deduction</dt><dd id="sumStd">-</dd></div>
+          <div class="summary-item"><dt data-i18n="totalDeductions">Total Deductions</dt><dd id="sumDed">-</dd></div>
+          <div class="summary-item"><dt data-i18n="taxableIncome">Taxable Income</dt><dd id="sumTaxable">-</dd></div>
+          <div class="summary-item"><dt data-i18n="incomeTax">Income Tax</dt><dd id="sumTax">-</dd></div>
+          <div class="summary-item"><dt data-i18n="rebate">Rebate (Sec 87A)</dt><dd id="sumRebate">-</dd></div>
+          <div class="summary-item"><dt data-i18n="cess">Health &amp; Education Cess (4%)</dt><dd id="sumCess">-</dd></div>
+          <div class="summary-item accent"><dt data-i18n="totalTax">Total Tax Payable</dt><dd id="sumTotal">-</dd></div>
+          <div class="summary-item"><dt data-i18n="effectiveRate">Effective Tax Rate</dt><dd id="sumEff">-</dd></div>
+        </dl>
+      </div>
+      <div class="card">
+        <h2 data-i18n="compareTitle">New vs Old Regime</h2>
+        <div class="compare">
+          <div class="compare-col" id="cmpNew">
+            <div class="compare-name" data-i18n="taxNew">New Regime</div>
+            <div class="compare-val" id="cmpNewVal">-</div>
+          </div>
+          <div class="compare-col" id="cmpOld">
+            <div class="compare-name" data-i18n="taxOld">Old Regime</div>
+            <div class="compare-val" id="cmpOldVal">-</div>
+          </div>
+        </div>
+        <p class="hint" id="cmpNote"></p>
+      </div>
+    </div>
+  </main>
+
+  <footer data-i18n="footer">Built for practice. Amounts are rounded to two decimals.</footer>
+</div>
+
+<script src="common.js?v=2"></script>
+<script src="tax.js?v=2"></script>
+</body>
+</html>
