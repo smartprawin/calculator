@@ -10,7 +10,7 @@ never mix.
 | `01-planning/` | Requirements, design, decisions, plans | PRD, tech design, project plan |
 | `02-codebase/` | Auto-generated docs describing the actual code | `EMI-CALCULATOR-DOCUMENTATION.md` |
 | `03-calculations/` | The math/formulas behind each calculator | `CALCULATIONS.md` |
-| `04-guides/` | How-to / run / deploy guides | setup guide (future) |
+| `04-guides/` | How-to / run / deploy guides | deployment + custom-domain guide |
 | `05-changelog/` | Release notes, version history | v0.1.0 notes (future) |
 
 **Naming rule:** numbering prefix = category, then a descriptive name, e.g.
@@ -38,3 +38,9 @@ Future docs should go into the matching numbered folder.
 | Document | Description |
 |----------|-------------|
 | [`CALCULATIONS.md`](03-calculations/CALCULATIONS.md) | Every formula used, kept separate from the code docs: EMI amortization, EB tier/slab/free-units/fixed charge, and FY 2025-26 income tax (New vs Old) |
+
+### 04-guides
+
+| Document | Description |
+|----------|-------------|
+| [`DEPLOYMENT.md`](04-guides/DEPLOYMENT.md) | Deploy on GitHub Pages, bind the custom domain `simplecalculator.in` (DNS, `CNAME`, Settings), and where SEO URLs live |
