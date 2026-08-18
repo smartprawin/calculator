@@ -178,6 +178,49 @@
           </table>
         </div>
       </div>
+      <div class="card preclose-card">
+        <h2 data-i18n="precloseTitle">Preclosure / Early Closure</h2>
+        <label class="field">
+          <div class="field-head"><span data-i18n="monthsDone">Months completed</span>
+            <span class="input-box"><input type="number" id="preMonths" min="0" step="1" autocomplete="off"></span>
+          </div>
+        </label>
+        <label class="field">
+          <div class="field-head"><span data-i18n="partPay">Part-prepayment now</span>
+            <span class="input-box"><span class="unit">&#8377;</span><input type="text" id="prePart" inputmode="numeric" autocomplete="off"></span>
+          </div>
+        </label>
+        <label class="field">
+          <div class="field-head"><span data-i18n="bankLbl">Bank (optional)</span>
+            <span class="input-box">
+              <select id="preBank">
+                <option value="">— Select bank (optional) —</option>
+                <option value="sbi">SBI (0%)</option>
+                <option value="hdfc">HDFC (0%)</option>
+                <option value="icici">ICICI (2%)</option>
+                <option value="axis">Axis (2%)</option>
+                <option value="kotak">Kotak (2%)</option>
+                <option value="bajaj">Bajaj Finserv (4%)</option>
+                <option value="pnb">PNB (0%)</option>
+                <option value="custom">Custom %</option>
+              </select>
+            </span>
+          </div>
+        </label>
+        <label class="field">
+          <div class="field-head"><span data-i18n="chargeLbl">Preclosure charge %</span>
+            <span class="input-box"><input type="number" id="preCharge" min="0" max="100" step="0.1" value="0"><span class="unit">%</span></span>
+          </div>
+        </label>
+        <p class="hint" data-i18n="chargeNote">Charges are indicative; confirm with your bank.</p>
+        <dl class="summary-list">
+          <div class="summary-item"><dt data-i18n="outstanding">Outstanding Principal</dt><dd id="preOutstanding">-</dd></div>
+          <div class="summary-item"><dt data-i18n="paidSoFar">Paid So Far</dt><dd id="prePaidSoFar">-</dd></div>
+          <div class="summary-item"><dt data-i18n="interestSaved">Interest Saved</dt><dd id="preInterestSaved">-</dd></div>
+          <div class="summary-item"><dt data-i18n="chargeAmtLbl">Preclosure Charge</dt><dd id="preChargeAmt">-</dd></div>
+          <div class="summary-item accent"><dt data-i18n="closeNow">Amount to Close Now</dt><dd id="preCloseNow">-</dd></div>
+        </dl>
+      </div>
     </div>
   </main>
 

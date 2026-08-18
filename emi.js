@@ -7,7 +7,9 @@
     car:      { amount: 800000,  rate: 10,  years: 5,  months: 0 }
   };
 
-  var state = { type: 'home', amount: 2500000, rate: 9.5, years: 20, months: 0, scheme: 'arrears', view: 'year' };
+  var state = { type: 'home', amount: 2500000, rate: 9.5, years: 20, months: 0, scheme: 'arrears', view: 'year', preMonths: 0, prePart: 0, preBank: '', preChargePct: 0 };
+
+  var BANK_CHARGES = { '': 0, sbi: 0, hdfc: 0, icici: 2, axis: 2, kotak: 2, bajaj: 4, pnb: 0 };
 
   function calculateEmi(principal, annualRatePct, months) {
     if (principal <= 0 || months <= 0) return 0;
@@ -45,6 +47,30 @@
       });
     }
     return rows;
+  }
+
+  function computePreclosure(schedule) {
+    var total = schedule.length;
+    var n = Math.round(state.preMonths);
+    if (!isFinite(n) || n < 0) n = 0;
+    if (n > total) n = total;
+    var paid = 0, interestPaid = 0, totalInterestAll = 0;
+    for (var i = 0; i < total; i++) {
+      totalInterestAll += schedule[i].interest;
+      if (i < n) { paid += schedule[i].payment; interestPaid += schedule[i].interest; }
+    }
+    var outstanding = (n <= 0) ? state.amount : (n >= total ? 0 : schedule[n - 1].balance);
+    var part = Math.max(0, parseDigits(state.prePart) || 0);
+    if (part > outstanding) part = outstanding;
+    var netPrincipal = Math.max(0, outstanding - part);
+    var charge = netPrincipal * (state.preChargePct / 100);
+    var closeNow = netPrincipal + charge;
+    var interestSaved = Math.max(0, totalInterestAll - interestPaid);
+    $('preOutstanding').textContent = currency(outstanding);
+    $('prePaidSoFar').textContent = currency(paid);
+    $('preInterestSaved').textContent = currency(interestSaved);
+    $('preChargeAmt').textContent = currency(charge);
+    $('preCloseNow').textContent = currency(closeNow);
   }
 
   function isInvalid() {
@@ -89,6 +115,11 @@
     $('tenureYears').value = state.years;
     $('tenureYearsInput').value = state.years;
     $('tenureMonthsInput').value = state.months;
+    $('preMonths').max = months;
+    $('preMonths').value = state.preMonths;
+    $('preBank').value = state.preBank;
+    if (document.activeElement !== $('prePart')) $('prePart').value = groupIndian(state.prePart);
+    if (document.activeElement !== $('preCharge')) $('preCharge').value = state.preChargePct;
 
     document.querySelectorAll('#loanTabs button').forEach(function (b) { b.classList.toggle('active', b.dataset.type === state.type); });
     document.querySelectorAll('#schemeTabs button').forEach(function (b) { b.classList.toggle('active', b.dataset.scheme === state.scheme); });
@@ -114,6 +145,7 @@
     $('legendPrincipal').textContent = t('principalLbl') + ': ' + currency(state.amount) + ' (' + (totalPayment > 0 ? ((state.amount / totalPayment) * 100).toFixed(1) : 0) + '%)';
     $('legendInterest').textContent = t('interestLbl') + ': ' + currency(totalInterest) + ' (' + (totalPayment > 0 ? ((totalInterest / totalPayment) * 100).toFixed(1) : 0) + '%)';
     renderChart(state.amount, totalInterest);
+    computePreclosure(schedule);
 
     var rows;
     if (state.view === 'month') {
@@ -176,6 +208,16 @@
     state.months = isFinite(v) ? Math.max(0, Math.min(11, v)) : 0;
     render();
   });
+
+  $('preMonths').addEventListener('input', function (e) { state.preMonths = parseDigits(e.target.value); render(); });
+  $('prePart').addEventListener('input', function (e) { state.prePart = parseDigits(e.target.value); render(); });
+  $('prePart').addEventListener('blur', function () { $('prePart').value = groupIndian(state.prePart); });
+  $('preBank').addEventListener('change', function (e) {
+    state.preBank = e.target.value;
+    if (BANK_CHARGES.hasOwnProperty(state.preBank)) { state.preChargePct = BANK_CHARGES[state.preBank]; }
+    render();
+  });
+  $('preCharge').addEventListener('input', function (e) { state.preChargePct = parseDigits(e.target.value); render(); });
 
   document.addEventListener('langchange', render);
   render();

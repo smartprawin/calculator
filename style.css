@@ -191,6 +191,19 @@ header p {
   outline: none;
 }
 
+.input-box select {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: transparent;
+  padding: 3px 0;
+  cursor: pointer;
+}
+
 input[type='range'] {
   width: 100%;
   accent-color: #2563eb;
