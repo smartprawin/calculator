@@ -82,6 +82,14 @@ header p {
   .schedule-card {
     grid-column: 1 / -1;
   }
+
+  /* A lone card (e.g. the privacy page) spans the full width, centered for readability */
+  .layout > .card:only-child {
+    grid-column: 1 / -1;
+    max-width: 860px;
+    margin: 0 auto;
+    width: 100%;
+  }
 }
 
 .card {
@@ -581,6 +589,21 @@ footer {
   text-align: center;
   color: #64748b;
   font-size: 0.8rem;
+}
+
+.footer-links {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 0.8rem;
+}
+
+.footer-links a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
 }
 
 /* Income tax compare */
