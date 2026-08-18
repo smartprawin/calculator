@@ -43,4 +43,4 @@ Future docs should go into the matching numbered folder.
 
 | Document | Description |
 |----------|-------------|
-| [`DEPLOYMENT.md`](04-guides/DEPLOYMENT.md) | Deploy on GitHub Pages, bind the custom domain `simplecalculator.in` (DNS, `CNAME`, Settings), and where SEO URLs live |
+| [`DEPLOYMENT.md`](04-guides/DEPLOYMENT.md) | Deploy on GitHub Pages, bind the custom domain `simplecalculator.in` (DNS, `CNAME`, Settings), SEO URLs, hreflang/i18n (en/ta), and social sharing |

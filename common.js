@@ -218,12 +218,24 @@ var TRANSLATIONS = {
     lowerTax: '\u0b95\u0bc1\u0bb1\u0bc8\u0baf \u0bb5\u0bb0\u0bbf \u0b95\u0bc1\u0bb1\u0bc8\u0bb5\u0bbe\u0b95 \u0b89\u0bb3\u0bcd\u0bb3\u0ba4\u0bc1',
     note: 'FY 2025-26 \u0b95\u0bcd\u0b95\u0bbe\u0ba9 \u0b95\u0ba3\u0b95\u0bcd\u0b95\u0bc1\u0baa\u0bbf\u0b9f\u0bb5\u0bc1\u0bae\u0bcd. \u0b87\u0ba4\u0bc1 \u0b89\u0ba4\u0bbe\u0bb0\u0ba3\u0bae\u0bbe\u0ba9 \u0b95\u0bbe\u0b9f\u0bcd\u0b9f\u0bbf\u0b9f\u0bae\u0bcd \u0bae\u0b9f\u0bcd\u0b9f\u0bc1\u0bae\u0bcd.',
     taxDesc: '\u0b87\u0ba8\u0bcd\u0ba4\u0bbf\u0baf \u0bb5\u0bb0\u0bc1\u0bae\u0bbe\u0ba9 \u0bb5\u0bb0\u0bbf\u0baf\u0bc8 \u0b95\u0ba3\u0b95\u0bcd\u0b95\u0bc1\u0baa\u0bbf\u0b9f\u0bcd\u0b9f\u0bc1 \u0bae\u0bb1\u0bcd\u0bb1\u0bc1\u0bae\u0bcd \u0baa\u0bc1\u0ba4\u0bbf\u0baf vs \u0baa\u0bb4\u0bc8\u0baf \u0bae\u0bc1\u0bb1\u0bc8\u0baf\u0bc8 FY 2025-26 \u0bb2\u0bbf\u0ba4\u0bcd \u0b8f\u0ba9\u0bcd\u0baa\u0bbf\u0b9f\u0bc1\u0b95\u0bcd\u0b95\u0baa\u0b9f\u0bc1\u0bae\u0bcd.',
-    taxCta: '\u0b95\u0bbe\u0bb2\u0bcd\u0b95\u0bc1\u0bb2\u0bc7\u0b9f\u0bcd\u0b9f\u0bb0\u0bc8\u0ba4\u0bcd \u0ba4\u0bbf\u0bb1 \u2192'
+    taxCta: '\u0b95\u0bbe\u0bb2\u0bcd\u0b95\u0bc1\u0bb2\u0bc7\u0b9f\u0bcd\u0b9f\u0bb0\u0bc8\u0ba4\u0bcd \u0ba4\u0bbf\u0bb1 \u2192',
+    pgIndexTitle: 'கணக்கீட்டாளர்கள் - இலவச இஎம்ஐ, எப் பில் & வருமான வரி கால்குலேட்டர்',
+    pgIndexDesc: 'இலவச இணைய கணக்கீட்டாளர்கள்: வீட்டுக் கடன், கார் கடன் மற்றும் தனிப்பட்ட கடன் இஎம்ஐ, மின்சார பில் (EB) மற்றும் இந்திய வருமான வரி.',
+    pgEmiTitle: 'இஎம்ஐ கால்குலேட்டர் - வீடு, கார் & தனிப்பட்ட கடன் (இலவச)',
+    pgEmiDesc: 'வீடு, கார் மற்றும் தனிப்பட்ட கடன் இஎம்ஐ கணக்கிடுங்கள். மொத்த வட்டி, மொத்த செலுத்துத் தொகை, அசல் எதிர் வட்டி விளக்கப்படம் மற்றும் ஆண்டு/மாத அட்டவணையைப் பார்க்கவும்.',
+    pgEbTitle: 'எப் பில் கால்குலேட்டர் - யூனிட்களிலிருந்து மின்சார பில் (இலவச)',
+    pgEbDesc: 'நுகரப்பட்ட யூனிட்களிலிருந்து உங்கள் மின்சார (EB) பில்லை எடிட் செய்யக்கூடிய ஸ்லாப் கட்டணங்கள் மற்றும் நிலையான கட்டணத்துடன் மதிப்பிடுங்கள்.',
+    pgTaxTitle: 'வருமான வரி கால்குலேட்டர் - புதிய & பழைய முறை (FY 2025-26)',
+    pgTaxDesc: 'உங்கள் இந்திய வருமான வரியை (FY 2025-26) புதிய மற்றும் பழைய முறையில் மதிப்பிடுங்கள்; பிரிவு 87A குறைப்பு, 80C, HRA மற்றும் இரு முறைகளையும் ஒப்பிடுங்கள்.'
   }
 };
 
 var currentLang = (function () {
-  try { return localStorage.getItem('lang') || 'en'; } catch (e) { return 'en'; }
+  try {
+    var p = new URLSearchParams(location.search).get('lang');
+    if (p === 'ta' || p === 'en') return p;
+    return localStorage.getItem('lang') || 'en';
+  } catch (e) { return 'en'; }
 })();
 
 function t(key) {
@@ -233,10 +245,71 @@ function t(key) {
   return key;
 }
 
+var PAGE = (function () {
+  var m = document.querySelector('meta[name="i18n-page"]');
+  return m ? m.getAttribute('content') : '';
+})();
+
+var _origTitle = document.title;
+var _mDesc = document.querySelector('meta[name="description"]');
+var _mOgT = document.querySelector('meta[property="og:title"]');
+var _mOgD = document.querySelector('meta[property="og:description"]');
+var _origDesc = _mDesc ? _mDesc.getAttribute('content') : '';
+var _origOgT = _mOgT ? _mOgT.getAttribute('content') : '';
+var _origOgD = _mOgD ? _mOgD.getAttribute('content') : '';
+
+var META_KEYS = {
+  index: ['pgIndexTitle', 'pgIndexDesc'],
+  emi: ['pgEmiTitle', 'pgEmiDesc'],
+  eb: ['pgEbTitle', 'pgEbDesc'],
+  tax: ['pgTaxTitle', 'pgTaxDesc']
+};
+
+function setMetaContent(name, content) {
+  if (content == null) return;
+  var el = document.head.querySelector('meta[name="' + name + '"], meta[property="' + name + '"]');
+  if (el) el.setAttribute('content', content);
+}
+
+function applyMeta(lang) {
+  var keys = META_KEYS[PAGE];
+  if (lang === 'ta' && keys) {
+    var title = t(keys[0]);
+    var desc = t(keys[1]);
+    document.title = title;
+    setMetaContent('description', desc);
+    setMetaContent('og:title', title);
+    setMetaContent('og:description', desc);
+  } else {
+    document.title = _origTitle;
+    setMetaContent('description', _origDesc);
+    setMetaContent('og:title', _origOgT);
+    setMetaContent('og:description', _origOgD);
+  }
+}
+
+function applyCanonical(lang) {
+  var c = document.querySelector('link[rel="canonical"]');
+  if (!c) return;
+  var base = location.origin + location.pathname;
+  c.setAttribute('href', lang === 'ta' ? base + '?lang=ta' : base);
+}
+
+function syncUrl(lang) {
+  try {
+    var url = new URL(location.href);
+    if (lang === 'ta') url.searchParams.set('lang', 'ta'); else url.searchParams.delete('lang');
+    history.replaceState(null, '', url.pathname + url.search + url.hash);
+  } catch (e) {}
+}
+
 function applyLanguage(lang) {
   currentLang = lang;
   try { localStorage.setItem('lang', lang); } catch (e) {}
   document.documentElement.lang = lang === 'ta' ? 'ta' : 'en';
+  applyMeta(lang);
+  applyCanonical(lang);
+  syncUrl(lang);
 
   document.querySelectorAll('[data-i18n]').forEach(function (el) {
     el.textContent = t(el.getAttribute('data-i18n'));

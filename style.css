@@ -474,17 +474,20 @@ th {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
 }
 
 .slab-row {
   display: flex;
   align-items: center;
   gap: 6px;
+  flex-wrap: wrap;
 }
 
 .slab-row input {
-  width: 90px;
+  flex: 1 1 64px;
+  min-width: 0;
+  width: auto;
   padding: 8px 8px;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
@@ -497,6 +500,7 @@ th {
 }
 
 .slab-remove {
+  flex: 0 0 32px;
   border: none;
   background: #fee2e2;
   color: #b91c1c;
