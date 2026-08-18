@@ -606,6 +606,80 @@ footer {
   text-decoration: underline;
 }
 
+.breadcrumb {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin: 4px 0 12px;
+}
+
+.breadcrumb a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb .sep {
+  margin: 0 6px;
+  color: #cbd5e1;
+}
+
+.related {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.related a {
+  font-size: 0.85rem;
+  color: var(--accent);
+  text-decoration: none;
+  padding: 6px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 999px;
+  background: #fff;
+}
+
+.related a:hover {
+  border-color: var(--accent);
+  text-decoration: underline;
+}
+
+.faq {
+  margin-top: 20px;
+}
+
+.faq h2 {
+  margin: 0 0 12px;
+  font-size: 1.2rem;
+}
+
+.faq-item {
+  padding: 12px 0;
+  border-bottom: 1px dashed #e2e8f0;
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+}
+
+.faq-q {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.faq-a {
+  margin-top: 6px;
+  color: #475569;
+  line-height: 1.55;
+  font-size: 0.95rem;
+}
+
 /* Income tax compare */
 .compare {
   display: grid;
