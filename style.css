@@ -5,10 +5,18 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', system-ui, sans-serif;
-  background: #f1f5f9;
+  background: linear-gradient(135deg, #e0e7ff 0%, #fae8ff 45%, #dbeafe 100%);
+  background-attachment: fixed;
   color: #0f172a;
   line-height: 1.5;
+  min-height: 100vh;
 }
+
+/* Per-page theme accents (driven by .theme-* on .app) */
+.theme-home { --accent: #2563eb; --accent-2: #7c3aed; }
+.theme-emi  { --accent: #2563eb; --accent-2: #06b6d4; }
+.theme-eb   { --accent: #f59e0b; --accent-2: #ef4444; }
+.theme-tax  { --accent: #16a34a; --accent-2: #0ea5e9; }
 
 .app {
   max-width: 1080px;
@@ -41,7 +49,7 @@ body {
 }
 
 .lang-switch button.active {
-  background: #2563eb;
+  background: var(--accent);
   color: #fff;
 }
 
@@ -79,6 +87,7 @@ header p {
 .card {
   background: #fff;
   border: 1px solid #e2e8f0;
+  border-top: 4px solid var(--accent);
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
@@ -113,8 +122,8 @@ header p {
 
 .loan-tabs button.active,
 .segmented button.active {
-  background: #2563eb;
-  border-color: #2563eb;
+  background: var(--accent);
+  border-color: var(--accent);
   color: #fff;
 }
 
@@ -228,7 +237,7 @@ input[type='number'] {
 
 .summary-item.accent dd {
   font-size: 1.4rem;
-  color: #1d4ed8;
+  color: var(--accent);
 }
 
 .chart-row {
@@ -352,8 +361,16 @@ th {
   margin: 8px 0 28px;
   border-radius: 16px;
   background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #db2777 100%);
+  background-size: 200% 200%;
+  animation: heroShift 12s ease infinite;
   color: #fff;
   box-shadow: 0 10px 30px rgba(37, 99, 235, 0.25);
+}
+
+@keyframes heroShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .hero h1 {
@@ -371,6 +388,31 @@ th {
   color: #fff;
   opacity: 1;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+}
+
+/* Themed banner for inner calculator pages (EMI / EB / Tax) */
+.app > header:not(.hero) {
+  text-align: center;
+  padding: 30px 20px;
+  margin: 8px 0 26px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.25);
+}
+
+.app > header:not(.hero) h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #fff;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+.app > header:not(.hero) p {
+  margin: 8px 0 0;
+  color: #fff;
+  opacity: 0.95;
+  font-size: 1.05rem;
 }
 
 .landing {
@@ -400,15 +442,24 @@ th {
 }
 
 .calc-card.emi {
-  border-top-color: #2563eb;
+  --c: #2563eb;
+  --c2: #06b6d4;
+  border-top-color: var(--c);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--c) 8%, #fff), #fff);
 }
 
 .calc-card.eb {
-  border-top-color: #f59e0b;
+  --c: #f59e0b;
+  --c2: #ef4444;
+  border-top-color: var(--c);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--c) 8%, #fff), #fff);
 }
 
 .calc-card.tax {
-  border-top-color: #16a34a;
+  --c: #16a34a;
+  --c2: #0ea5e9;
+  border-top-color: var(--c);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--c) 8%, #fff), #fff);
 }
 
 .calc-card.tax .calc-icon {
@@ -451,18 +502,19 @@ th {
 }
 
 .calc-cta {
+  display: inline-block;
+  align-self: flex-start;
   margin-top: 16px;
-  font-weight: 600;
-  font-size: 0.9rem;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  background: linear-gradient(135deg, var(--c, #2563eb), var(--c2, #7c3aed));
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
 }
 
-.calc-card.emi .calc-cta {
-  color: #2563eb;
-}
-
-.calc-card.eb .calc-cta {
-  color: #d97706;
-}
+/* CTA pill color is handled by the --c / --c2 gradient above */
 
 .eb-section {
   margin-top: 36px;
@@ -515,9 +567,9 @@ th {
 .add-btn {
   margin-top: 4px;
   padding: 8px 12px;
-  border: 1px dashed #2563eb;
-  background: #eff6ff;
-  color: #1d4ed8;
+  border: 1px dashed var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, #fff);
+  color: var(--accent);
   border-radius: 8px;
   cursor: pointer;
   font-size: 0.85rem;
