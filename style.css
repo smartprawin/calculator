@@ -230,6 +230,17 @@ input[type='number'] {
   margin: 4px 0 0;
 }
 
+.disclaimer {
+  margin: 14px 0 0;
+  padding: 10px 12px;
+  border-top: 1px dashed #cbd5e1;
+  color: #64748b;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  background: #f8fafc;
+  border-radius: 0 0 10px 10px;
+}
+
 .summary-list {
   margin: 0;
 }
