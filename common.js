@@ -374,23 +374,20 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-// In-app update check (only inside the native Android app; website keeps the Download button)
+// In-app update: only show the Download/Update button when a newer APK version exists.
+// On the website (non-native) the Download button always shows as usual.
 function initAppUpdate() {
-  var box = document.getElementById('appUpdate');
-  if (!box) return;
+  var dl = document.querySelector('.app-download');
   var isNative = !!(window.Capacitor && (Capacitor.isNativePlatform ? Capacitor.isNativePlatform() :
     (Capacitor.getPlatform && Capacitor.getPlatform() === 'android')));
-  if (!isNative) return; // running as a website -> leave the Download APK button as-is
+  if (!isNative) return; // website: keep the Download APK button visible
 
-  var dl = document.querySelector('.app-download');
+  // Inside the app, hide it by default; reveal only if a newer version is available.
   if (dl) dl.hidden = true;
-  box.hidden = false;
-  box.textContent = 'Checking for updates…';
+  var box = document.getElementById('appUpdate');
+  if (box) box.hidden = true;
 
-  if (!(window.Capacitor && Capacitor.Plugins && Capacitor.Plugins.App)) {
-    box.textContent = 'Update check is unavailable.';
-    return;
-  }
+  if (!(window.Capacitor && Capacitor.Plugins && Capacitor.Plugins.App)) return;
   var App = Capacitor.Plugins.App;
   Promise.all([
     App.getInfo(),
@@ -400,29 +397,16 @@ function initAppUpdate() {
   ]).then(function (res) {
     var info = res[0];
     var latest = res[1];
-    if (!latest) {
-      box.textContent = 'Could not check for updates (you may be offline).';
-      return;
-    }
+    if (!latest) return; // can't determine -> show nothing (don't spoil layout)
     var instCode = parseInt(info.build, 10);
     var latestCode = parseInt(latest.versionCode, 10);
-    if (instCode === latestCode) {
-      box.textContent = 'Installed version (' + info.version + ') is the same as the latest version. You are up to date.';
-    } else {
-      box.innerHTML = '';
-      var msg = document.createElement('div');
-      msg.textContent = 'Update available: v' + latest.version + ' (you have v' + info.version + ')';
-      var btn = document.createElement('a');
-      btn.className = 'upd-btn';
-      btn.href = latest.apkUrl || 'https://simplecalculator.in/downloads/app-release.apk';
-      btn.textContent = 'Update / Reinstall';
-      btn.setAttribute('download', '');
-      box.appendChild(msg);
-      box.appendChild(btn);
+    if (instCode !== latestCode && dl) {
+      dl.hidden = false;
+      dl.textContent = '📱 Update / Reinstall App (APK)';
+      dl.href = latest.apkUrl || 'https://simplecalculator.in/downloads/app-release.apk';
     }
-  }).catch(function () {
-    box.textContent = 'Update check failed.';
-  });
+    // same version -> leave hidden (nothing shown)
+  }).catch(function () { /* leave hidden */ });
 }
 
 if (document.readyState === 'loading') {
