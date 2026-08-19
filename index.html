@@ -15,6 +15,12 @@
           background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #db2777 100%); color: #fff; }
   .hero h1 { margin: 0; font-size: 2.4rem; }
   .hero p { margin: 10px 0 0; font-size: 1.2rem; }
+  .app-download { display:inline-block; margin-top:18px; padding:10px 22px; border-radius:999px;
+    background:#fff; color:#2563eb; font-weight:700; text-decoration:none; box-shadow:0 4px 14px rgba(0,0,0,.25); }
+  .app-download:hover { opacity:.9; }
+  .app-update { margin-top:18px; font-weight:600; color:#fff; }
+  .app-update .upd-btn { display:inline-block; margin-top:10px; padding:10px 22px; border-radius:999px;
+    background:#fff; color:#16a34a; font-weight:700; text-decoration:none; box-shadow:0 4px 14px rgba(0,0,0,.25); }
   .landing { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
   .calc-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px;
                text-decoration: none; color: inherit; display: flex; flex-direction: column; }
@@ -42,6 +48,7 @@
 <link rel="alternate" hreflang="ta" href="https://simplecalculator.in/?lang=ta">
 <link rel="alternate" hreflang="x-default" href="https://simplecalculator.in/">
 <link rel="stylesheet" href="style.css?v=2">
+<link rel="manifest" href="manifest.webmanifest">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Calculators - Free EMI &amp; EB Bill Calculator">
 <meta property="og:description" content="Free EMI and EB electricity bill calculators. No sign-up, runs in your browser.">
@@ -60,6 +67,8 @@
   <header class="hero">
     <h1 data-i18n="heroTitle">Calculators</h1>
     <p data-i18n="heroSub">Choose a calculator to get started</p>
+    <a class="app-download" href="downloads/app-release.apk" download>📱 Download Android App (APK)</a>
+    <div id="appUpdate" class="app-update" hidden></div>
   </header>
 
   <main class="landing">

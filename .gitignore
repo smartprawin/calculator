@@ -6,3 +6,13 @@ dist
 .DS_Store
 npm-debug.log*
 .opencode/
+
+# Capacitor native projects — build artifacts, not served by GitHub Pages
+android/
+ios/
+.capacitor/
+.gradle/
+*.keystore
+package-lock.json
+www/
+

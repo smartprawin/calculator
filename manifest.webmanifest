@@ -1,0 +1,13 @@
+{
+  "name": "Calculators - EMI, EB Bill, Income Tax",
+  "short_name": "Calculators",
+  "description": "EMI, electricity bill and Indian income tax calculators.",
+  "start_url": "index.html",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#e0e7ff",
+  "theme_color": "#2563eb",
+  "icons": [
+    { "src": "favicon.png", "sizes": "256x256", "type": "image/png", "purpose": "any" }
+  ]
+}

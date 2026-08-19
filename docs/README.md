@@ -44,3 +44,4 @@ Future docs should go into the matching numbered folder.
 | Document | Description |
 |----------|-------------|
 | [`DEPLOYMENT.md`](04-guides/DEPLOYMENT.md) | Deploy on GitHub Pages, bind the custom domain `simplecalculator.in` (DNS, `CNAME`, Settings), SEO URLs, hreflang/i18n (en/ta), and social sharing |
+| [`MOBILE_APP.md`](04-guides/MOBILE_APP.md) | Turn the site into a PWA + native Android app with Capacitor (manifest, service worker, `capacitor.config.ts`) — same project, no rewrite |

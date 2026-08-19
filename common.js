@@ -366,3 +366,67 @@ if (document.readyState === 'loading') {
 } else {
   initLang();
 }
+
+// Register the service worker for PWA (installable + offline use)
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('sw.js').catch(function () {});
+  });
+}
+
+// In-app update check (only inside the native Android app; website keeps the Download button)
+function initAppUpdate() {
+  var box = document.getElementById('appUpdate');
+  if (!box) return;
+  var isNative = !!(window.Capacitor && (Capacitor.isNativePlatform ? Capacitor.isNativePlatform() :
+    (Capacitor.getPlatform && Capacitor.getPlatform() === 'android')));
+  if (!isNative) return; // running as a website -> leave the Download APK button as-is
+
+  var dl = document.querySelector('.app-download');
+  if (dl) dl.hidden = true;
+  box.hidden = false;
+  box.textContent = 'Checking for updates…';
+
+  if (!(window.Capacitor && Capacitor.Plugins && Capacitor.Plugins.App)) {
+    box.textContent = 'Update check is unavailable.';
+    return;
+  }
+  var App = Capacitor.Plugins.App;
+  Promise.all([
+    App.getInfo(),
+    fetch('https://simplecalculator.in/version.json?ts=' + Date.now())
+      .then(function (r) { return r.json(); })
+      .catch(function () { return null; })
+  ]).then(function (res) {
+    var info = res[0];
+    var latest = res[1];
+    if (!latest) {
+      box.textContent = 'Could not check for updates (you may be offline).';
+      return;
+    }
+    var instCode = parseInt(info.build, 10);
+    var latestCode = parseInt(latest.versionCode, 10);
+    if (instCode === latestCode) {
+      box.textContent = 'Installed version (' + info.version + ') is the same as the latest version. You are up to date.';
+    } else {
+      box.innerHTML = '';
+      var msg = document.createElement('div');
+      msg.textContent = 'Update available: v' + latest.version + ' (you have v' + info.version + ')';
+      var btn = document.createElement('a');
+      btn.className = 'upd-btn';
+      btn.href = latest.apkUrl || 'https://simplecalculator.in/downloads/app-release.apk';
+      btn.textContent = 'Update / Reinstall';
+      btn.setAttribute('download', '');
+      box.appendChild(msg);
+      box.appendChild(btn);
+    }
+  }).catch(function () {
+    box.textContent = 'Update check failed.';
+  });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initAppUpdate);
+} else {
+  initAppUpdate();
+}

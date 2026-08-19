@@ -1,0 +1,19 @@
+{
+  "name": "simple-calculators",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/copy-web.js",
+    "rebuild": "powershell -ExecutionPolicy Bypass -File scripts/rebuild.ps1",
+    "rebuild:bundle": "powershell -ExecutionPolicy Bypass -File scripts/rebuild.ps1 -Bundle"
+  },
+  "dependencies": {
+    "@capacitor/app": "^6.0.3",
+    "@capacitor/core": "^6.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/cli": "^6.0.0",
+    "puppeteer-core": "^25.8.0"
+  }
+}

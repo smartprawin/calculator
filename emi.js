@@ -105,8 +105,7 @@
     svg.innerHTML = html;
   }
 
-  function render() {
-    var months = state.years * 12 + state.months;
+  function render() {    var months = state.years * 12 + state.months;
 
     $('amount').value = state.amount;
     if (document.activeElement !== $('amountInput')) $('amountInput').value = groupIndian(state.amount);
