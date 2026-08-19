@@ -361,10 +361,36 @@ function initLang() {
   applyLanguage(currentLang);
 }
 
+// ---------- Home landing (data-driven) ----------
+// To add a calculator, append one entry here (no HTML/CSS edits required).
+var CALCULATORS = [
+  { id: 'emi', href: 'emi.html',    icon: '💰', accent: '#2563eb', titleKey: 'emiTitle', descKey: 'emiDesc', ctaKey: 'emiCta' },
+  { id: 'eb',  href: 'ebbill.html', icon: '⚡',  accent: '#f59e0b', titleKey: 'ebTitle',  descKey: 'ebDesc',  ctaKey: 'ebCta' },
+  { id: 'tax', href: 'tax.html',    icon: '🧾', accent: '#16a34a', titleKey: 'taxH1',   descKey: 'taxDesc', ctaKey: 'taxCta' }
+];
+
+function renderLanding() {
+  var main = document.querySelector('main.landing');
+  if (!main) return;
+  main.innerHTML = '';
+  CALCULATORS.forEach(function (c) {
+    var a = document.createElement('a');
+    a.className = 'calc-card ' + c.id;
+    a.href = c.href;
+    a.style.borderTop = '5px solid ' + c.accent;
+    a.innerHTML =
+      '<div class="calc-icon">' + c.icon + '</div>' +
+      '<h2 data-i18n="' + c.titleKey + '">' + t(c.titleKey) + '</h2>' +
+      '<p data-i18n="' + c.descKey + '">' + t(c.descKey) + '</p>' +
+      '<span class="calc-cta" data-i18n="' + c.ctaKey + '">' + t(c.ctaKey) + '</span>';
+    main.appendChild(a);
+  });
+}
+
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initLang);
+  document.addEventListener('DOMContentLoaded', function () { renderLanding(); initLang(); });
 } else {
-  initLang();
+  renderLanding(); initLang();
 }
 
 // Register the service worker for PWA (installable + offline use)
