@@ -201,6 +201,39 @@ header p {
   font-weight: 400;
 }
 
+.btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 9px 16px;
+  border: 1px solid var(--accent);
+  background: #fff;
+  color: var(--accent);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.btn:hover { background: var(--accent); color: #fff; }
+
+.pp-del {
+  border: none;
+  background: transparent;
+  color: #ef4444;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 2px 8px;
+}
+
+#paymentsBody input {
+  width: 100%;
+  padding: 7px 8px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
 .input-box {
   display: inline-flex;
   align-items: center;

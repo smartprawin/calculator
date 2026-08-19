@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var _l=new URLSearchParams(location.search).get('lang');if(_l==='ta'){document.documentElement.lang='ta';}}catch(e){}</script>
+<meta name="i18n-page" content="irpart">
+<title>Irregular Part-Payment EMI Calculator</title>
+<meta name="description" content="Plan a loan with irregular, one-off part payments. Enter ad-hoc amounts at any month, and see how they shorten the tenure or lower the EMI.">
+<meta name="keywords" content="irregular part payment, EMI calculator, prepayment, loan amortization">
+<meta name="author" content="Simple EMI calculator project">
+<meta name="theme-color" content="#2563eb">
+<link rel="icon" type="image/png" href="favicon.png?v=2">
+<link rel="apple-touch-icon" href="favicon.png?v=2">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://simplecalculator.in/irpart.html">
+<link rel="stylesheet" href="style.css?v=2">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Irregular Part-Payment EMI Calculator">
+<meta property="og:description" content="Free EMI calculator for irregular one-off part payments with amortization schedule.">
+<meta property="og:site_name" content="Calculators">
+<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://simplecalculator.in/og-image.png">
+<meta name="twitter:image" content="https://simplecalculator.in/og-image.png">
+</head>
+<body>
+<div class="app theme-emi">
+  <div class="lang-switch">
+    <button type="button" data-lang="en">EN</button>
+    <button type="button" data-lang="ta">தமிழ்</button>
+  </div>
+  <a class="back-link" href="index.html" data-i18n="back">← All calculators</a>
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="index.html">Home</a><span class="sep">›</span><span>Irregular Part-Payment Calculator</span>
+  </nav>
+  <header>
+    <h1 data-i18n="irpartH1">Irregular Part-Payment Calculator</h1>
+    <p data-i18n="irpartSub">Add one-off part payments at any month and see the impact</p>
+  </header>
+
+  <main class="layout">
+    <section class="card">
+      <label class="field">
+        <div class="field-head"><span data-i18n="loanAmount">Loan Amount</span>
+          <span class="input-box"><span class="unit">₹</span><input type="text" id="amountInput" inputmode="numeric" autocomplete="off"></span>
+        </div>
+        <input type="range" id="amount" min="100000" max="20000000" step="100000">
+        <div class="field-scale"><span>₹1L</span><span>₹200L</span></div>
+      </label>
+
+      <label class="field">
+        <div class="field-head"><span data-i18n="interestRate">Interest Rate</span>
+          <span class="input-box"><input type="number" id="rateInput" min="0" max="100" step="0.1"><span class="unit">%</span></span>
+        </div>
+        <input type="range" id="rate" min="1" max="20" step="0.1">
+        <div class="field-scale"><span>1%</span><span>20%</span></div>
+      </label>
+
+      <label class="field">
+        <div class="field-head"><span data-i18n="loanTenure">Loan Tenure</span>
+          <span class="input-box"><span class="unit">Yr</span><input type="number" id="tenureYearsInput" min="0" max="50" step="1"><span class="unit">Mo</span><input type="number" id="tenureMonthsInput" min="0" max="11" step="1"></span>
+        </div>
+        <input type="range" id="tenureYears" min="0" max="30" step="1">
+        <div class="field-scale"><span>0 yr</span><span>30 yr</span></div>
+      </label>
+
+      <div class="field">
+        <span class="field-head" data-i18n="emiScheme">EMI Scheme</span>
+        <div class="segmented" id="schemeTabs">
+          <button type="button" class="active" data-scheme="arrears" data-i18n="emiArrears">EMI in Arrears</button>
+          <button type="button" data-scheme="advance" data-i18n="emiAdvance">EMI in Advance</button>
+        </div>
+      </div>
+
+      <p class="hint" data-i18n="hint">EMI in advance lowers total interest because the first payment is made at disbursement.</p>
+
+      <div class="field">
+        <span class="field-head" data-i18n="modeLabel">Apply part payments to</span>
+        <div class="radio-group" id="irMode">
+          <label><input type="radio" name="irMode" value="tenure" checked> <span data-i18n="shortenTenure">Shorten Tenure</span></label>
+          <label><input type="radio" name="irMode" value="emi"> <span data-i18n="reduceEmi">Reduce EMI</span></label>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 data-i18n="paymentsTitle">Part Payments</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th data-i18n="colMonth">Month</th><th data-i18n="colAmount">Amount</th><th></th></tr></thead>
+          <tbody id="paymentsBody"></tbody>
+        </table>
+      </div>
+      <button type="button" id="addPayment" class="btn" data-i18n="addPayment">+ Add payment</button>
+      <p class="hint" data-i18n="payHint">Month = month from loan start (1 = first EMI month). Amount is the one-off part payment made that month.</p>
+
+      <label class="field" style="margin-top:16px">
+        <div class="field-head"><span data-i18n="pasteList">Or paste a list</span></div>
+        <textarea id="pasteArea" rows="4" placeholder="6,50000&#10;18,100000&#10;30,250000"></textarea>
+        <button type="button" id="loadList" class="btn" data-i18n="loadList">Load from list</button>
+        <span class="hint" data-i18n="pasteFmt">One entry per line: Month,Amount (comma or space separated).</span>
+      </label>
+    </section>
+
+    <div class="results" id="results">
+      <div class="card">
+        <h2 data-i18n="summary">Summary</h2>
+        <dl class="summary-list">
+          <div class="summary-item accent"><dt data-i18n="loanEmi">Loan EMI</dt><dd id="sumEmi">-</dd></div>
+          <div class="summary-item"><dt data-i18n="totalInterest">Total Interest Payable</dt><dd id="sumInterest">-</dd></div>
+          <div class="summary-item"><dt data-i18n="totalPayment">Total Payment (Principal + Interest)</dt><dd id="sumPayment">-</dd></div>
+          <div class="summary-item"><dt data-i18n="closesIn">Loan closes in</dt><dd id="sumClosesIn">-</dd></div>
+        </dl>
+      </div>
+      <div class="card">
+        <h2 data-i18n="breakUp">Payment Break-up</h2>
+        <div class="chart-row">
+          <svg id="chart" viewBox="0 0 160 160" width="180" height="180" role="img" aria-label="Principal vs interest breakdown"></svg>
+          <ul class="chart-legend">
+            <li><span class="legend-dot blue"></span><span id="legendPrincipal">Principal: -</span></li>
+            <li><span class="legend-dot amber"></span><span id="legendInterest">Interest: -</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card schedule-card">
+        <div class="schedule-head">
+          <h2 data-i18n="schedule">Payment Schedule</h2>
+          <div class="segmented small" id="viewTabs">
+            <button type="button" class="active" data-view="year" data-i18n="yearWise">Year wise</button>
+            <button type="button" data-view="month" data-i18n="monthWise">Month wise</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th id="thPeriod">Year</th><th data-i18n="colPayment">Payment</th><th data-i18n="colPrincipal">Principal</th><th data-i18n="colInterest">Interest</th><th data-i18n="colBalance">Balance</th></tr></thead>
+            <tbody id="scheduleBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card preclose-card">
+        <h2 data-i18n="precloseTitle">Preclosure / Early Closure</h2>
+        <label class="field">
+          <div class="field-head"><span data-i18n="monthsDone">Months completed</span>
+            <span class="input-box"><input type="number" id="preMonths" min="0" step="1" autocomplete="off"></span>
+          </div>
+        </label>
+        <label class="field">
+          <div class="field-head"><span data-i18n="partPay">Part-prepayment now</span>
+            <span class="input-box"><span class="unit">&#8377;</span><input type="text" id="prePart" inputmode="numeric" autocomplete="off"></span>
+          </div>
+        </label>
+        <label class="field">
+          <div class="field-head"><span data-i18n="bankLbl">Bank (optional)</span>
+            <span class="input-box">
+              <select id="preBank">
+                <option value="">— Select bank (optional) —</option>
+                <option value="sbi">SBI (0%)</option>
+                <option value="hdfc">HDFC (0%)</option>
+                <option value="icici">ICICI (2%)</option>
+                <option value="axis">Axis (2%)</option>
+                <option value="kotak">Kotak (2%)</option>
+                <option value="bajaj">Bajaj Finserv (4%)</option>
+                <option value="pnb">PNB (0%)</option>
+                <option value="custom">Custom %</option>
+              </select>
+            </span>
+          </div>
+        </label>
+        <label class="field">
+          <div class="field-head"><span data-i18n="chargeLbl">Preclosure charge %</span>
+            <span class="input-box"><input type="number" id="preCharge" min="0" max="100" step="0.1" value="0"><span class="unit">%</span></span>
+          </div>
+        </label>
+        <p class="hint" data-i18n="chargeNote">Charges are indicative; confirm with your bank.</p>
+        <dl class="summary-list">
+          <div class="summary-item"><dt data-i18n="outstanding">Outstanding Principal</dt><dd id="preOutstanding">-</dd></div>
+          <div class="summary-item"><dt data-i18n="paidSoFar">Paid So Far</dt><dd id="prePaidSoFar">-</dd></div>
+          <div class="summary-item"><dt data-i18n="interestSaved">Interest Saved</dt><dd id="preInterestSaved">-</dd></div>
+          <div class="summary-item"><dt data-i18n="chargeAmtLbl">Preclosure Charge</dt><dd id="preChargeAmt">-</dd></div>
+          <div class="summary-item accent"><dt data-i18n="closeNow">Amount to Close Now</dt><dd id="preCloseNow">-</dd></div>
+        </dl>
+        <p class="disclaimer" data-i18n="precloseDisclaimer">The figures shown are estimates. Actual amounts may differ slightly due to rounding, lender-specific charges, or policy changes. Please confirm the final payable amount with your bank.</p>
+      </div>
+    </div>
+  </main>
+
+  <nav class="related" aria-label="More calculators">
+    <a href="emi.html">EMI Calculator</a>
+    <a href="ebbill.html">EB Bill Calculator</a>
+    <a href="tax.html">Income Tax Calculator</a>
+    <a href="index.html">All calculators</a>
+  </nav>
+
+  <footer data-i18n="footer">Built for practice. Amounts are rounded to two decimals.</footer>
+  <nav class="footer-links"><a href="privacy.html">Privacy Policy</a></nav>
+</div>
+
+<script src="common.js?v=2"></script>
+<script src="irpart.js?v=2"></script>
+</body>
+</html>

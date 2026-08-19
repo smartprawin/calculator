@@ -142,7 +142,24 @@ var TRANSLATIONS = {
     lowerTax: 'gives the lower tax',
     note: 'Estimates for FY 2025-26. Illustrative only - not financial advice.',
     taxDesc: 'Estimate Indian income tax and compare New vs Old regime for FY 2025-26.',
-    taxCta: 'Open calculator \u2192'
+    taxCta: 'Open calculator \u2192',
+
+    irpartTitle: 'Irregular Part-Payment Calculator',
+    irpartDesc: 'Plan a loan with irregular one-off part payments and see how they shorten the tenure or lower the EMI.',
+    irpartCta: 'Open calculator \u2192',
+    irpartH1: 'Irregular Part-Payment Calculator',
+    irpartSub: 'Add one-off part payments at any month and see the impact',
+    paymentsTitle: 'Part Payments',
+    addPayment: '+ Add payment',
+    payHint: 'Month = month from loan start (1 = first EMI month). Amount is the one-off part payment made that month.',
+    pasteList: 'Or paste a list',
+    loadList: 'Load from list',
+    pasteFmt: 'One entry per line: Month,Amount (comma or space separated).',
+    colMonth: 'Month',
+    modeLabel: 'Apply part payments to',
+    noPayments: 'No part payments added yet.',
+    pgIrpartTitle: 'Irregular Part-Payment EMI Calculator (Free)',
+    pgIrpartDesc: 'Plan a loan with irregular one-off part payments and see how they shorten the tenure or lower the EMI, with a full amortization schedule.'
   },
   ta: {
     heroTitle: '\u0b95\u0bbe\u0bb2\u0bcd\u0b95\u0bc1\u0bb2\u0bc7\u0b9f\u0bcd\u0b9f\u0bb0\u0bcd\u0b95\u0bb3\u0bcd',
@@ -274,7 +291,24 @@ var TRANSLATIONS = {
     pgEbTitle: 'எப் பில் கால்குலேட்டர் - யூனிட்களிலிருந்து மின்சார பில் (இலவச)',
     pgEbDesc: 'நுகரப்பட்ட யூனிட்களிலிருந்து உங்கள் மின்சார (EB) பில்லை எடிட் செய்யக்கூடிய ஸ்லாப் கட்டணங்கள் மற்றும் நிலையான கட்டணத்துடன் மதிப்பிடுங்கள்.',
     pgTaxTitle: 'வருமான வரி கால்குலேட்டர் - புதிய & பழைய முறை (FY 2025-26)',
-    pgTaxDesc: 'உங்கள் இந்திய வருமான வரியை (FY 2025-26) புதிய மற்றும் பழைய முறையில் மதிப்பிடுங்கள்; பிரிவு 87A குறைப்பு, 80C, HRA மற்றும் இரு முறைகளையும் ஒப்பிடுங்கள்.'
+    pgTaxDesc: 'உங்கள் இந்திய வருமான வரியை (FY 2025-26) புதிய மற்றும் பழைய முறையில் மதிப்பிடுங்கள்; பிரிவு 87A குறைப்பு, 80C, HRA மற்றும் இரு முறைகளையும் ஒப்பிடுங்கள்.',
+
+    irpartTitle: 'ஒழுங்கற்ற கூடுதல் தவணை கால்குலேட்டர்',
+    irpartDesc: 'ஒழுங்கற்ற ஒருமுறை கூடுதல் தவணைகளுடன் கடனைத் திட்டமிட்டு, அவை கால அவகாசத்தைக் குறைக்கின்றனவா அல்லது இஎம்ஐயைக் குறைக்கின்றனவா எனப் பாருங்கள்.',
+    irpartCta: 'கால்குலேட்டரைத் திறக்க \u2192',
+    irpartH1: 'ஒழுங்கற்ற கூடுதல் தவணை கால்குலேட்டர்',
+    irpartSub: 'எந்த மாதத்திலும் ஒருமுறை கூடுதல் தவணைகளைச் சேர்த்து அதன் தாக்கத்தைப் பாருங்கள்',
+    paymentsTitle: 'கூடுதல் தவணைகள்',
+    addPayment: '+ தவணை சேர்',
+    payHint: 'மாதம் = கடன் தொடக்கத்திலிருந்து மாதம் (1 = முதல் இஎம்ஐ மாதம்). தொகை அம்மாதம் செலுத்தும் ஒருமுறை கூடுதல் தவணை.',
+    pasteList: 'அல்லது பட்டியலை ஒட்டவும்',
+    loadList: 'பட்டியலிலிருந்து ஏற்றவும்',
+    pasteFmt: 'வரிக்கு ஒன்று: மாதம்,தொகை (காற்புள்ளி அல்லது இடைவெளியால் பிரிக்கவும்).',
+    colMonth: 'மாதம்',
+    modeLabel: 'கூடுதல் தவணைகளை பயன்படுத்து',
+    noPayments: 'இதுவரை கூடுதல் தவணைகள் எதுவும் சேர்க்கப்படவில்லை.',
+    pgIrpartTitle: 'ஒழுங்கற்ற கூடுதல் தவணை இஎம்ஐ கால்குலேட்டர் (இலவசம்)',
+    pgIrpartDesc: 'ஒழுங்கற்ற ஒருமுறை கூடுதல் தவணைகளுடன் கடனைத் திட்டமிட்டு, அவை கால அவகாசத்தைக் குறைக்கின்றனவா அல்லது இஎம்ஐயைக் குறைக்கின்றனவா என முழு அட்டவணையுடன் பாருங்கள்.'
   }
 };
 
@@ -310,7 +344,8 @@ var META_KEYS = {
   index: ['pgIndexTitle', 'pgIndexDesc'],
   emi: ['pgEmiTitle', 'pgEmiDesc'],
   eb: ['pgEbTitle', 'pgEbDesc'],
-  tax: ['pgTaxTitle', 'pgTaxDesc']
+  tax: ['pgTaxTitle', 'pgTaxDesc'],
+  irpart: ['pgIrpartTitle', 'pgIrpartDesc']
 };
 
 function setMetaContent(name, content) {
@@ -390,7 +425,8 @@ function initLang() {
 var CALCULATORS = [
   { id: 'emi', href: 'emi.html',    icon: '💰', accent: '#2563eb', titleKey: 'emiTitle', descKey: 'emiDesc', ctaKey: 'emiCta' },
   { id: 'eb',  href: 'ebbill.html', icon: '⚡',  accent: '#f59e0b', titleKey: 'ebTitle',  descKey: 'ebDesc',  ctaKey: 'ebCta' },
-  { id: 'tax', href: 'tax.html',    icon: '🧾', accent: '#16a34a', titleKey: 'taxH1',   descKey: 'taxDesc', ctaKey: 'taxCta' }
+  { id: 'tax', href: 'tax.html',    icon: '🧾', accent: '#16a34a', titleKey: 'taxH1',   descKey: 'taxDesc', ctaKey: 'taxCta' },
+  { id: 'irpart', href: 'irpart.html', icon: '💸', accent: '#7c3aed', titleKey: 'irpartTitle', descKey: 'irpartDesc', ctaKey: 'irpartCta' }
 ];
 
 function renderLanding() {
