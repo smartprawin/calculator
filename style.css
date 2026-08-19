@@ -894,4 +894,14 @@ footer {
 
   .summary-item.accent dd { font-size: 1.2rem; }
   .card { padding: 16px; }
+
+  /* Home landing: keep all calculators visible on small screens */
+  .landing { gap: 12px; }
+  .hero { padding: 20px 16px; margin: 4px 0 16px; }
+  .hero h1 { font-size: 1.6rem; }
+  .hero p { font-size: 0.95rem; margin-top: 6px; }
+  .calc-card { padding: 14px 16px; }
+  .calc-card h2 { font-size: 1.05rem; }
+  .calc-card p { font-size: 0.82rem; }
+  .calc-cta { margin-top: 10px; padding: 6px 14px; font-size: 0.85rem; }
 }
