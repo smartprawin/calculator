@@ -126,16 +126,27 @@
   }
 
   function initEb() {
-    state.shownTier = activeTier(250);
-    $('ebUnits').value = groupIndian(250);
-    $('ebLoad').value = groupIndian(1000);
+    state.shownTier = activeTier(200);
+    $('ebUnits').value = groupIndian(200);
+    $('ebLoad').value = '';
     buildTable(state.shownTier);
+    $('ebUnitsRange').value = 200;
 
     $('ebUnits').addEventListener('input', renderEb);
     $('ebLoad').addEventListener('input', renderEb);
     $('ebUnits').addEventListener('blur', function () { $('ebUnits').value = groupIndian(parseDigits($('ebUnits').value)); });
     $('ebLoad').addEventListener('blur', function () { $('ebLoad').value = groupIndian(parseDigits($('ebLoad').value)); });
     $('ebAddSlab').addEventListener('click', function () { addSlabRow('', '', ''); renderEb(); });
+
+    $('ebUnitsRange').addEventListener('input', function () {
+      var v = parseDigits($('ebUnitsRange').value) || 0;
+      $('ebUnits').value = groupIndian(v);
+      renderEb();
+    });
+    $('ebUnits').addEventListener('input', function () {
+      var v = parseDigits($('ebUnits').value) || 0;
+      $('ebUnitsRange').value = Math.min(10000, v);
+    });
 
     renderEb();
   }

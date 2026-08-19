@@ -1,7 +1,21 @@
 'use strict';
 
 (function () {
-  var state = { amount: 1000000, rate: 10, years: 5, months: 0, scheme: 'arrears', mode: 'tenure', view: 'year', payments: [], preMonths: 0, prePart: 0, preBank: '', preChargePct: 0 };
+  var state = { amount: 1000000, rate: 10, years: 5, months: 0, scheme: 'arrears', mode: 'tenure', view: 'year', payments: [], preMonths: 0, prePart: 0, preBank: '', preChargePct: 0, startDate: todayStr() };
+
+  function todayStr() {
+    var d = new Date();
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+  }
+
+  function parseStart(s) {
+    if (!s) return null;
+    var p = String(s).split('-');
+    if (p.length < 2) return null;
+    var y = Number(p[0]), m = Number(p[1]) - 1;
+    if (!isFinite(y) || !isFinite(m)) return null;
+    return new Date(y, m, 1);
+  }
 
   var BANK_CHARGES = { '': 0, sbi: 0, hdfc: 0, icici: 2, axis: 2, kotak: 2, bajaj: 4, pnb: 0 };
 
@@ -14,9 +28,10 @@
   }
 
   function monthDate(period) {
-    var d = new Date();
-    d.setMonth(d.getMonth() + period);
-    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+    var base = parseStart(state.startDate) || new Date();
+    base = new Date(base.getFullYear(), base.getMonth(), 1);
+    base.setMonth(base.getMonth() + period);
+    return base.getFullYear() + '-' + String(base.getMonth() + 1).padStart(2, '0');
   }
 
   function buildSchedule() {
@@ -191,6 +206,7 @@
     $('tenureYears').value = state.years;
     $('tenureYearsInput').value = state.years;
     $('tenureMonthsInput').value = state.months;
+    if (document.activeElement !== $('startDate')) $('startDate').value = state.startDate;
     $('preMonths').max = months;
     $('preMonths').value = state.preMonths;
     $('preBank').value = state.preBank;
@@ -250,6 +266,7 @@
     state.months = isFinite(v) ? Math.max(0, Math.min(11, v)) : 0;
     render();
   });
+  $('startDate').addEventListener('input', function (e) { state.startDate = e.target.value || todayStr(); renderResults(); });
 
   $('addPayment').addEventListener('click', function () {
     var next = state.payments.length ? (state.payments[state.payments.length - 1].period + 1) : 1;

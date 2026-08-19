@@ -108,12 +108,15 @@
         <div class="field-head"><span data-i18n="unitsConsumed">Units Consumed</span>
           <span class="input-box"><input type="text" id="ebUnits" inputmode="numeric" autocomplete="off"></span>
         </div>
+        <input type="range" id="ebUnitsRange" class="slider" min="0" max="10000" step="10" value="200">
+        <div class="slider-scale"><span>0</span><span data-i18n="unitsMax">10000+</span></div>
       </label>
 
       <label class="field">
         <div class="field-head"><span data-i18n="connLoad">Connected Load (W)</span>
-          <span class="input-box"><span class="unit">W</span><input type="text" id="ebLoad" inputmode="numeric" autocomplete="off"></span>
+          <span class="input-box"><span class="unit">W</span><input type="text" id="ebLoad" inputmode="numeric" autocomplete="off" placeholder="0"></span>
         </div>
+        <p class="hint" data-i18n="connLoadHint">Optional. Leave 0 for energy charge only — fixed charge applies automatically once you enter a load.</p>
       </label>
 
       <div class="field">
