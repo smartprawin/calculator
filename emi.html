@@ -108,6 +108,7 @@
         <button type="button" class="active" data-type="home" data-i18n="tabHome">Home Loan</button>
         <button type="button" data-type="personal" data-i18n="tabPersonal">Personal Loan</button>
         <button type="button" data-type="car" data-i18n="tabCar">Car Loan</button>
+        <button type="button" data-type="gold" data-i18n="tabGold">Gold Loan</button>
       </div>
 
       <label class="field">
@@ -157,6 +158,19 @@
           <label><input type="radio" name="regMode" value="emi"> <span data-i18n="reduceEmi">Reduce EMI</span></label>
         </div>
         <p class="hint" data-i18n="regPartHint">Extra amount paid every month or year reduces the principal. Choose to either shorten the tenure (EMI stays the same) or lower the EMI instead.</p>
+      </div>
+
+      <div class="field" id="goldRepayField" style="display:none">
+        <span class="field-head" data-i18n="goldRepay">Gold Loan Repayment</span>
+        <div class="segmented" id="goldMode">
+          <button type="button" class="active" data-goldmode="emi" data-i18n="goldEmi">EMI</button>
+          <button type="button" data-goldmode="interest" data-i18n="goldInterestOnly">Interest Only</button>
+        </div>
+        <div class="segmented small" id="goldIntFreq" style="display:none; margin-top:8px">
+          <button type="button" class="active" data-goldintfreq="month" data-i18n="everyMonth">Every Month</button>
+          <button type="button" data-goldintfreq="year" data-i18n="everyYear">Every Year</button>
+        </div>
+        <p class="hint" data-i18n="goldInterestHint">Pay only the interest each period; the full principal is repaid as a lump sum at the end.</p>
       </div>
     </section>
 

@@ -4,10 +4,11 @@
   var PRESETS = {
     home:     { amount: 2500000, rate: 9.5, years: 20, months: 0 },
     personal: { amount: 500000,  rate: 12,  years: 3,  months: 0 },
-    car:      { amount: 800000,  rate: 10,  years: 5,  months: 0 }
+    car:      { amount: 800000,  rate: 10,  years: 5,  months: 0 },
+    gold:     { amount: 500000,  rate: 9.5, years: 1,  months: 0 }
   };
 
-  var state = { type: 'home', amount: 2500000, rate: 9.5, years: 20, months: 0, scheme: 'arrears', view: 'year', regPart: 0, regFreq: 'month', regMode: 'tenure', preMonths: 0, prePart: 0, preBank: '', preChargePct: 0 };
+  var state = { type: 'home', amount: 2500000, rate: 9.5, years: 20, months: 0, scheme: 'arrears', view: 'year', regPart: 0, regFreq: 'month', regMode: 'tenure', goldMode: 'emi', goldIntFreq: 'month', preMonths: 0, prePart: 0, preBank: '', preChargePct: 0 };
 
   var BANK_CHARGES = { '': 0, sbi: 0, hdfc: 0, icici: 2, axis: 2, kotak: 2, bajaj: 4, pnb: 0 };
 
@@ -35,6 +36,40 @@
     var freq = state.regFreq;
     var mode = state.regMode;
     var runningEmi = emi;
+    var interestOnly = state.type === 'gold' && state.goldMode === 'interest';
+    var intFreq = state.goldIntFreq;
+
+    if (interestOnly) {
+      var accrued = 0;
+      for (var period = 1; period <= months; period++) {
+        if (balance <= 0) break;
+        var isFirst = period === 1;
+        var interest = balance * r;
+        if (state.scheme === 'advance' && isFirst) interest = 0;
+        accrued = accrued + interest;
+
+        var payNow = intFreq === 'month' || (period % 12 === 0) || period === months;
+        var partPrincipal = 0;
+        if (part > 0) {
+          var due = freq === 'month' || (freq === 'year' && period % 12 === 0);
+          if (due) { partPrincipal = Math.min(part, balance); balance = balance - partPrincipal; }
+        }
+
+        var payment = partPrincipal;
+        var interestPaid = 0;
+        if (payNow) { interestPaid = accrued; accrued = 0; payment = payment + interestPaid; }
+
+        var principalPaid = partPrincipal;
+        if (period === months) { principalPaid = principalPaid + balance; payment = payment + balance; balance = 0; }
+
+        rows.push({
+          date: state.scheme === 'advance' && isFirst ? monthDate(0) : monthDate(period),
+          payment: payment, principal: principalPaid, interest: interestPaid, balance: balance
+        });
+        if (balance <= 0) break;
+      }
+      return { rows: rows, emi: emi };
+    }
 
     for (var period = 1; period <= months; period++) {
       if (balance <= 0) break;
@@ -145,6 +180,14 @@
     if (document.activeElement !== $('regPartInput')) $('regPartInput').value = groupIndian(state.regPart);
     document.querySelectorAll('#regPartFreq button').forEach(function (b) { b.classList.toggle('active', b.dataset.freq === state.regFreq); });
 
+    var goldField = $('goldRepayField');
+    if (goldField) {
+      goldField.style.display = state.type === 'gold' ? '' : 'none';
+      document.querySelectorAll('#goldMode button').forEach(function (b) { b.classList.toggle('active', b.dataset.goldmode === state.goldMode); });
+      $('goldIntFreq').style.display = (state.type === 'gold' && state.goldMode === 'interest') ? '' : 'none';
+      document.querySelectorAll('#goldIntFreq button').forEach(function (b) { b.classList.toggle('active', b.dataset.goldintfreq === state.goldIntFreq); });
+    }
+
     document.querySelectorAll('#loanTabs button').forEach(function (b) { b.classList.toggle('active', b.dataset.type === state.type); });
     document.querySelectorAll('#schemeTabs button').forEach(function (b) { b.classList.toggle('active', b.dataset.scheme === state.scheme); });
     document.querySelectorAll('#viewTabs button').forEach(function (b) { b.classList.toggle('active', b.dataset.view === state.view); });
@@ -170,10 +213,16 @@
     var closeM = closeMonths % 12;
     var closeLabel = (closeY > 0 ? closeY + ' yr' : '') + (closeM > 0 ? (closeY > 0 ? ' ' : '') + closeM + ' mo' : (closeY === 0 ? '0 mo' : ''));
 
-    $('sumEmi').textContent = currency(emi);
+    var interestOnly = state.type === 'gold' && state.goldMode === 'interest';
+    if (interestOnly) {
+      var perInt = state.goldIntFreq === 'year' ? state.amount * state.rate / 100 : state.amount * (state.rate / 12 / 100);
+      $('sumEmi').textContent = currency(perInt) + (state.goldIntFreq === 'year' ? ' / yr' : ' / mo');
+    } else {
+      $('sumEmi').textContent = currency(emi);
+    }
     $('sumInterest').textContent = currency(totalInterest);
     $('sumPayment').textContent = currency(totalPayment);
-    $('sumClosesIn').textContent = closeLabel + (closeMonths < (state.years * 12 + state.months) ? ' (was ' + (state.years * 12 + state.months) + ' mo)' : '');
+    $('sumClosesIn').textContent = closeLabel + (interestOnly ? ' (principal due at end)' : (closeMonths < (state.years * 12 + state.months) ? ' (was ' + (state.years * 12 + state.months) + ' mo)' : ''));
     $('legendPrincipal').textContent = t('principalLbl') + ': ' + currency(state.amount) + ' (' + (totalPayment > 0 ? ((state.amount / totalPayment) * 100).toFixed(1) : 0) + '%)';
     $('legendInterest').textContent = t('interestLbl') + ': ' + currency(totalInterest) + ' (' + (totalPayment > 0 ? ((totalInterest / totalPayment) * 100).toFixed(1) : 0) + '%)';
     renderChart(state.amount, totalInterest);
@@ -260,6 +309,14 @@
   $('regMode').addEventListener('change', function (e) {
     if (e.target.name !== 'regMode') return;
     state.regMode = e.target.value; render();
+  });
+  $('goldMode').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    state.goldMode = b.dataset.goldmode; render();
+  });
+  $('goldIntFreq').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    state.goldIntFreq = b.dataset.goldintfreq; render();
   });
 
   document.addEventListener('langchange', render);
