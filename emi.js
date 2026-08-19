@@ -7,7 +7,7 @@
     car:      { amount: 800000,  rate: 10,  years: 5,  months: 0 }
   };
 
-  var state = { type: 'home', amount: 2500000, rate: 9.5, years: 20, months: 0, scheme: 'arrears', view: 'year', preMonths: 0, prePart: 0, preBank: '', preChargePct: 0 };
+  var state = { type: 'home', amount: 2500000, rate: 9.5, years: 20, months: 0, scheme: 'arrears', view: 'year', regPart: 0, regFreq: 'month', regMode: 'tenure', preMonths: 0, prePart: 0, preBank: '', preChargePct: 0 };
 
   var BANK_CHARGES = { '': 0, sbi: 0, hdfc: 0, icici: 2, axis: 2, kotak: 2, bajaj: 4, pnb: 0 };
 
@@ -31,22 +31,45 @@
     var emi = calculateEmi(state.amount, state.rate, months);
     var rows = [];
     var balance = state.amount;
+    var part = Math.max(0, state.regPart || 0);
+    var freq = state.regFreq;
+    var mode = state.regMode;
+    var runningEmi = emi;
 
     for (var period = 1; period <= months; period++) {
+      if (balance <= 0) break;
       var isFirst = period === 1;
-      var isLast = period === months;
+      var currentEmi = runningEmi;
       var interest = balance * r;
-      var principal = emi - interest;
-      if (state.scheme === 'advance' && isFirst) { interest = 0; principal = Math.min(emi, balance); }
-      if (isLast) { principal = balance; }
-      var payment = principal + interest;
-      balance = balance - principal;
+      var emiPrincipal = currentEmi - interest;
+      if (state.scheme === 'advance' && isFirst) { interest = 0; emiPrincipal = Math.min(currentEmi, balance); }
+      if (emiPrincipal > balance) emiPrincipal = balance;
+      var payment = interest + emiPrincipal;
+      balance = balance - emiPrincipal;
+
+      var partPrincipal = 0;
+      if (part > 0) {
+        var due = freq === 'month' || (freq === 'year' && period % 12 === 0);
+        if (due) {
+          partPrincipal = Math.min(part, balance);
+          balance = balance - partPrincipal;
+          payment = payment + partPrincipal;
+          if (mode === 'emi' && balance > 0) {
+            var remaining = months - period;
+            if (remaining > 0) runningEmi = calculateEmi(balance, state.rate, remaining);
+          }
+        }
+      }
+
+      var isLast = balance <= 0;
+      if (isLast) balance = 0;
       rows.push({
         date: state.scheme === 'advance' && isFirst ? monthDate(0) : monthDate(period),
-        payment: payment, principal: principal, interest: interest, balance: Math.max(0, balance)
+        payment: payment, principal: emiPrincipal + partPrincipal, interest: interest, balance: balance
       });
+      if (isLast) break;
     }
-    return rows;
+    return { rows: rows, emi: emi };
   }
 
   function computePreclosure(schedule) {
@@ -119,6 +142,8 @@
     $('preBank').value = state.preBank;
     if (document.activeElement !== $('prePart')) $('prePart').value = groupIndian(state.prePart);
     if (document.activeElement !== $('preCharge')) $('preCharge').value = state.preChargePct;
+    if (document.activeElement !== $('regPartInput')) $('regPartInput').value = groupIndian(state.regPart);
+    document.querySelectorAll('#regPartFreq button').forEach(function (b) { b.classList.toggle('active', b.dataset.freq === state.regFreq); });
 
     document.querySelectorAll('#loanTabs button').forEach(function (b) { b.classList.toggle('active', b.dataset.type === state.type); });
     document.querySelectorAll('#schemeTabs button').forEach(function (b) { b.classList.toggle('active', b.dataset.scheme === state.scheme); });
@@ -134,13 +159,21 @@
       return;
     }
 
-    var schedule = buildSchedule();
+    var built = buildSchedule();
+    var schedule = built.rows;
+    var emi = built.emi;
     var totalPayment = 0, totalInterest = 0;
     schedule.forEach(function (row) { totalPayment += row.payment; totalInterest += row.interest; });
 
-    $('sumEmi').textContent = currency(schedule[0].payment);
+    var closeMonths = schedule.length;
+    var closeY = Math.floor(closeMonths / 12);
+    var closeM = closeMonths % 12;
+    var closeLabel = (closeY > 0 ? closeY + ' yr' : '') + (closeM > 0 ? (closeY > 0 ? ' ' : '') + closeM + ' mo' : (closeY === 0 ? '0 mo' : ''));
+
+    $('sumEmi').textContent = currency(emi);
     $('sumInterest').textContent = currency(totalInterest);
     $('sumPayment').textContent = currency(totalPayment);
+    $('sumClosesIn').textContent = closeLabel + (closeMonths < (state.years * 12 + state.months) ? ' (was ' + (state.years * 12 + state.months) + ' mo)' : '');
     $('legendPrincipal').textContent = t('principalLbl') + ': ' + currency(state.amount) + ' (' + (totalPayment > 0 ? ((state.amount / totalPayment) * 100).toFixed(1) : 0) + '%)';
     $('legendInterest').textContent = t('interestLbl') + ': ' + currency(totalInterest) + ' (' + (totalPayment > 0 ? ((totalInterest / totalPayment) * 100).toFixed(1) : 0) + '%)';
     renderChart(state.amount, totalInterest);
@@ -217,6 +250,17 @@
     render();
   });
   $('preCharge').addEventListener('input', function (e) { state.preChargePct = parseDigits(e.target.value); render(); });
+
+  $('regPartInput').addEventListener('input', function (e) { state.regPart = parseDigits(e.target.value); render(); });
+  $('regPartInput').addEventListener('blur', function () { $('regPartInput').value = groupIndian(state.regPart); });
+  $('regPartFreq').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    state.regFreq = b.dataset.freq; render();
+  });
+  $('regMode').addEventListener('change', function (e) {
+    if (e.target.name !== 'regMode') return;
+    state.regMode = e.target.value; render();
+  });
 
   document.addEventListener('langchange', render);
   render();

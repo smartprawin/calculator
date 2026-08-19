@@ -143,6 +143,21 @@
       </div>
 
       <p class="hint" data-i18n="hint">EMI in advance lowers total interest because the first payment is made at disbursement.</p>
+
+      <div class="field">
+        <span class="field-head"><span data-i18n="regPartLabel">Regular Part-Payment</span>
+          <span class="input-box"><span class="unit">&#8377;</span><input type="text" id="regPartInput" inputmode="numeric" autocomplete="off" placeholder="0"></span>
+        </span>
+        <div class="segmented small" id="regPartFreq">
+          <button type="button" class="active" data-freq="month" data-i18n="everyMonth">Every Month</button>
+          <button type="button" data-freq="year" data-i18n="everyYear">Every Year</button>
+        </div>
+        <div class="radio-group" id="regMode">
+          <label><input type="radio" name="regMode" value="tenure" checked> <span data-i18n="shortenTenure">Shorten Tenure</span></label>
+          <label><input type="radio" name="regMode" value="emi"> <span data-i18n="reduceEmi">Reduce EMI</span></label>
+        </div>
+        <p class="hint" data-i18n="regPartHint">Extra amount paid every month or year reduces the principal. Choose to either shorten the tenure (EMI stays the same) or lower the EMI instead.</p>
+      </div>
     </section>
 
     <div class="results" id="results">
@@ -152,6 +167,7 @@
           <div class="summary-item accent"><dt data-i18n="loanEmi">Loan EMI</dt><dd id="sumEmi">-</dd></div>
           <div class="summary-item"><dt data-i18n="totalInterest">Total Interest Payable</dt><dd id="sumInterest">-</dd></div>
           <div class="summary-item"><dt data-i18n="totalPayment">Total Payment (Principal + Interest)</dt><dd id="sumPayment">-</dd></div>
+          <div class="summary-item"><dt data-i18n="closesIn">Loan closes in</dt><dd id="sumClosesIn">-</dd></div>
         </dl>
       </div>
       <div class="card">
