@@ -47,12 +47,19 @@ const CHROME = process.env.CHROME_PATH ||
       }
     });
     over.sort((a, b) => b.right - a.right);
+    const cards = Array.from(document.querySelectorAll('.calc-card')).map(el => {
+      const r = el.getBoundingClientRect();
+      return { cls: el.className, top: Math.round(r.top), bottom: Math.round(r.bottom), right: Math.round(r.right),
+               onScreen: (r.bottom > 0 && r.top < window.innerHeight) };
+    });
     return {
       title: document.title,
       innerW, visualW: vv,
       docScrollW: de.scrollWidth, bodyScrollW: document.body.scrollWidth,
+      docScrollH: Math.round(de.scrollHeight), innerH: window.innerHeight,
       overflowCount: over.length,
-      topOverflow: over.slice(0, 15)
+      topOverflow: over.slice(0, 15),
+      cards
     };
   });
 
