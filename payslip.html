@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var _l=new URLSearchParams(location.search).get('lang');if(_l==='ta'){document.documentElement.lang='ta';}}catch(e){}</script>
+<meta name="i18n-page" content="payslip">
+<title>Payslip vs Offer Letter Comparator (Free)</title>
+<meta name="description" content="Compare your annual offer-letter salary split-up against your monthly payslip. Flag mismatches in Basic, HRA, PF and in-hand pay.">
+<meta name="keywords" content="payslip vs offer letter, salary comparator, offer letter verification, payslip checker, in-hand salary compare">
+<meta name="author" content="Simple EMI calculator project">
+<meta name="theme-color" content="#0ea5e9">
+<link rel="icon" type="image/png" href="favicon.png?v=2">
+<link rel="apple-touch-icon" href="favicon.png?v=2">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://simplecalculator.in/payslip.html">
+<link rel="alternate" hreflang="en" href="https://simplecalculator.in/payslip.html">
+<link rel="alternate" hreflang="ta" href="https://simplecalculator.in/payslip.html?lang=ta">
+<link rel="alternate" hreflang="x-default" href="https://simplecalculator.in/payslip.html">
+<link rel="stylesheet" href="style.css?v=2">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Payslip vs Offer Letter Comparator">
+<meta property="og:description" content="Compare your annual offer-letter split-up with your monthly payslip and flag mismatches.">
+<meta property="og:site_name" content="Calculators">
+<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://simplecalculator.in/og-image.png">
+<meta name="twitter:image" content="https://simplecalculator.in/og-image.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Payslip vs Offer Letter Comparator",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+}
+</script>
+</head>
+<body>
+<div class="app theme-payslip">
+  <div class="lang-switch">
+    <button type="button" data-lang="en">EN</button>
+    <button type="button" data-lang="ta">தமிழ்</button>
+  </div>
+  <a class="back-link" href="index.html" data-i18n="back">← All calculators</a>
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="index.html">Home</a><span class="sep">›</span><span>Payslip vs Offer Letter</span>
+  </nav>
+  <header>
+    <h1 data-i18n="psH1">Payslip vs Offer Letter</h1>
+    <p data-i18n="psSub">Compare your annual offer-letter split-up with your monthly payslip.</p>
+  </header>
+
+  <p class="privacy-badge" data-i18n="privacyBadge">🔒 Private — nothing you type is stored or sent.</p>
+  <main class="layout emi payslip">
+    <section class="card">
+      <h2 data-i18n="psOfferH1">Offer Letter (Annual)</h2>
+      <label class="field">
+        <div class="field-head"><span data-i18n="oBasicLbl">Basic</span>
+          <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="onum" id="oBasic" inputmode="numeric" autocomplete="off"></span>
+        </div>
+      </label>
+      <label class="field">
+        <div class="field-head"><span data-i18n="oHraLbl">HRA</span>
+          <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="onum" id="oHra" inputmode="numeric" autocomplete="off"></span>
+        </div>
+      </label>
+      <label class="field">
+        <div class="field-head"><span data-i18n="oSpecialLbl">Special Allowance</span>
+          <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="onum" id="oSpecial" inputmode="numeric" autocomplete="off"></span>
+        </div>
+      </label>
+      <label class="field">
+        <div class="field-head"><span data-i18n="oEmpPfLbl">Employer PF</span>
+          <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="onum" id="oEmpPf" inputmode="numeric" autocomplete="off"></span>
+        </div>
+      </label>
+      <label class="field">
+        <div class="field-head"><span data-i18n="oGratLbl">Employer Gratuity</span>
+          <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="onum" id="oGrat" inputmode="numeric" autocomplete="off"></span>
+        </div>
+      </label>
+      <label class="field">
+        <div class="field-head"><span data-i18n="oVarLbl">Variable (annual)</span>
+          <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="onum" id="oVar" inputmode="numeric" autocomplete="off"></span>
+        </div>
+      </label>
+      <label class="field">
+        <div class="field-head"><span data-i18n="oTravelLbl">Travel Allowance (LTA)</span>
+          <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="onum" id="oTravel" inputmode="numeric" autocomplete="off"></span>
+        </div>
+      </label>
+      <label class="field">
+        <div class="field-head"><span data-i18n="oMedLbl">Medical Insurance</span>
+          <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="onum" id="oMed" inputmode="numeric" autocomplete="off"></span>
+        </div>
+      </label>
+      <label class="field required">
+        <div class="field-head"><span data-i18n="oInhandLbl">Stated Monthly In-Hand</span>
+          <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="onum" id="oInhand" inputmode="numeric" autocomplete="off"></span>
+        </div>
+      </label>
+    </section>
+
+    <section class="card">
+      <h2 data-i18n="psPayslipH1">Payslip (Monthly)</h2>
+      <label class="field">
+        <div class="field-head"><span data-i18n="pBasicLbl">Basic</span>
+          <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="pnum" id="pBasic" inputmode="numeric" autocomplete="off"></span>
+        </div>
+      </label>
+      <label class="field">
+        <div class="field-head"><span data-i18n="pHraLbl">HRA</span>
+          <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="pnum" id="pHra" inputmode="numeric" autocomplete="off"></span>
+        </div>
+      </label>
+      <label class="field">
+        <div class="field-head"><span data-i18n="pSpecialLbl">Special / Allowances</span>
+          <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="pnum" id="pSpecial" inputmode="numeric" autocomplete="off"></span>
+        </div>
+      </label>
+      <label class="field">
+        <div class="field-head"><span data-i18n="pTravelLbl">Travel Allowance (LTA)</span>
+          <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="pnum" id="pTravel" inputmode="numeric" autocomplete="off"></span>
+        </div>
+      </label>
+      <label class="field">
+        <div class="field-head"><span data-i18n="pMedLbl">Medical Insurance</span>
+          <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="pnum" id="pMed" inputmode="numeric" autocomplete="off"></span>
+        </div>
+      </label>
+      <label class="field">
+        <div class="field-head"><span data-i18n="pEmpPfLbl">Employee PF</span>
+          <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="pnum" id="pEmpPf" inputmode="numeric" autocomplete="off"></span>
+        </div>
+      </label>
+      <label class="field">
+        <div class="field-head"><span data-i18n="pPtLbl">Professional Tax</span>
+          <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="pnum" id="pPt" inputmode="numeric" autocomplete="off"></span>
+        </div>
+      </label>
+      <label class="field">
+        <div class="field-head"><span data-i18n="pTaxLbl">Income Tax (TDS)</span>
+          <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="pnum" id="pTax" inputmode="numeric" autocomplete="off"></span>
+        </div>
+      </label>
+      <label class="field required">
+        <div class="field-head"><span data-i18n="pNetLbl">Net Paid (In-Hand)</span>
+          <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="pnum" id="pNet" inputmode="numeric" autocomplete="off"></span>
+        </div>
+      </label>
+
+      <div class="dl-actions">
+        <button type="button" class="btn" id="btnPdf" data-i18n="btnPdf">📄 Save as PDF</button>
+        <button type="button" class="btn" id="btnCsv" data-i18n="btnCsv">📊 Download Excel</button>
+      </div>
+    </section>
+
+    <div class="results" id="results">
+      <div class="card compare-card">
+        <h2 data-i18n="compareTitle">Comparison (Monthly)</h2>
+        <div class="compare-table">
+          <div class="compare-row compare-head">
+            <span data-i18n="colComponent">Component</span>
+            <span data-i18n="colOffer">Offer (Monthly)</span>
+            <span data-i18n="colPayslip">Payslip</span>
+            <span data-i18n="colReason">Reason</span>
+            <span data-i18n="colStatus">Status</span>
+          </div>
+          <div id="compareBody"></div>
+        </div>
+        <p class="hint" data-i18n="compareNote">Offer figures are divided by 12 to match the monthly payslip. N/A means a figure was not entered on one side.</p>
+        <div id="verdict"></div>
+      </div>
+    </div>
+  </main>
+
+  <section class="card faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item">
+      <div class="faq-q">Why compare my offer letter with my payslip?</div>
+      <div class="faq-a">The annual split-up in your offer and the monthly figures in your payslip should agree. Comparing them catches mistakes — e.g. a lower Basic, a missing PF contribution, or an in-hand amount below what was promised.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How are annual and monthly figures matched?</div>
+      <div class="faq-a">Each annual offer component is divided by 12 and compared with the corresponding monthly payslip value. The Stated Monthly In-Hand from the offer is compared directly with the Net Paid on the payslip.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What if a component is missing on one side?</div>
+      <div class="faq-a">That row shows N/A and is not treated as a pass or fail — only components present on both sides are checked for mismatch.</div>
+    </div>
+  </section>
+
+  <nav class="related" aria-label="More calculators">
+    <a href="emi.html">EMI Calculator</a>
+    <a href="offer.html">Offer Letter Split-up</a>
+    <a href="index.html">All calculators</a>
+  </nav>
+
+  <footer data-i18n="footer">Built for practice. Amounts are rounded to two decimals.</footer>
+  <nav class="footer-links"><a href="privacy.html">Privacy Policy</a></nav>
+
+  <div class="pdf-watermark" aria-hidden="true">www.simplecalculator.in</div>
+  <div class="export-ad" aria-hidden="true">
+    <strong>simplecalculator.in</strong> — Free calculators: EMI, Income Tax, EB Bill, Offer Letter &amp; Payslip comparators.
+    Visit <strong>https://www.simplecalculator.in</strong> for more.
+  </div>
+</div>
+
+<script src="common.js?v=2"></script>
+<script src="payslip.js?v=2"></script>
+</body>
+</html>

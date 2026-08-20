@@ -1,8 +1,8 @@
-# EMI Calculator - Complete Documentation
+# Simple Calculators - Complete Documentation
 
-> Auto-generated documentation of the EMI calculator codebase (HTML + CSS + vanilla JS).
+> Auto-generated documentation of the calculators suite (HTML + CSS + vanilla JS).
 >
-> **Last updated:** 2026-08-18 (added Income Tax Calculator: tax.html + tax.js, New/Old regime comparison, landing card, i18n keys)
+> **Last updated:** 2026-08-21 (added Offer Letter calculator, Payslip vs Offer comparator, Privacy FAB/banner/footer; documented previously-undocumented pages: irpart, offer, payslip, privacy)
 
 ---
 
@@ -16,9 +16,13 @@
  6. [UI Components](#ui-components)
  7. [State Management & Data Flow](#state-management--data-flow)
  8. [Utilities](#utilities)
- 9. [SEO](#seo)
- 10. [Income Tax Calculator](#income-tax-calculator)
- 11. [Internationalization (en / ta)](#internationalization-en--ta)
+  9. [SEO](#seo)
+  10. [Income Tax Calculator](#income-tax-calculator)
+  11. [Irregular Part-Payment Calculator](#irregular-part-payment-calculator)
+  12. [Offer Letter Salary Split-up Generator & Verifier](#offer-letter-salary-split-up-generator--verifier)
+  13. [Payslip vs Offer Letter Comparator](#payslip-vs-offer-letter-comparator)
+  14. [Privacy Features](#privacy-features)
+  15. [Internationalization (en / ta)](#internationalization-en--ta)
 
 ---
 
@@ -42,9 +46,9 @@ Requirements, design, and plan live in [`docs/`](README.md).
 | Layer | Technology |
 |-------|------------|
 | Language | Vanilla JavaScript (ES5-compatible IIFE) |
-| Markup | `index.html` / `emi.html` / `ebbill.html` / `tax.html` |
+| Markup | `index.html` / `emi.html` / `ebbill.html` / `tax.html` / `irpart.html` / `offer.html` / `payslip.html` |
 | Styling | `style.css` |
-| Logic | `common.js` / `emi.js` / `ebbill.js` / `tax.js` |
+| Logic | `common.js` / `emi.js` / `ebbill.js` / `tax.js` / `irpart.js` / `offer.js` / `payslip.js` |
 | Charts | Inline SVG |
 | Backend | None (fully client-side) |
 | Dependencies | None |
@@ -66,37 +70,51 @@ python -m http.server 8080
 │   ├── README.md            # documentation index
 │   ├── 01-planning/         # PRD, tech design, project plan
 │   └── 02-codebase/         # this file
-├── index.html               # landing / selection page (links to calculators)
-├── emi.html                 # EMI calculator page
-├── ebbill.html              # EB bill calculator page
-├── tax.html                 # Income tax calculator page
-├── common.js                # shared helpers: $(), currency(), i18n
-├── emi.js                   # EMI engine + UI logic
-├── ebbill.js                # EB engine + UI logic
-├── tax.js                   # Income tax engine + UI logic
-├── style.css                # all styles (shared by every page)
+   ├── index.html               # landing / selection page (links to calculators)
+   ├── emi.html                 # EMI calculator page
+   ├── ebbill.html              # EB bill calculator page
+   ├── tax.html                 # Income tax calculator page
+   ├── irpart.html              # Irregular part-payment EMI calculator page
+   ├── offer.html               # Offer Letter salary split-up generator & verifier
+   ├── payslip.html             # Payslip vs Offer Letter comparator
+   ├── common.js                # shared helpers: $(), currency(), i18n, privacy injectors
+   ├── emi.js                   # EMI engine + UI logic
+   ├── ebbill.js                # EB engine + UI logic
+   ├── tax.js                   # Income tax engine + UI logic
+   ├── irpart.js                # Part-payment EMI engine + UI logic
+   ├── offer.js                 # Offer Letter generator/verifier + UI logic
+   ├── payslip.js               # Payslip vs Offer comparator + UI logic
+   ├── style.css                # all styles (shared by every page)
 ├── robots.txt               # crawler rules; points to sitemap
 ├── sitemap.xml              # lists all public pages for search engines
 └── .gitignore
 ```
 
 The site is **multi-page**: opening it shows a selection screen
-(`index.html`) with three options - EMI Calculator, EB Bill Calculator and
-Income Tax Calculator. Choosing one navigates to that page; the other
-calculators are never shown on the same page. Each calculator has a
-"← All calculators" back link to the selection screen.
+(`index.html`) linking to all calculators - EMI, EB Bill, Income Tax,
+Irregular Part-Payment, Offer Letter, and Payslip vs Offer. Choosing one
+navigates to that page; the other calculators are never shown on the same
+page. Each calculator has a "← All calculators" back link to the selection
+screen. The landing cards and the privacy footer/lock are driven by `common.js`.
 
 Responsibilities by file:
 
 | File | Contents |
 |------|----------|
-| `index.html` | Selection/landing page with links to `emi.html` / `ebbill.html` / `tax.html` |
+| `index.html` | Selection/landing page with links to all calculators |
 | `emi.html` | Markup for the EMI calculator |
 | `ebbill.html` | Markup for the EB calculator |
 | `tax.html` | Markup for the income tax calculator |
-| `common.js` | Shared helpers (`$()`, `currency()`) |
+| `irpart.html` | Markup for the irregular part-payment EMI calculator |
+| `offer.html` | Markup for the Offer Letter salary split-up generator & verifier |
+| `payslip.html` | Markup for the Payslip vs Offer Letter comparator |
+| `common.js` | Shared helpers (`$()`, `currency()`, i18n, privacy injectors) |
 | `emi.js` | EMI engine + DOM logic (IIFE) |
 | `ebbill.js` | EB engine + DOM logic (IIFE) |
+| `tax.js` | Income tax engine + DOM logic (IIFE) |
+| `irpart.js` | Part-payment EMI engine + DOM logic (IIFE) |
+| `offer.js` | Offer Letter generator/verifier + DOM logic (IIFE) |
+| `payslip.js` | Payslip vs Offer comparator + DOM logic (IIFE) |
 | `style.css` | All styling (layout, inputs, cards, table, chart, landing) |
 | `robots.txt` | Allows all crawlers; references `sitemap.xml` |
 | `sitemap.xml` | URLs of `index.html`, `emi.html`, `ebbill.html` |
@@ -343,6 +361,147 @@ bracket is the zero-rate threshold) to `income`.
 
 > Estimates are for FY 2025-26 and are illustrative only, not financial advice.
 
+## Irregular Part-Payment Calculator
+
+A variant of the EMI calculator in its own page (`irpart.html`) that supports
+**irregular part-payments** (lump-sum prepayments) which reduce the outstanding
+principal and shorten the tenure / interest. It reuses the same EMI math
+(`calculateEmi`) as `emi.js`.
+
+- **Layout:** input card on top, amortization schedule directly below, in a
+  single column (`.layout.irpart`), so it is not buried under results on mobile.
+- **Repay / part-payment textboxes** were enlarged for mobile (`#ppInline`,
+  `.input-box input` font sizes bumped; `.pp-inline` width 84→100px, larger
+  font on phones).
+- Output is the same schedule/summary family as the EMI calculator.
+
+## Offer Letter Salary Split-up Generator & Verifier
+
+A standalone calculator (`offer.html` / `offer.js`) that does two jobs: it
+**generates** a standard Indian salary break-up from a CTC, and **verifies**
+the split-up printed in an actual job offer letter.
+
+### Inputs — Generator
+
+| Field | Element | Notes |
+|-------|---------|-------|
+| CTC | `#ctc` (range) | ₹1L–₹1cr, step ₹50k |
+| Basic % of CTC | `#basicPct` / `#basicPctInput` (range + number, synced) | 20%–60%, default 50% |
+
+Reference outputs: `#refBasic`, `#refHra`, `#refSpecial`, `#refEmpPf`,
+`#refGrat`, `#refTakeHome` (Est. Monthly In-Hand).
+
+### Inputs — Verifier
+
+| Field | Element | Required |
+|-------|---------|----------|
+| Basic | `#vBasic` | |
+| HRA | `#vHra` | |
+| Special Allowance | `#vSpecial` | |
+| Employer PF | `#vEmpPf` | |
+| Employer Gratuity | `#vGrat` | |
+| Variable / Other | `#vVar` | |
+| Variable cap % of CTC | `#vVarCap` | auto-populated (read-only) |
+| Travel Allowance (LTA) | `#vTravel` | |
+| Medical Insurance | `#vMed` | |
+| Employee PF (deducted) | `#vEmpPfDed` | |
+| Prof. Tax / month | `#vPt` | |
+| Stated Monthly In-Hand | `#vInhand` | **Yes (red `*` required)** |
+
+Summary: `#vGross` (Gross Salary), `#vTakeHome` (Est. Monthly In-Hand),
+`#vTotal` (Total / CTC). Report: `#verifyReport`.
+
+### Functions (in `offer.js`)
+
+- **`newRegimeTax(income)`** — FY 2025-26 estimate: nil up to ₹12L (Sec 87A
+  rebate), slab bands `[4L:5%, 8L:10%, 12L:15%, 16L:20%, 20L:25%, 24L:30%]`,
+  then `×1.04` cess.
+- **`renderReference()`** / **`renderVerify()`** — build the two result blocks.
+- **`addCheck(status, label, detail)`** — `status` is `true` (✓) / `false` (⚠) /
+  `'na'` (–, neutral). Blank fields produce `'na'` so they are not falsely
+  shown as a pass.
+- **`buildCsv()`** / **`downloadCsv()`** — Excel export (CSV with UTF-8 BOM).
+
+### Consistency checks
+
+| Check | Rule |
+|-------|------|
+| Sum of components | Basic + HRA + Special + Travel + Variable = Gross |
+| Employer PF | = 12% of Basic |
+| Gratuity | = 4.81% of Basic |
+| Employee PF deducted | = 12% of Basic |
+| In-hand recompute | Stated vs computed take-home |
+| Variable cap | Variable as % of CTC vs `RECOMMENDED_VAR_MAX = 30` (auto-fills `#vVarCap`) |
+
+### Export
+
+- **PDF:** `window.print()` with a `www.simplecalculator.in` watermark and an
+  ad block (`.pdf-watermark`, `.export-ad`, `@media print`).
+- **Excel:** CSV download (`offer-salary-splitup.csv`).
+
+## Payslip vs Offer Letter Comparator
+
+A comparator (`payslip.html` / `payslip.js`) that lines up an **annual
+offer-letter split-up** against a **monthly payslip** and flags mismatches.
+
+### Inputs
+
+| Side | Class | Fields (ids) |
+|------|-------|--------------|
+| Offer (annual) | `.onum` | `#oBasic #oHra #oSpecial #oEmpPf #oGrat #oVar #oTravel #oMed #oInhand` (required) |
+| Payslip (monthly) | `.pnum` | `#pBasic #pHra #pSpecial #pEmpPf #pTravel #pMed #pPt #pTax #pNet` (required) |
+
+On wider screens (≥768px) the two input cards sit **side by side**; on phones
+they stack.
+
+### Comparison table
+
+Columns: **Component | Offer (Monthly, ÷12) | Payslip | Reason | Status**.
+
+- **Status** ✓ / ⚠ / – (not provided).
+- **Reason** shows `Payslip ₹X lower` / `Payslip ₹X higher` on mismatch,
+  `Matches` when equal, `Not provided` when a side is blank.
+
+### Income-tax handling
+
+The offer side's **monthly** income-tax estimate is computed from
+`Basic + HRA + Special + Travel + Variable` via `newRegimeTax()`. The tax row
+is marked `offerComputed`, so a `0` estimate is treated as a **valid value**
+(not "Not provided") when TDS (`#pTax`) is entered — fixing the earlier false
+neutral.
+
+### Tolerance
+
+Comparison uses a **2% relative tolerance** (`Math.max(o, p) * 0.02`, no
+fixed-rupee floor) so tiny values (e.g. HRA 12 vs 0.3) are not falsely
+matched.
+
+### Verdict & export
+
+A verdict banner sits under the table. The **Excel** export (`payslip-offer-comparison.csv`)
+lists both sides, the comparison (with Reason + Status), and an ad block.
+
+## Privacy Features
+
+The app stores **no user data**:
+
+- Only `lang` (en/ta) is persisted, in `localStorage`. Calculator inputs live
+  in JS memory and are cleared on reload/close.
+- `sw.js` (service worker) caches **only static assets** (HTML/JS/CSS), never
+  inputs.
+
+### UI surfaces (all i18n-aware, EN/TA)
+
+| Surface | Where | Behavior |
+|---------|-------|----------|
+| Floating 🔒 button | `#privacyFab` (injected site-wide by `injectPrivacyFab()` in `common.js`) | Tapping opens a popup that **cycles 4 messages** (`PRIVACY_MSGS`) each tap |
+| Home banner | `.privacy-banner` in `index.html` (`data-i18n="privacyTagline"`) | Always *"🔒 100% private — nothing you type is ever stored or sent."* |
+| Footer line | `.privacy-line` (injected by `injectPrivacy()`) | **Home** = "100% private"; **other pages** = a random tagline from `PRIVACY_TAGLINES` on each load |
+| Input-page badge | `.privacy-badge` on `offer.html` & `payslip.html` | Short "🔒 Private — nothing you type is stored or sent." pill above the form |
+
+i18n keys: `privacyTagline`, `privacyBadge`, `privacyFabTitle`,
+`privacyPopTitle`, `privacyMsg1`–`privacyMsg4`.
+
 ## SEO
 
 On-page and crawl optimization for search engines.
@@ -371,7 +530,7 @@ Every HTML page carries:
 | File | Role |
 |------|------|
 | `robots.txt` | Allows all crawlers; points to `sitemap.xml` |
-| `sitemap.xml` | Lists `index.html`, `emi.html`, `ebbill.html`, `tax.html` |
+| `sitemap.xml` | Lists `index.html`, `emi.html`, `ebbill.html`, `tax.html`, `irpart.html`, `offer.html`, `payslip.html` |
 
 > **Action required:** replace the placeholder
 > `https://your-username.github.io/your-repo/` in `index.html`, `emi.html`,
@@ -408,14 +567,17 @@ placeholders) are rendered through `t()`.
 
 | Page | Translated |
 |------|------------|
-| `index.html` | Hero, card titles/descriptions, CTA, footer |
+| `index.html` | Hero, card titles/descriptions, CTA, footer, privacy banner |
 | `emi.html` | Header, loan tabs, all fields, scheme, summary, chart, schedule |
 | `ebbill.html` | Header, fields, slab labels, summary, slab placeholders |
 | `tax.html` | Header, regime/age tabs, all fields, summary, comparison |
+| `irpart.html` | Header, part-payment fields, schedule |
+| `offer.html` | Header, generator + verifier fields, summaries, privacy badge |
+| `payslip.html` | Header, offer/payslip fields, comparison, verdict, privacy badge |
 
 > To add another language, add a third dictionary to `TRANSLATIONS` and a
 > button with `data-lang` in each page's `.lang-switch`.
 
 ---
 
-*Auto-generated for Simple EMI calculator - 2026-08-17*
+*Auto-generated for Simple Calculators - 2026-08-21*

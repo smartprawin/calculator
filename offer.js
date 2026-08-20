@@ -1,6 +1,11 @@
 'use strict';
 
 (function () {
+  var RECOMMENDED_VAR_MAX = 30; // typical upper bound for variable pay as % of CTC
+  var state = { ctc: 0, basicPct: 50, ref: {}, verify: {} };
+
+  function r2(n) { return Math.round(n * 100) / 100; }
+
   function newRegimeTax(income) {
     if (income <= 1200000) return 0; // Sec 87A rebate fully exempts up to 12L taxable
     var bands = [
@@ -50,11 +55,21 @@
     $('refPt').textContent = currency(profTax);
     $('refTax').textContent = currency(incTax);
     $('refTakeHome').textContent = currency(Math.max(0, takeHome));
+
+    state.ctc = ctc;
+    state.basicPct = basicPct;
+    state.ref = {
+      basic: basic, hra: hra, special: Math.max(0, special),
+      empPf: empPf, grat: grat, total: basic + hra + empPf + grat + Math.max(0, special),
+      empPfDed: empPfDed, profTax: profTax, incTax: incTax, takeHome: Math.max(0, takeHome)
+    };
   }
 
-  function row(ok, label, detail) {
-    var cls = ok ? 'ok' : 'warn';
-    var mark = ok ? '✓' : '⚠';
+  function row(status, label, detail) {
+    var cls, mark;
+    if (status === true) { cls = 'ok'; mark = '✓'; }
+    else if (status === false) { cls = 'warn'; mark = '⚠'; }
+    else { cls = 'na'; mark = '–'; }
     return '<div class="verify-row ' + cls + '"><span class="v-mark">' + mark + '</span>' +
       '<span class="v-label">' + label + '</span>' +
       '<span class="v-detail">' + detail + '</span></div>';
@@ -76,6 +91,11 @@
     var grat = parseDigits($('vGrat').value);
     var vari = parseDigits($('vVar').value);
     var travel = parseDigits($('vTravel').value);
+
+    // Auto-populate the variable % of CTC (don't overwrite while the user edits it)
+    if (vari > 0 && ctc > 0 && document.activeElement !== $('vVarCap')) {
+      $('vVarCap').value = (vari / ctc * 100).toFixed(1);
+    }
     var med = parseDigits($('vMed').value);
     var empPfDed = parseDigits($('vEmpPfDed').value);
     var pt = parseDigits($('vPt').value);
@@ -104,8 +124,16 @@
     var takeHome = gTake > 0 ? (gTake - ded - pTax - taxInc) / 12 : 0;
     $('vTakeHome').textContent = currency(Math.max(0, takeHome));
 
+    state.verify = { gross: gross, takeHome: Math.max(0, takeHome), total: total };
+
     var html = '';
+    var checks = [];
     var allOk = true;
+
+    function addCheck(status, label, detail) {
+      checks.push({ ok: status, label: label, detail: detail });
+      html += row(status, label, detail);
+    }
 
     // 1. Sum of CTC-side components vs stated CTC
     if (ctc > 0 && (basic > 0 || hra > 0 || special > 0 || empPf > 0 || grat > 0 || vari > 0)) {
@@ -113,57 +141,89 @@
       var diff = ctc - sum;
       var ok = near(ctc, sum, 1);
       allOk = allOk && ok;
-      html += row(ok,
+      addCheck(ok,
         t('chkSum'),
         ok ? t('matches') : (diff > 0 ? '+' : '') + currency(diff) + ' ' + t('vsCtc'));
     }
 
     // 2. Employer PF ~ 12% of Basic
-    if (basic > 0 && empPf >= 0) {
+    if (basic > 0) {
       var expPf = basic * 0.12;
-      var ok2 = empPf <= 0 ? true : near(empPf, expPf, Math.max(1, expPf * 0.01));
-      allOk = allOk && ok2;
-      html += row(ok2,
-        t('chkEmpPf'),
-        empPf <= 0 ? t('notGiven') : (empPf === 0 ? '' : currency(empPf) + ' / ' + t('exp') + ' ' + currency(expPf)));
+      if (empPf > 0) {
+        var ok2 = near(empPf, expPf, Math.max(1, expPf * 0.01));
+        allOk = allOk && ok2;
+        addCheck(ok2,
+          t('chkEmpPf'),
+          currency(empPf) + ' / ' + t('exp') + ' ' + currency(expPf));
+      } else {
+        addCheck('na', t('chkEmpPf'), t('notGiven'));
+      }
     }
 
     // 3. Gratuity ~ 4.81% of Basic
-    if (basic > 0 && grat >= 0) {
+    if (basic > 0) {
       var expG = basic * 0.0481;
-      var ok3 = grat <= 0 ? true : near(grat, expG, Math.max(1, expG * 0.01));
-      allOk = allOk && ok3;
-      html += row(ok3,
-        t('chkGrat'),
-        grat <= 0 ? t('notGiven') : currency(grat) + ' / ' + t('exp') + ' ' + currency(expG));
+      if (grat > 0) {
+        var ok3 = near(grat, expG, Math.max(1, expG * 0.01));
+        allOk = allOk && ok3;
+        addCheck(ok3,
+          t('chkGrat'),
+          currency(grat) + ' / ' + t('exp') + ' ' + currency(expG));
+      } else {
+        addCheck('na', t('chkGrat'), t('notGiven'));
+      }
     }
 
     // 4. Employee PF (deducted) ~ 12% of Basic and ~ Employer PF
-    if (basic > 0 && empPfDed >= 0) {
+    if (basic > 0) {
       var expDed = basic * 0.12;
-      var ok4 = empPfDed <= 0 ? true : near(empPfDed, expDed, Math.max(1, expDed * 0.01));
-      allOk = allOk && ok4;
-      html += row(ok4,
-        t('chkEmpPfDed'),
-        empPfDed <= 0 ? t('notGiven') : currency(empPfDed) + ' / ' + t('exp') + ' ' + currency(expDed));
+      if (empPfDed > 0) {
+        var ok4 = near(empPfDed, expDed, Math.max(1, expDed * 0.01));
+        allOk = allOk && ok4;
+        addCheck(ok4,
+          t('chkEmpPfDed'),
+          currency(empPfDed) + ' / ' + t('exp') + ' ' + currency(expDed));
+      } else {
+        addCheck('na', t('chkEmpPfDed'), t('notGiven'));
+      }
     }
 
     // 5. Recompute take-home and compare to stated in-hand
-    if (basic > 0 && inhand > 0) {
-      var g = grossFrom(basic, hra, special);
+    if (basic > 0) {
+      var g = basic + hra + special + travel;
       var ded = parseDigits($('vEmpPfDed').value) || (basic * 0.12);
       var pTax = (pt || 200) * 12;
       var taxInc = newRegimeTax(Math.max(0, g - 75000)) * 1.04;
       var calcInhand = (g - ded - pTax - taxInc) / 12;
-      var ok5 = near(calcInhand, inhand, Math.max(1, inhand * 0.02));
-      allOk = allOk && ok5;
-      html += row(ok5,
-        t('chkInhand'),
-        currency(calcInhand) + ' / ' + t('stated') + ' ' + currency(inhand));
+      if (inhand > 0) {
+        var ok5 = near(calcInhand, inhand, Math.max(1, inhand * 0.02));
+        allOk = allOk && ok5;
+        addCheck(ok5,
+          t('chkInhand'),
+          currency(calcInhand) + ' / ' + t('stated') + ' ' + currency(inhand));
+      } else {
+        allOk = false;
+        addCheck(false,
+          t('chkInhand'),
+          t('chkInhandPrompt'));
+      }
+    }
+
+    // 6. Variable pay within typical limit (% of CTC)
+    if (vari > 0 && ctc > 0) {
+      var pct = vari / ctc * 100;
+      var ok6 = pct <= RECOMMENDED_VAR_MAX;
+      allOk = allOk && ok6;
+      addCheck(ok6,
+        t('chkVarpct'),
+        pct.toFixed(1) + '% ' + t('ofCtc') + ' (' + t('typicalLimit') + ' ' + RECOMMENDED_VAR_MAX + '%)');
     }
 
     html += '<div class="verify-verdict ' + (allOk ? 'ok' : 'warn') + '">' +
       (allOk ? '✓ ' + t('verdictOk') : '⚠ ' + t('verdictIssue')) + '</div>';
+
+    checks.push({ ok: allOk, label: allOk ? t('verdictOk') : t('verdictIssue'), detail: '' });
+    state.verify.checks = checks;
 
     report.innerHTML = html;
   }
@@ -171,6 +231,74 @@
   function renderAll() {
     renderReference();
     renderVerify();
+  }
+
+  function esc(s) { return '"' + String(s).replace(/"/g, '""') + '"'; }
+
+  function buildCsv() {
+    var R = state.ref, V = state.verify;
+    var rows = [];
+    rows.push([t('offerH1')]);
+    rows.push([]);
+    rows.push([t('ctcLbl'), r2(state.ctc)]);
+    rows.push([t('basicPctLbl'), state.basicPct + '%']);
+    rows.push([]);
+    rows.push([t('refTitle'), t('colTotalCtc')]);
+    rows.push([t('colBasic'), r2(R.basic)]);
+    rows.push([t('colHra'), r2(R.hra)]);
+    rows.push([t('colSpecial'), r2(R.special)]);
+    rows.push([t('colEmpPf'), r2(R.empPf)]);
+    rows.push([t('colGrat'), r2(R.grat)]);
+    rows.push([t('colTotalCtc'), r2(R.total)]);
+    rows.push([]);
+    rows.push([t('takeHomeTitle'), '']);
+    rows.push([t('colEmpPfDed'), r2(R.empPfDed)]);
+    rows.push([t('colProfTax'), r2(R.profTax)]);
+    rows.push([t('colIncTax'), r2(R.incTax)]);
+    rows.push([t('colTakeHome'), r2(R.takeHome)]);
+    rows.push([]);
+    rows.push([t('verifyTitle'), '']);
+    rows.push([t('vBasicLbl'), r2(parseDigits($('vBasic').value))]);
+    rows.push([t('vHraLbl'), r2(parseDigits($('vHra').value))]);
+    rows.push([t('vSpecialLbl'), r2(parseDigits($('vSpecial').value))]);
+    rows.push([t('vEmpPfLbl'), r2(parseDigits($('vEmpPf').value))]);
+    rows.push([t('vGratLbl'), r2(parseDigits($('vGrat').value))]);
+    rows.push([t('vVarLbl'), r2(parseDigits($('vVar').value))]);
+    rows.push([t('vVarCapLbl'), r2(parseDigits($('vVarCap').value) || 30)]);
+    rows.push([t('vTravelLbl'), r2(parseDigits($('vTravel').value))]);
+    rows.push([t('vMedLbl'), r2(parseDigits($('vMed').value))]);
+    rows.push([t('vEmpPfDedLbl'), r2(parseDigits($('vEmpPfDed').value))]);
+    rows.push([t('vPtLbl'), r2(parseDigits($('vPt').value))]);
+    rows.push([t('vInhandLbl'), r2(parseDigits($('vInhand').value))]);
+    rows.push([]);
+    rows.push([t('verifyTitle') + ' — ' + t('computedLbl')]);
+    rows.push([t('vGrossLbl'), r2(V.gross)]);
+    rows.push([t('vTakeHomeLbl'), r2(V.takeHome)]);
+    rows.push([t('vTotalLbl'), r2(V.total)]);
+    rows.push([]);
+    rows.push([t('checkTitle'), t('statusLbl'), t('detailLbl')]);
+    (V.checks || []).forEach(function (c) {
+      var st = c.ok === true ? 'OK' : (c.ok === false ? 'CHECK' : 'N/A');
+      rows.push([c.label, st, c.detail]);
+    });
+    rows.push([]);
+    rows.push(['Advertisement']);
+    rows.push(['simplecalculator.in - Free EMI, Income Tax, EB Bill & Offer Letter calculators']);
+    rows.push(['Visit https://www.simplecalculator.in']);
+    return rows.map(function (r) { return r.map(esc).join(','); }).join('\r\n');
+  }
+
+  function downloadCsv() {
+    var csv = '﻿' + buildCsv();
+    var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'offer-salary-splitup.csv';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
   }
 
   function groupOnBlur(el) {
@@ -207,6 +335,10 @@
       el.addEventListener('input', renderVerify);
       groupOnBlur(el);
     });
+
+    $('btnCsv').addEventListener('click', downloadCsv);
+    $('btnPdf').addEventListener('click', function () { window.print(); });
+    $('vVarCap').addEventListener('input', renderVerify);
 
     renderAll();
   }

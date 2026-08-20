@@ -62,6 +62,7 @@
     <p data-i18n="offerSub">Generate an ideal CTC break-up and verify the split-up in your job offer letter.</p>
   </header>
 
+  <p class="privacy-badge" data-i18n="privacyBadge">🔒 Private — nothing you type is stored or sent.</p>
   <main class="layout emi">
     <section class="card">
       <label class="field">
@@ -81,6 +82,11 @@
       </label>
 
       <p class="hint" data-i18n="genHint">A typical Indian structure keeps Basic at 40–50% of CTC. HRA is 50% of Basic; Employer PF and Gratuity are 12% and 4.81% of Basic respectively.</p>
+
+      <div class="dl-actions">
+        <button type="button" class="btn" id="btnPdf" data-i18n="btnPdf">📄 Save as PDF</button>
+        <button type="button" class="btn" id="btnCsv" data-i18n="btnCsv">📊 Download Excel</button>
+      </div>
     </section>
 
     <div class="results" id="results">
@@ -143,6 +149,11 @@
             </div>
           </label>
           <label class="field">
+            <div class="field-head"><span data-i18n="vVarCapLbl">Variable cap % of CTC</span>
+              <span class="input-box"><input type="number" id="vVarCap" min="0" max="100" step="1" value="30"><span class="unit">%</span></span>
+            </div>
+          </label>
+          <label class="field">
             <div class="field-head"><span data-i18n="vTravelLbl">Travel Allowance (LTA)</span>
               <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="vnum" id="vTravel" inputmode="numeric" autocomplete="off"></span>
             </div>
@@ -162,7 +173,7 @@
               <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="vnum" id="vPt" inputmode="numeric" autocomplete="off"></span>
             </div>
           </label>
-          <label class="field">
+          <label class="field required">
             <div class="field-head"><span data-i18n="vInhandLbl">Stated Monthly In-Hand</span>
               <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="vnum" id="vInhand" inputmode="numeric" autocomplete="off"></span>
             </div>
@@ -174,6 +185,7 @@
           <div class="summary-item"><dt data-i18n="vTakeHomeLbl">Est. Monthly In-Hand</dt><dd id="vTakeHome">-</dd></div>
           <div class="summary-item accent"><dt data-i18n="vTotalLbl">Total (CTC)</dt><dd id="vTotal">-</dd></div>
         </dl>
+        <p class="hint" data-i18n="inhandNote">Monthly in-hand is usually not printed in offer letters — this is the computed value from your entries.</p>
 
         <h3 class="check-title" data-i18n="checkTitle">Consistency Check</h3>
         <div id="verifyReport" class="verify-report"></div>
@@ -210,6 +222,12 @@
 
   <footer data-i18n="footer">Built for practice. Amounts are rounded to two decimals.</footer>
   <nav class="footer-links"><a href="privacy.html">Privacy Policy</a></nav>
+
+  <div class="pdf-watermark" aria-hidden="true">www.simplecalculator.in</div>
+  <div class="export-ad" aria-hidden="true">
+    <strong>simplecalculator.in</strong> — Free calculators: EMI, Income Tax, EB Bill &amp; Offer Letter Split-up.
+    Visit <strong>https://www.simplecalculator.in</strong> for more.
+  </div>
 </div>
 
 <script src="common.js?v=2"></script>

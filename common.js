@@ -195,11 +195,21 @@ var TRANSLATIONS = {
     vEmpPfLbl: 'Employer PF',
     vGratLbl: 'Employer Gratuity',
     vVarLbl: 'Variable / Other',
+    vVarCapLbl: 'Variable % of CTC',
+    chkVarpct: 'Variable pay within typical limit',
+    ofCtc: 'of CTC',
+    typicalLimit: 'typical limit',
     vTravelLbl: 'Travel Allowance (LTA)',
     vMedLbl: 'Medical Insurance Premium',
     vGrossLbl: 'Gross Salary',
     vTakeHomeLbl: 'Est. Monthly In-Hand',
     vTotalLbl: 'Total (CTC)',
+    inhandNote: 'Monthly in-hand is usually not printed in offer letters — this is the computed value from your entries.',
+    btnPdf: '📄 Save as PDF',
+    btnCsv: '📊 Download Excel',
+    computedLbl: 'Computed',
+    statusLbl: 'Status',
+    detailLbl: 'Detail',
     vEmpPfDedLbl: 'Employee PF (deducted)',
     vPtLbl: 'Prof. Tax / month',
     vInhandLbl: 'Stated Monthly In-Hand',
@@ -213,13 +223,81 @@ var TRANSLATIONS = {
     chkGrat: 'Gratuity ≈ 4.81% of Basic',
     chkEmpPfDed: 'Employee PF ≈ 12% of Basic',
     chkInhand: 'Monthly in-hand recomputed',
+    chkInhandPrompt: 'Please enter the Stated Monthly In-Hand to verify take-home.',
     exp: 'exp',
     notGiven: 'not given',
     stated: 'stated',
     verdictOk: 'Looks consistent — the split-up adds up.',
     verdictIssue: 'Check the items marked above before relying on this offer.',
     pgOfferTitle: 'Offer Letter Salary Split-up Generator & Verifier (Free)',
-    pgOfferDesc: 'Generate an ideal Indian salary break-up (Basic, HRA, PF, Gratuity) from your CTC and verify the split-up shown in your job offer letter.'
+    pgOfferDesc: 'Generate an ideal Indian salary break-up (Basic, HRA, PF, Gratuity) from your CTC and verify the split-up shown in your job offer letter.',
+
+    payslipTitle: 'Payslip vs Offer Letter',
+    payslipDesc: 'Compare your annual offer-letter salary split-up with your monthly payslip and flag mismatches.',
+    payslipCta: 'Open calculator →',
+    psH1: 'Payslip vs Offer Letter',
+    psSub: 'Compare your annual offer-letter split-up with your monthly payslip.',
+    psOfferH1: 'Offer Letter (Annual)',
+    psPayslipH1: 'Payslip (Monthly)',
+    oBasicLbl: 'Basic',
+    oHraLbl: 'HRA',
+    oSpecialLbl: 'Special Allowance',
+    oEmpPfLbl: 'Employer PF',
+    oGratLbl: 'Employer Gratuity',
+    oVarLbl: 'Variable (annual)',
+    oTravelLbl: 'Travel Allowance (LTA)',
+    oMedLbl: 'Medical Insurance',
+    oInhandLbl: 'Stated Monthly In-Hand',
+    pBasicLbl: 'Basic',
+    pHraLbl: 'HRA',
+    pSpecialLbl: 'Special / Allowances',
+    pEmpPfLbl: 'Employee PF',
+    pTravelLbl: 'Travel Allowance (LTA)',
+    pMedLbl: 'Medical Insurance',
+    pPtLbl: 'Professional Tax',
+    pTaxLbl: 'Income Tax (TDS)',
+    pNetLbl: 'Net Paid (In-Hand)',
+    cmpTax: 'Income Tax',
+    cmpTravel: 'Travel Allowance',
+    cmpMed: 'Medical Insurance',
+    payslip: 'Payslip',
+    increased: 'higher',
+    decreased: 'lower',
+    compareTitle: 'Comparison (Monthly)',
+    colComponent: 'Component',
+    colOffer: 'Offer (Monthly)',
+    colPayslip: 'Payslip',
+    colReason: 'Reason',
+    colStatus: 'Status',
+    compareNote: 'Offer figures are divided by 12 to match the monthly payslip. N/A means a figure was not entered on one side.',
+    checkTitle: 'Consistency Check',
+    cmpBasic: 'Basic',
+    cmpHra: 'HRA',
+    cmpSpecial: 'Special Allowance',
+    cmpPf: 'Employee PF',
+    cmpInhand: 'In-Hand',
+    naLbl: 'N/A',
+    matches: 'Matches',
+    naReason: 'Not provided',
+    checkMismatch: 'Mismatch',
+    psInhandPrompt: 'Please enter Stated Monthly In-Hand (offer) and Net Paid (payslip) to compare.',
+    psEmpty: 'Enter the figures from your offer letter and payslip above to compare them.',
+    verdictOk: 'Looks consistent — offer and payslip agree.',
+    verdictIssue: 'Check the items marked above before relying on this comparison.',
+    btnPdf: '📄 Save as PDF',
+    btnCsv: '📊 Download Excel',
+    statusLbl: 'Status',
+    detailLbl: 'Detail',
+    pgPayslipTitle: 'Payslip vs Offer Letter Comparator (Free)',
+    pgPayslipDesc: 'Compare your annual offer-letter salary split-up with your monthly payslip and flag mismatches in Basic, HRA, PF and in-hand pay.',
+    privacyTagline: '🔒 100% private — nothing you type is ever stored or sent.',
+    privacyBadge: '🔒 Private — nothing you type is stored or sent.',
+    privacyFabTitle: 'Privacy — tap to learn more',
+    privacyPopTitle: 'Your privacy',
+    privacyMsg1: '🔒 100% private — nothing you type is ever stored or sent.',
+    privacyMsg2: 'Your numbers never leave your device. We can’t see them.',
+    privacyMsg3: 'No accounts, no sign-up, no tracking — just the math.',
+    privacyMsg4: 'Nothing is saved and nothing is sent. Reload the page and it’s gone.'
   },
   ta: {
     heroTitle: '\u0b95\u0bbe\u0bb2\u0bcd\u0b95\u0bc1\u0bb2\u0bc7\u0b9f\u0bcd\u0b9f\u0bb0\u0bcd\u0b95\u0bb3\u0bcd',
@@ -379,11 +457,48 @@ var TRANSLATIONS = {
     offerCta: 'கால்குலேட்டரைத் திறக்க →',
     vTravelLbl: 'பயணப்படி (LTA)',
     vMedLbl: 'மருத்துவக் காப்பீட்டுக் கட்டணம்',
+    vVarCapLbl: 'மாறும் சம்பளம் % CTC',
+    chkVarpct: 'மாறும் சம்பளம் பொதுவான வரம்புக்குள் உள்ளது',
+    ofCtc: 'CTC-இன்',
+    typicalLimit: 'பொதுவான வரம்பு',
     vGrossLbl: 'மொத்த ஊதியம்',
     vTakeHomeLbl: 'மதிப்பிடப்பட்ட மாதாந்திர கைநீக்கம்',
     vTotalLbl: 'மொத்தம் (CTC)',
+    inhandNote: 'மாதாந்திர கைநீக்கம் பொதுவாக ஆஃபர் கடிதங்களில் அச்சிடப்படுவதில்லை — இது உங்கள் உள்ளீடுகளிலிருந்து கணிக்கப்பட்ட மதிப்பு.',
+    chkInhandPrompt: 'கைநீக்கத்தைச் சரிபார்க்க, குறிப்பிட்ட மாதாந்திர கைநீக்கத்தை உள்ளிடவும்.',
+    btnPdf: '📄 PDF ஆக சேமி',
+    btnCsv: '📊 எக்செல் பதிவிறக்கம்',
+    computedLbl: 'கணிக்கப்பட்ட',
     pgOfferTitle: 'ஆஃபர் லெட்டர் சம்பளப் பிரிவு உருவாக்கி & சரிபார்ப்பான (இலவசம்)',
-    pgOfferDesc: 'உங்கள் CTC-இலிருந்து ஒரு நிலையான இந்திய சம்பளப் பிரிவை (அடிப்படை, HRA, PF, கிராட்டுவிட்டி) உருவாக்கவும் மற்றும் உங்கள் வேலை ஆஃபர் கடிதப் பிரிவைச் சரிபார்க்கவும்.'
+    pgOfferDesc: 'உங்கள் CTC-இலிருந்து ஒரு நிலையான இந்திய சம்பளப் பிரிவை (அடிப்படை, HRA, PF, கிராட்டுவிட்டி) உருவாக்கவும் மற்றும் உங்கள் வேலை ஆஃபர் கடிதப் பிரிவைச் சரிபார்க்கவும்.',
+    payslipTitle: 'சம்பளப் படிவம் எதிர் ஆஃபர் கடிதம்',
+    payslipDesc: 'உங்கள் ஆண்டு ஆஃபர் கடித சம்பளப் பிரிவை உங்கள் மாதாந்திர சம்பளப் படிவத்துடன் ஒப்பிடவும்.',
+    payslipCta: 'கால்குலேட்டரைத் திறக்க →',
+    pTaxLbl: 'வருமான வரி (TDS)',
+    cmpTax: 'வருமான வரி',
+    oTravelLbl: 'பயணப் படி (LTA)',
+    oMedLbl: 'மருத்துவக் காப்பீடு',
+    pTravelLbl: 'பயணப் படி (LTA)',
+    pMedLbl: 'மருத்துவக் காப்பீடு',
+    cmpTravel: 'பயணப் படி',
+    cmpMed: 'மருத்துவக் காப்பீடு',
+    colReason: 'காரணம்',
+    matches: 'பொருந்துகிறது',
+    naReason: 'வழங்கப்படவில்லை',
+    checkMismatch: 'பொருந்தாமை',
+    payslip: 'சம்பளப் படிவம்',
+    increased: 'அதிகம்',
+    decreased: 'குறைவு',
+    pgPayslipTitle: 'சம்பளப் படிவம் எதிர் ஆஃபர் கடிதம் ஒப்பீட்டாளர் (இலவசம்)',
+    pgPayslipDesc: 'உங்கள் ஆண்டு ஆஃபர் சம்பளப் பிரிவை உங்கள் மாதாந்திர சம்பளப் படிவத்துடன் ஒப்பிட்டு, அடிப்படை, HRA, PF மற்றும் கைநீக்கத்தில் முரண்பாடுகளைக் காட்டவும்.',
+    privacyTagline: '🔒 முழுமையாக தனிப்பட்டது — நீங்கள் தட்டச்சு செய்வது எதுவும் சேமிக்கப்படாது அல்லது அனுப்பப்படாது.',
+    privacyBadge: '🔒 தனிப்பட்டது — நீங்கள் உள்ளிடும் தகவல் சேமிக்கப்படாது.',
+    privacyFabTitle: 'தனியுரிமை — மேலும் அறிய தட்டவும்',
+    privacyPopTitle: 'உங்கள் தனியுரிமை',
+    privacyMsg1: '🔒 முழுமையாக தனிப்பட்டது — நீங்கள் தட்டச்சு செய்வது எதுவும் சேமிக்கப்படாது அல்லது அனுப்பப்படாது.',
+    privacyMsg2: 'உங்கள் எண்கள் உங்கள் சாதனத்தை விட்டு வெளியேறுவதில்லை. நாங்கள் அவற்றைப் பார்க்க முடியாது.',
+    privacyMsg3: 'கணக்குகள் இல்லை, பதிவு இல்லை, கண்காணிப்பு இல்லை — வெறும் கணக்கீடுகள் மட்டும்.',
+    privacyMsg4: 'எதுவும் சேமிக்கப்படாது, எதுவும் அனுப்பப்படாது. பக்கத்தை மீண்டும் ஏற்றினால் அது மறைந்துவிடும்.'
   }
 };
 
@@ -421,7 +536,8 @@ var META_KEYS = {
   eb: ['pgEbTitle', 'pgEbDesc'],
   tax: ['pgTaxTitle', 'pgTaxDesc'],
   irpart: ['pgIrpartTitle', 'pgIrpartDesc'],
-  offer: ['pgOfferTitle', 'pgOfferDesc']
+  offer: ['pgOfferTitle', 'pgOfferDesc'],
+  payslip: ['pgPayslipTitle', 'pgPayslipDesc']
 };
 
 function setMetaContent(name, content) {
@@ -486,6 +602,72 @@ function applyLanguage(lang) {
   document.dispatchEvent(new Event('langchange'));
 }
 
+var PRIVACY_TAGLINES = ['privacyTagline', 'privacyMsg2', 'privacyMsg3', 'privacyMsg4', 'privacyBadge'];
+
+function isHomePage() {
+  if (PAGE === 'index') return true;
+  var path = location.pathname || '';
+  return path === '/' || path.endsWith('/') || /(^|\/)index\.html$/.test(path);
+}
+
+function injectPrivacy() {
+  // Footer privacy line: home page always uses "100% private"; other pages
+  // randomly pick one of the taglines on each load.
+  var key = isHomePage() ? 'privacyTagline' : PRIVACY_TAGLINES[Math.floor(Math.random() * PRIVACY_TAGLINES.length)];
+  document.querySelectorAll('footer').forEach(function (f) {
+    if (f.querySelector('.privacy-line')) return;
+    var p = document.createElement('p');
+    p.className = 'privacy-line';
+    p.setAttribute('data-i18n', key);
+    p.textContent = t(key);
+    f.appendChild(p);
+  });
+}
+
+var PRIVACY_MSGS = ['privacyMsg1', 'privacyMsg2', 'privacyMsg3', 'privacyMsg4'];
+var privacyIdx = 0;
+
+function injectPrivacyFab() {
+  if (document.getElementById('privacyFab')) return;
+
+  var fab = document.createElement('button');
+  fab.id = 'privacyFab';
+  fab.className = 'privacy-fab';
+  fab.setAttribute('aria-label', 'Privacy');
+  fab.title = t('privacyFabTitle');
+  fab.innerHTML = '🔒';
+
+  var pop = document.createElement('div');
+  pop.id = 'privacyPop';
+  pop.className = 'privacy-pop';
+  pop.innerHTML = '<strong>' + t('privacyPopTitle') + '</strong><p id="privacyPopText"></p>';
+
+  document.body.appendChild(fab);
+  document.body.appendChild(pop);
+
+  function currentKey() { return PRIVACY_MSGS[(privacyIdx - 1 + PRIVACY_MSGS.length) % PRIVACY_MSGS.length]; }
+
+  function show() {
+    var key = PRIVACY_MSGS[privacyIdx % PRIVACY_MSGS.length];
+    document.getElementById('privacyPopText').textContent = t(key);
+    pop.classList.add('open');
+    privacyIdx++;
+  }
+  function hide() { pop.classList.remove('open'); }
+
+  fab.addEventListener('click', function (e) {
+    e.stopPropagation();
+    if (pop.classList.contains('open')) hide(); else show();
+  });
+  document.addEventListener('langchange', function () {
+    if (pop.classList.contains('open')) document.getElementById('privacyPopText').textContent = t(currentKey());
+    fab.title = t('privacyFabTitle');
+  });
+  document.addEventListener('click', function (e) {
+    if (pop.classList.contains('open') && !pop.contains(e.target) && e.target !== fab && !fab.contains(e.target)) hide();
+  });
+}
+
 function initLang() {
   var sw = document.querySelector('.lang-switch');
   if (sw) {
@@ -493,6 +675,8 @@ function initLang() {
       b.addEventListener('click', function () { applyLanguage(b.getAttribute('data-lang')); });
     });
   }
+  injectPrivacy();
+  injectPrivacyFab();
   applyLanguage(currentLang);
 }
 
@@ -503,7 +687,8 @@ var CALCULATORS = [
   { id: 'eb',  href: 'ebbill.html', icon: '⚡',  accent: '#f59e0b', titleKey: 'ebTitle',  descKey: 'ebDesc',  ctaKey: 'ebCta' },
   { id: 'tax', href: 'tax.html',    icon: '🧾', accent: '#16a34a', titleKey: 'taxH1',   descKey: 'taxDesc', ctaKey: 'taxCta' },
   { id: 'irpart', href: 'irpart.html', icon: '💸', accent: '#7c3aed', titleKey: 'irpartTitle', descKey: 'irpartDesc', ctaKey: 'irpartCta' },
-  { id: 'offer', href: 'offer.html', icon: '📄', accent: '#db2777', titleKey: 'offerTitle', descKey: 'offerDesc', ctaKey: 'offerCta' }
+  { id: 'offer', href: 'offer.html', icon: '📄', accent: '#db2777', titleKey: 'offerTitle', descKey: 'offerDesc', ctaKey: 'offerCta' },
+  { id: 'payslip', href: 'payslip.html', icon: '🧾', accent: '#0ea5e9', titleKey: 'payslipTitle', descKey: 'payslipDesc', ctaKey: 'payslipCta' }
 ];
 
 function renderLanding() {
