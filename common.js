@@ -197,6 +197,9 @@ var TRANSLATIONS = {
     vVarLbl: 'Variable / Other',
     vTravelLbl: 'Travel Allowance (LTA)',
     vMedLbl: 'Medical Insurance Premium',
+    vGrossLbl: 'Gross Salary',
+    vTakeHomeLbl: 'Est. Monthly In-Hand',
+    vTotalLbl: 'Total (CTC)',
     vEmpPfDedLbl: 'Employee PF (deducted)',
     vPtLbl: 'Prof. Tax / month',
     vInhandLbl: 'Stated Monthly In-Hand',
@@ -376,6 +379,9 @@ var TRANSLATIONS = {
     offerCta: 'கால்குலேட்டரைத் திறக்க →',
     vTravelLbl: 'பயணப்படி (LTA)',
     vMedLbl: 'மருத்துவக் காப்பீட்டுக் கட்டணம்',
+    vGrossLbl: 'மொத்த ஊதியம்',
+    vTakeHomeLbl: 'மதிப்பிடப்பட்ட மாதாந்திர கைநீக்கம்',
+    vTotalLbl: 'மொத்தம் (CTC)',
     pgOfferTitle: 'ஆஃபர் லெட்டர் சம்பளப் பிரிவு உருவாக்கி & சரிபார்ப்பான (இலவசம்)',
     pgOfferDesc: 'உங்கள் CTC-இலிருந்து ஒரு நிலையான இந்திய சம்பளப் பிரிவை (அடிப்படை, HRA, PF, கிராட்டுவிட்டி) உருவாக்கவும் மற்றும் உங்கள் வேலை ஆஃபர் கடிதப் பிரிவைச் சரிபார்க்கவும்.'
   }

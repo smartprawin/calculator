@@ -1135,6 +1135,8 @@ footer {
 
 .verify-card { grid-column: 1 / -1; }
 
+.verify-summary { margin-top: 18px; }
+
 .verify-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

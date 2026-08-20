@@ -86,8 +86,23 @@
 
     if (!filled) {
       report.innerHTML = '<p class="hint">' + t('verifyEmpty') + '</p>';
+      $('vGross').textContent = '-';
+      $('vTakeHome').textContent = '-';
+      $('vTotal').textContent = '-';
       return;
     }
+
+    var gross = basic + hra + special + travel + vari;
+    var total = gross + empPf + grat + med;
+    $('vGross').textContent = currency(gross);
+    $('vTotal').textContent = currency(total);
+
+    var gTake = basic + hra + special + travel;
+    var ded = empPfDed > 0 ? empPfDed : basic * 0.12;
+    var pTax = (pt > 0 ? pt : 200) * 12;
+    var taxInc = newRegimeTax(Math.max(0, gTake - 75000)) * 1.04;
+    var takeHome = gTake > 0 ? (gTake - ded - pTax - taxInc) / 12 : 0;
+    $('vTakeHome').textContent = currency(Math.max(0, takeHome));
 
     var html = '';
     var allOk = true;
