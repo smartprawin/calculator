@@ -140,23 +140,47 @@
     svg.innerHTML = html;
   }
 
-  function renderPaymentsTable() {
-    var tb = $('paymentsBody');
-    if (!state.payments.length) {
-      tb.innerHTML = '<tr><td colspan="3" style="text-align:center;color:#64748b;padding:14px" data-i18n="noPayments">No part payments added yet.</td></tr>';
-      return;
+  function renderResults() {
+    var built = buildSchedule();
+    renderSchedule(built);
+    renderSummary(built);
+  }
+
+  function buildViewRows(schedule) {
+    var rows;
+    if (state.view === 'month') {
+      rows = schedule.map(function (r, i) {
+        return { label: r.date, period: i + 1, payment: r.payment, principal: r.principal, interest: r.interest, balance: r.balance };
+      });
+    } else {
+      var map = {};
+      schedule.forEach(function (r, i) {
+        var y = r.date.slice(0, 4);
+        var agg = map[y] || { label: y, payment: 0, principal: 0, interest: 0, balance: 0, period: i + 1 };
+        agg.payment += r.payment; agg.principal += r.principal; agg.interest += r.interest; agg.balance = r.balance;
+        map[y] = agg;
+      });
+      rows = Object.keys(map).map(function (k) { return map[k]; });
     }
-    tb.innerHTML = state.payments.map(function (p, i) {
-      return '<tr>' +
-        '<td><input type="number" class="pp-month" data-i="' + i + '" min="1" value="' + p.period + '"></td>' +
-        '<td><input type="number" class="pp-amt" data-i="' + i + '" min="0" step="1000" value="' + p.amount + '"></td>' +
-        '<td><button type="button" class="pp-del" data-i="' + i + '" aria-label="Remove">×</button></td>' +
-        '</tr>';
+    return rows;
+  }
+
+  function renderSchedule(built) {
+    var periodLbl = t(state.view);
+    var rows = buildViewRows(built.rows);
+    $('scheduleBody').innerHTML = rows.map(function (r) {
+      var amt = 0;
+      state.payments.forEach(function (p) { if (p.period === r.period) amt += p.amount; });
+      return '<tr><td data-label="' + periodLbl + '">' + r.label + '</td>' +
+             '<td data-label="' + t('colPayment') + '">' + currency(r.payment) + '</td>' +
+             '<td data-label="' + t('colPrincipal') + '">' + currency(r.principal) + '</td>' +
+             '<td data-label="' + t('colInterest') + '">' + currency(r.interest) + '</td>' +
+             '<td data-label="' + t('colBalance') + '">' + currency(r.balance) + '</td>' +
+             '<td data-label="' + t('colPrepay') + '" class="prepay-cell"><input type="number" class="pp-inline" data-period="' + r.period + '" min="0" step="1000" value="' + (amt ? amt : '') + '" placeholder="0"></td></tr>';
     }).join('');
   }
 
-  function renderResults() {
-    var built = buildSchedule();
+  function renderSummary(built) {
     var schedule = built.rows;
     var emi = built.emi;
     var totalPayment = 0, totalInterest = 0;
@@ -175,25 +199,27 @@
     $('legendInterest').textContent = t('interestLbl') + ': ' + currency(totalInterest) + ' (' + (totalPayment > 0 ? ((totalInterest / totalPayment) * 100).toFixed(1) : 0) + '%)';
     renderChart(state.amount, totalInterest);
     computePreclosure(schedule);
+  }
 
-    var rows;
-    if (state.view === 'month') {
-      rows = schedule.map(function (r) { return { label: r.date, payment: r.payment, principal: r.principal, interest: r.interest, balance: r.balance }; });
-    } else {
-      var map = {};
-      schedule.forEach(function (r) {
-        var y = r.date.slice(0, 4);
-        var agg = map[y] || { label: y, payment: 0, principal: 0, interest: 0, balance: 0 };
-        agg.payment += r.payment; agg.principal += r.principal; agg.interest += r.interest; agg.balance = r.balance;
-        map[y] = agg;
-      });
-      rows = Object.keys(map).map(function (k) { return map[k]; });
+  function liveUpdateSchedule(built) {
+    var trs = $('scheduleBody').querySelectorAll('tr');
+    var rows = buildViewRows(built.rows);
+    if (trs.length !== rows.length) return;
+    for (var i = 0; i < trs.length; i++) {
+      var tds = trs[i].querySelectorAll('td');
+      tds[1].textContent = currency(rows[i].payment);
+      tds[2].textContent = currency(rows[i].principal);
+      tds[3].textContent = currency(rows[i].interest);
+      tds[4].textContent = currency(rows[i].balance);
     }
+  }
 
-    $('scheduleBody').innerHTML = rows.map(function (r) {
-      return '<tr><td>' + r.label + '</td><td>' + currency(r.payment) + '</td><td>' + currency(r.principal) +
-             '</td><td>' + currency(r.interest) + '</td><td>' + currency(r.balance) + '</td></tr>';
-    }).join('');
+  function setPrepayForPeriod(period, amount) {
+    amount = Math.max(0, parseDigits(amount) || 0);
+    for (var i = state.payments.length - 1; i >= 0; i--) {
+      if (state.payments[i].period === period) state.payments.splice(i, 1);
+    }
+    if (amount > 0) state.payments.push({ period: period, amount: amount });
   }
 
   function render() {
@@ -268,29 +294,21 @@
   });
   $('startDate').addEventListener('input', function (e) { state.startDate = e.target.value || todayStr(); renderResults(); });
 
-  $('addPayment').addEventListener('click', function () {
-    var next = state.payments.length ? (state.payments[state.payments.length - 1].period + 1) : 1;
-    state.payments.push({ period: next, amount: 0 });
-    renderPaymentsTable();
-    renderResults();
-  });
-
-  $('paymentsBody').addEventListener('input', function (e) {
+  $('scheduleBody').addEventListener('input', function (e) {
     var el = e.target;
-    var i = parseInt(el.dataset.i, 10);
-    if (isNaN(i) || !state.payments[i]) return;
-    if (el.classList.contains('pp-month')) state.payments[i].period = Math.max(1, Math.round(parseDigits(el.value)));
-    else if (el.classList.contains('pp-amt')) state.payments[i].amount = parseDigits(el.value);
-    renderResults();
+    if (!el.classList.contains('pp-inline')) return;
+    var period = parseInt(el.dataset.period, 10);
+    if (isNaN(period)) return;
+    setPrepayForPeriod(period, el.value);
+    var built = buildSchedule();
+    renderSummary(built);
+    liveUpdateSchedule(built);
   });
 
-  $('paymentsBody').addEventListener('click', function (e) {
-    var b = e.target.closest('.pp-del'); if (!b) return;
-    var i = parseInt(b.dataset.i, 10);
-    if (!isNaN(i)) state.payments.splice(i, 1);
-    renderPaymentsTable();
-    renderResults();
-  });
+  $('scheduleBody').addEventListener('blur', function (e) {
+    var el = e.target;
+    if (el && el.classList && el.classList.contains('pp-inline')) renderResults();
+  }, true);
 
   $('loadList').addEventListener('click', function () {
     var text = $('pasteArea').value || '';
@@ -305,7 +323,6 @@
     });
     if (parsed.length) {
       state.payments = parsed;
-      renderPaymentsTable();
       renderResults();
     }
   });
@@ -320,7 +337,6 @@
   });
   $('preCharge').addEventListener('input', function (e) { state.preChargePct = parseDigits(e.target.value); renderResults(); });
 
-  document.addEventListener('langchange', function () { renderPaymentsTable(); render(); });
-  renderPaymentsTable();
+  document.addEventListener('langchange', function () { render(); });
   render();
 })();

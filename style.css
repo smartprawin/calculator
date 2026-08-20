@@ -30,7 +30,7 @@ body {
 .theme-tax  { --accent: #16a34a; --accent-2: #0ea5e9; }
 
 .app {
-  max-width: 1080px;
+  max-width: 1140px;
   margin: 0 auto;
   padding: 24px 16px 48px;
   position: relative;
@@ -76,7 +76,7 @@ header p {
 
 .layout {
   display: grid;
-  gap: 20px;
+  gap: 24px;
   min-width: 0;
 }
 
@@ -93,12 +93,47 @@ header p {
     align-items: start;
   }
 
-  .results {
-    display: grid;
-    gap: 20px;
+  .layout.irpart {
+    grid-template-columns: 1fr;
+    align-items: start;
   }
 
-  .schedule-card {
+  .layout.irpart > section.card,
+  .layout.irpart > .schedule-card,
+  .layout.irpart > .breakup-card {
+    width: 100%;
+  }
+
+  .layout.irpart > .results {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-content: start;
+  }
+
+  .layout.irpart > .results > .preclose-card {
+    grid-column: 1 / -1;
+  }
+
+  /* EMI page: keep the input on top and let all results (including the
+     payment schedule) flow below it in a single column. */
+  .layout.emi {
+    grid-template-columns: 1fr;
+  }
+
+  .layout.emi > section.card {
+    width: 100%;
+  }
+
+  .layout.emi > .results {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-content: start;
+  }
+
+  .layout.emi > .results > .preclose-card {
     grid-column: 1 / -1;
   }
 
@@ -116,7 +151,7 @@ header p {
   border: 1px solid #e2e8f0;
   border-top: 4px solid var(--accent);
   border-radius: 12px;
-  padding: 20px;
+  padding: 22px;
   min-width: 0;
   box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
 }
@@ -310,10 +345,10 @@ header p {
   width: 100px;
   border: none;
   outline: none;
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   text-align: right;
   font-variant-numeric: tabular-nums;
-  padding: 3px 0;
+  padding: 8px 2px;
   background: transparent;
 }
 
@@ -345,6 +380,35 @@ input[type='number'] {
   border: 1px solid #e2e8f0;
   border-radius: 8px;
   font-size: 0.95rem;
+}
+
+.field input[type='date'] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #fff;
+  color: #0f172a;
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.field input[type='date']:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.field input[type='date']::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.15s;
+  filter: invert(32%) sepia(89%) saturate(2476%) hue-rotate(202deg) brightness(95%) contrast(90%);
+}
+
+.field input[type='date']:hover::-webkit-calendar-picker-indicator {
+  opacity: 0.85;
 }
 
 .field-scale {
@@ -739,6 +803,34 @@ th {
   align-self: flex-start;
 }
 
+.pp-inline {
+  width: 100px;
+  padding: 8px 10px;
+  font-size: 1rem;
+  text-align: right;
+  border: 1px solid #bae6fd;
+  border-radius: 8px;
+  background: #f0f9ff;
+  color: #0369a1;
+  -moz-appearance: textfield;
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.pp-inline::-webkit-outer-spin-button,
+.pp-inline::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.pp-inline:focus {
+  outline: none;
+  border-color: #0284c7;
+  box-shadow: 0 0 0 3px color-mix(in srgb, #0284c7 22%, transparent);
+  background: #fff;
+}
+
 footer {
   margin-top: 32px;
   text-align: center;
@@ -980,7 +1072,7 @@ footer {
   }
 
   .input-box { width: 100%; flex-wrap: wrap; }
-  .input-box input { width: 100%; flex: 1 1 90px; min-width: 0; }
+  .input-box input { width: 100%; flex: 1 1 90px; min-width: 0; font-size: 1.15rem; padding: 10px 2px; }
 
   .loan-tabs,
   .segmented { flex-wrap: wrap; }
@@ -1014,4 +1106,81 @@ footer {
   .calc-card h2 { font-size: 1.05rem; }
   .calc-card p { font-size: 0.82rem; }
   .calc-cta { margin-top: 10px; padding: 6px 14px; font-size: 0.85rem; }
+
+  /* Keep the schedule as a normal table on mobile, but pin the Prepay column to the
+     right edge so it stays visible while the middle columns scroll (no column reduced). */
+  .schedule-card td.prepay-cell {
+    position: sticky;
+    right: 0;
+    background: #fff;
+    z-index: 2;
+    box-shadow: -3px 0 5px -2px rgba(15, 23, 42, 0.12);
+  }
+  .schedule-card .pp-inline {
+    width: 100%;
+    min-width: 96px;
+    font-size: 1.1rem;
+    padding: 10px 8px;
+  }
+  .schedule-card th:last-child {
+    position: sticky;
+    right: 0;
+    background: #f8fafc;
+    z-index: 2;
+  }
+}
+
+/* ---------- Offer Letter Salary Split-up ---------- */
+.theme-offer { --accent: #db2777; --accent-2: #f59e0b; }
+
+.verify-card { grid-column: 1 / -1; }
+
+.verify-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px 18px;
+  margin-top: 14px;
+}
+
+.verify-grid .field { margin: 0; }
+
+.check-title {
+  margin: 22px 0 12px;
+  font-size: 1.05rem;
+}
+
+.verify-report { display: flex; flex-direction: column; gap: 8px; }
+
+.verify-row {
+  display: grid;
+  grid-template-columns: 22px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+.verify-row .v-mark { font-weight: 700; text-align: center; }
+.verify-row .v-label { color: #0f172a; }
+.verify-row .v-detail { color: #64748b; text-align: right; font-variant-numeric: tabular-nums; }
+
+.verify-row.ok .v-mark { color: #16a34a; }
+.verify-row.warn .v-mark { color: #dc2626; }
+.verify-row.warn { background: #fef2f2; border-color: #fecaca; }
+
+.verify-verdict {
+  margin-top: 6px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  text-align: center;
+}
+.verify-verdict.ok { background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; }
+.verify-verdict.warn { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
+
+@media (max-width: 640px) {
+  .verify-grid { grid-template-columns: 1fr; }
 }

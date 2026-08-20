@@ -159,10 +159,64 @@ var TRANSLATIONS = {
     loadList: 'Load from list',
     pasteFmt: 'One entry per line: Month,Amount (comma or space separated).',
     colMonth: 'Month',
+    colPrepay: 'Prepay',
+    addPrepay: '+ Prepay',
     modeLabel: 'Apply part payments to',
     noPayments: 'No part payments added yet.',
     pgIrpartTitle: 'Irregular Part-Payment EMI Calculator (Free)',
-    pgIrpartDesc: 'Plan a loan with irregular one-off part payments and see how they shorten the tenure or lower the EMI, with a full amortization schedule.'
+    pgIrpartDesc: 'Plan a loan with irregular one-off part payments and see how they shorten the tenure or lower the EMI, with a full amortization schedule.',
+
+    offerTitle: 'Offer Letter Salary Split-up',
+    offerDesc: 'Generate an ideal CTC break-up and verify the split-up in your job offer letter.',
+    offerCta: 'Open calculator →',
+    offerH1: 'Offer Letter Salary Split-up',
+    offerSub: 'Generate an ideal CTC break-up and verify the split-up in your job offer letter.',
+    genHint: 'A typical Indian structure keeps Basic at 40–50% of CTC. HRA is 50% of Basic; Employer PF and Gratuity are 12% and 4.81% of Basic respectively.',
+    ctcLbl: 'Annual CTC',
+    basicPctLbl: 'Basic % of CTC',
+    refTitle: 'Salary Break-up (Reference)',
+    colBasic: 'Basic',
+    colHra: 'HRA',
+    colSpecial: 'Special Allowance',
+    colEmpPf: 'Employer PF',
+    colGrat: 'Employer Gratuity',
+    colTotalCtc: 'Total = CTC',
+    takeHomeTitle: 'Take-Home Estimate',
+    colEmpPfDed: 'Employee PF',
+    colProfTax: 'Professional Tax',
+    colIncTax: 'Est. Income Tax',
+    colTakeHome: 'Est. Monthly In-Hand',
+    taxNote: 'Income tax is a New-Regime estimate (FY 2025-26) and excludes HRA exemption, 80C, etc. Treat it as approximate.',
+    verifyTitle: 'Verify Your Offer Letter',
+    verifyHint: 'Enter the numbers exactly as printed in your offer letter. Leave a field blank if it is not mentioned. We check the split-up for internal consistency.',
+    vBasicLbl: 'Basic',
+    vHraLbl: 'HRA',
+    vSpecialLbl: 'Special Allowance',
+    vEmpPfLbl: 'Employer PF',
+    vGratLbl: 'Employer Gratuity',
+    vVarLbl: 'Variable / Other',
+    vTravelLbl: 'Travel Allowance (LTA)',
+    vMedLbl: 'Medical Insurance Premium',
+    vEmpPfDedLbl: 'Employee PF (deducted)',
+    vPtLbl: 'Prof. Tax / month',
+    vInhandLbl: 'Stated Monthly In-Hand',
+    checkTitle: 'Consistency Check',
+    verifyDisclaimer: 'This is a sanity check, not financial advice. Employers may use different (valid) structures — a warning only means the number is worth double-checking.',
+    verifyEmpty: 'Enter the figures from your offer letter above to run a consistency check.',
+    chkSum: 'Components add up to CTC',
+    matches: 'Matches CTC',
+    vsCtc: 'vs CTC',
+    chkEmpPf: 'Employer PF ≈ 12% of Basic',
+    chkGrat: 'Gratuity ≈ 4.81% of Basic',
+    chkEmpPfDed: 'Employee PF ≈ 12% of Basic',
+    chkInhand: 'Monthly in-hand recomputed',
+    exp: 'exp',
+    notGiven: 'not given',
+    stated: 'stated',
+    verdictOk: 'Looks consistent — the split-up adds up.',
+    verdictIssue: 'Check the items marked above before relying on this offer.',
+    pgOfferTitle: 'Offer Letter Salary Split-up Generator & Verifier (Free)',
+    pgOfferDesc: 'Generate an ideal Indian salary break-up (Basic, HRA, PF, Gratuity) from your CTC and verify the split-up shown in your job offer letter.'
   },
   ta: {
     heroTitle: '\u0b95\u0bbe\u0bb2\u0bcd\u0b95\u0bc1\u0bb2\u0bc7\u0b9f\u0bcd\u0b9f\u0bb0\u0bcd\u0b95\u0bb3\u0bcd',
@@ -311,10 +365,19 @@ var TRANSLATIONS = {
     loadList: 'பட்டியலிலிருந்து ஏற்றவும்',
     pasteFmt: 'வரிக்கு ஒன்று: மாதம்,தொகை (காற்புள்ளி அல்லது இடைவெளியால் பிரிக்கவும்).',
     colMonth: 'மாதம்',
+    colPrepay: 'முன்கட்டணம்',
+    addPrepay: '+ முன்கட்டணம்',
     modeLabel: 'கூடுதல் தவணைகளை பயன்படுத்து',
     noPayments: 'இதுவரை கூடுதல் தவணைகள் எதுவும் சேர்க்கப்படவில்லை.',
     pgIrpartTitle: 'ஒழுங்கற்ற கூடுதல் தவணை இஎம்ஐ கால்குலேட்டர் (இலவசம்)',
-    pgIrpartDesc: 'ஒழுங்கற்ற ஒருமுறை கூடுதல் தவணைகளுடன் கடனைத் திட்டமிட்டு, அவை கால அவகாசத்தைக் குறைக்கின்றனவா அல்லது இஎம்ஐயைக் குறைக்கின்றனவா என முழு அட்டவணையுடன் பாருங்கள்.'
+    pgIrpartDesc: 'ஒழுங்கற்ற ஒருமுறை கூடுதல் தவணைகளுடன் கடனைத் திட்டமிட்டு, அவை கால அவகாசத்தைக் குறைக்கின்றனவா அல்லது இஎம்ஐயைக் குறைக்கின்றனவா என முழு அட்டவணையுடன் பாருங்கள்.',
+    offerTitle: 'ஆஃபர் லெட்டர் சம்பளப் பிரிவு',
+    offerDesc: 'ஒரு நிலையான CTC பிரிவை உருவாக்கவும் மற்றும் உங்கள் வேலை ஆஃபர் கடிதத்தில் உள்ள பிரிவைச் சரிபார்க்கவும்.',
+    offerCta: 'கால்குலேட்டரைத் திறக்க →',
+    vTravelLbl: 'பயணப்படி (LTA)',
+    vMedLbl: 'மருத்துவக் காப்பீட்டுக் கட்டணம்',
+    pgOfferTitle: 'ஆஃபர் லெட்டர் சம்பளப் பிரிவு உருவாக்கி & சரிபார்ப்பான (இலவசம்)',
+    pgOfferDesc: 'உங்கள் CTC-இலிருந்து ஒரு நிலையான இந்திய சம்பளப் பிரிவை (அடிப்படை, HRA, PF, கிராட்டுவிட்டி) உருவாக்கவும் மற்றும் உங்கள் வேலை ஆஃபர் கடிதப் பிரிவைச் சரிபார்க்கவும்.'
   }
 };
 
@@ -351,7 +414,8 @@ var META_KEYS = {
   emi: ['pgEmiTitle', 'pgEmiDesc'],
   eb: ['pgEbTitle', 'pgEbDesc'],
   tax: ['pgTaxTitle', 'pgTaxDesc'],
-  irpart: ['pgIrpartTitle', 'pgIrpartDesc']
+  irpart: ['pgIrpartTitle', 'pgIrpartDesc'],
+  offer: ['pgOfferTitle', 'pgOfferDesc']
 };
 
 function setMetaContent(name, content) {
@@ -432,7 +496,8 @@ var CALCULATORS = [
   { id: 'emi', href: 'emi.html',    icon: '💰', accent: '#2563eb', titleKey: 'emiTitle', descKey: 'emiDesc', ctaKey: 'emiCta' },
   { id: 'eb',  href: 'ebbill.html', icon: '⚡',  accent: '#f59e0b', titleKey: 'ebTitle',  descKey: 'ebDesc',  ctaKey: 'ebCta' },
   { id: 'tax', href: 'tax.html',    icon: '🧾', accent: '#16a34a', titleKey: 'taxH1',   descKey: 'taxDesc', ctaKey: 'taxCta' },
-  { id: 'irpart', href: 'irpart.html', icon: '💸', accent: '#7c3aed', titleKey: 'irpartTitle', descKey: 'irpartDesc', ctaKey: 'irpartCta' }
+  { id: 'irpart', href: 'irpart.html', icon: '💸', accent: '#7c3aed', titleKey: 'irpartTitle', descKey: 'irpartDesc', ctaKey: 'irpartCta' },
+  { id: 'offer', href: 'offer.html', icon: '📄', accent: '#db2777', titleKey: 'offerTitle', descKey: 'offerDesc', ctaKey: 'offerCta' }
 ];
 
 function renderLanding() {

@@ -102,7 +102,7 @@
     <p data-i18n="emiSub">Home Loan, Car Loan &amp; Personal Loan</p>
   </header>
 
-  <main class="layout">
+  <main class="layout emi">
     <section class="card">
       <div class="loan-tabs" id="loanTabs">
         <button type="button" class="active" data-type="home" data-i18n="tabHome">Home Loan</button>
@@ -174,6 +174,22 @@
       </div>
     </section>
 
+    <div class="card schedule-card">
+      <div class="schedule-head">
+        <h2 data-i18n="schedule">Payment Schedule</h2>
+        <div class="segmented small" id="viewTabs">
+          <button type="button" class="active" data-view="year" data-i18n="yearWise">Year wise</button>
+          <button type="button" data-view="month" data-i18n="monthWise">Month wise</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th id="thPeriod">Year</th><th data-i18n="colPayment">Payment</th><th data-i18n="colPrincipal">Principal</th><th data-i18n="colInterest">Interest</th><th data-i18n="colBalance">Balance</th></tr></thead>
+          <tbody id="scheduleBody"></tbody>
+        </table>
+      </div>
+    </div>
+
     <div class="results" id="results">
       <div class="card">
         <h2 data-i18n="summary">Summary</h2>
@@ -192,21 +208,6 @@
             <li><span class="legend-dot blue"></span><span id="legendPrincipal">Principal: -</span></li>
             <li><span class="legend-dot amber"></span><span id="legendInterest">Interest: -</span></li>
           </ul>
-        </div>
-      </div>
-      <div class="card schedule-card">
-        <div class="schedule-head">
-          <h2 data-i18n="schedule">Payment Schedule</h2>
-          <div class="segmented small" id="viewTabs">
-            <button type="button" class="active" data-view="year" data-i18n="yearWise">Year wise</button>
-            <button type="button" data-view="month" data-i18n="monthWise">Month wise</button>
-          </div>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th id="thPeriod">Year</th><th data-i18n="colPayment">Payment</th><th data-i18n="colPrincipal">Principal</th><th data-i18n="colInterest">Interest</th><th data-i18n="colBalance">Balance</th></tr></thead>
-            <tbody id="scheduleBody"></tbody>
-          </table>
         </div>
       </div>
       <div class="card preclose-card">

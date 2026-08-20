@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var _l=new URLSearchParams(location.search).get('lang');if(_l==='ta'){document.documentElement.lang='ta';}}catch(e){}</script>
+<meta name="i18n-page" content="offer">
+<title>Offer Letter Salary Split-up Generator &amp; Verifier (Free)</title>
+<meta name="description" content="Generate an ideal Indian salary break-up (Basic, HRA, PF, Gratuity, Special Allowance) from your CTC, and verify the split-up shown in your job offer letter.">
+<meta name="keywords" content="offer letter salary calculator, CTC break-up, salary split-up generator, verify offer letter, in-hand salary, PF gratuity calculator">
+<meta name="author" content="Simple EMI calculator project">
+<meta name="theme-color" content="#db2777">
+<link rel="icon" type="image/png" href="favicon.png?v=2">
+<link rel="apple-touch-icon" href="favicon.png?v=2">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://simplecalculator.in/offer.html">
+<link rel="alternate" hreflang="en" href="https://simplecalculator.in/offer.html">
+<link rel="alternate" hreflang="ta" href="https://simplecalculator.in/offer.html?lang=ta">
+<link rel="alternate" hreflang="x-default" href="https://simplecalculator.in/offer.html">
+<link rel="stylesheet" href="style.css?v=2">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Offer Letter Salary Split-up Generator &amp; Verifier">
+<meta property="og:description" content="Generate an ideal CTC break-up and verify the split-up in your job offer letter.">
+<meta property="og:site_name" content="Calculators">
+<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://simplecalculator.in/og-image.png">
+<meta name="twitter:image" content="https://simplecalculator.in/og-image.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Offer Letter Salary Split-up Generator",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://simplecalculator.in/" },
+    { "@type": "ListItem", "position": 2, "name": "Offer Letter Salary Split-up", "item": "https://simplecalculator.in/offer.html" }
+  ]
+}
+</script>
+</head>
+<body>
+<div class="app theme-offer">
+  <div class="lang-switch">
+    <button type="button" data-lang="en">EN</button>
+    <button type="button" data-lang="ta">தமிழ்</button>
+  </div>
+  <a class="back-link" href="index.html" data-i18n="back">← All calculators</a>
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="index.html">Home</a><span class="sep">›</span><span>Offer Letter Salary Split-up</span>
+  </nav>
+  <header>
+    <h1 data-i18n="offerH1">Offer Letter Salary Split-up</h1>
+    <p data-i18n="offerSub">Generate an ideal CTC break-up and verify the split-up in your job offer letter.</p>
+  </header>
+
+  <main class="layout emi">
+    <section class="card">
+      <label class="field">
+        <div class="field-head"><span data-i18n="ctcLbl">Annual CTC</span>
+          <span class="input-box"><span class="unit">&#8377;</span><input type="text" id="ctcInput" inputmode="numeric" autocomplete="off"></span>
+        </div>
+        <input type="range" id="ctc" min="100000" max="10000000" step="50000">
+        <div class="field-scale"><span>&#8377;1L</span><span>&#8377;100L</span></div>
+      </label>
+
+      <label class="field">
+        <div class="field-head"><span data-i18n="basicPctLbl">Basic % of CTC</span>
+          <span class="input-box"><input type="number" id="basicPctInput" min="20" max="60" step="1"><span class="unit">%</span></span>
+        </div>
+        <input type="range" id="basicPct" min="20" max="60" step="1" value="50">
+        <div class="field-scale"><span>20%</span><span>60%</span></div>
+      </label>
+
+      <p class="hint" data-i18n="genHint">A typical Indian structure keeps Basic at 40–50% of CTC. HRA is 50% of Basic; Employer PF and Gratuity are 12% and 4.81% of Basic respectively.</p>
+    </section>
+
+    <div class="results" id="results">
+      <div class="card">
+        <h2 data-i18n="refTitle">Salary Break-up (Reference)</h2>
+        <dl class="summary-list">
+          <div class="summary-item"><dt data-i18n="colBasic">Basic</dt><dd id="refBasic">-</dd></div>
+          <div class="summary-item"><dt data-i18n="colHra">HRA</dt><dd id="refHra">-</dd></div>
+          <div class="summary-item"><dt data-i18n="colSpecial">Special Allowance</dt><dd id="refSpecial">-</dd></div>
+          <div class="summary-item"><dt data-i18n="colEmpPf">Employer PF</dt><dd id="refEmpPf">-</dd></div>
+          <div class="summary-item"><dt data-i18n="colGrat">Employer Gratuity</dt><dd id="refGrat">-</dd></div>
+          <div class="summary-item accent"><dt data-i18n="colTotalCtc">Total = CTC</dt><dd id="refTotal">-</dd></div>
+        </dl>
+      </div>
+
+      <div class="card">
+        <h2 data-i18n="takeHomeTitle">Take-Home Estimate</h2>
+        <dl class="summary-list">
+          <div class="summary-item"><dt data-i18n="colEmpPfDed">Employee PF</dt><dd id="refEmpPfDed">-</dd></div>
+          <div class="summary-item"><dt data-i18n="colProfTax">Professional Tax</dt><dd id="refPt">-</dd></div>
+          <div class="summary-item"><dt data-i18n="colIncTax">Est. Income Tax</dt><dd id="refTax">-</dd></div>
+          <div class="summary-item accent"><dt data-i18n="colTakeHome">Est. Monthly In-Hand</dt><dd id="refTakeHome">-</dd></div>
+        </dl>
+        <p class="hint" data-i18n="taxNote">Income tax is a New-Regime estimate (FY 2025-26) and excludes HRA exemption, 80C, etc. Treat it as approximate.</p>
+      </div>
+
+      <div class="card verify-card">
+        <h2 data-i18n="verifyTitle">Verify Your Offer Letter</h2>
+        <p class="hint" data-i18n="verifyHint">Enter the numbers exactly as printed in your offer letter. Leave a field blank if it is not mentioned. We check the split-up for internal consistency.</p>
+
+        <div class="verify-grid">
+          <label class="field">
+            <div class="field-head"><span data-i18n="vBasicLbl">Basic</span>
+              <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="vnum" id="vBasic" inputmode="numeric" autocomplete="off"></span>
+            </div>
+          </label>
+          <label class="field">
+            <div class="field-head"><span data-i18n="vHraLbl">HRA</span>
+              <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="vnum" id="vHra" inputmode="numeric" autocomplete="off"></span>
+            </div>
+          </label>
+          <label class="field">
+            <div class="field-head"><span data-i18n="vSpecialLbl">Special Allowance</span>
+              <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="vnum" id="vSpecial" inputmode="numeric" autocomplete="off"></span>
+            </div>
+          </label>
+          <label class="field">
+            <div class="field-head"><span data-i18n="vEmpPfLbl">Employer PF</span>
+              <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="vnum" id="vEmpPf" inputmode="numeric" autocomplete="off"></span>
+            </div>
+          </label>
+          <label class="field">
+            <div class="field-head"><span data-i18n="vGratLbl">Employer Gratuity</span>
+              <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="vnum" id="vGrat" inputmode="numeric" autocomplete="off"></span>
+            </div>
+          </label>
+          <label class="field">
+            <div class="field-head"><span data-i18n="vVarLbl">Variable / Other</span>
+              <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="vnum" id="vVar" inputmode="numeric" autocomplete="off"></span>
+            </div>
+          </label>
+          <label class="field">
+            <div class="field-head"><span data-i18n="vTravelLbl">Travel Allowance (LTA)</span>
+              <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="vnum" id="vTravel" inputmode="numeric" autocomplete="off"></span>
+            </div>
+          </label>
+          <label class="field">
+            <div class="field-head"><span data-i18n="vMedLbl">Medical Insurance Premium</span>
+              <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="vnum" id="vMed" inputmode="numeric" autocomplete="off"></span>
+            </div>
+          </label>
+          <label class="field">
+            <div class="field-head"><span data-i18n="vEmpPfDedLbl">Employee PF (deducted)</span>
+              <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="vnum" id="vEmpPfDed" inputmode="numeric" autocomplete="off"></span>
+            </div>
+          </label>
+          <label class="field">
+            <div class="field-head"><span data-i18n="vPtLbl">Prof. Tax / month</span>
+              <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="vnum" id="vPt" inputmode="numeric" autocomplete="off"></span>
+            </div>
+          </label>
+          <label class="field">
+            <div class="field-head"><span data-i18n="vInhandLbl">Stated Monthly In-Hand</span>
+              <span class="input-box"><span class="unit">&#8377;</span><input type="text" class="vnum" id="vInhand" inputmode="numeric" autocomplete="off"></span>
+            </div>
+          </label>
+        </div>
+
+        <h3 class="check-title" data-i18n="checkTitle">Consistency Check</h3>
+        <div id="verifyReport" class="verify-report"></div>
+        <p class="hint" data-i18n="verifyDisclaimer">This is a sanity check, not financial advice. Employers may use different (valid) structures — a warning only means the number is worth double-checking.</p>
+      </div>
+    </div>
+  </main>
+
+  <section class="card faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item">
+      <div class="faq-q">What is a salary split-up?</div>
+      <div class="faq-a">A salary split-up (or pay structure) breaks your total CTC into components such as Basic, HRA, Special Allowance, Employer PF and Gratuity. Each has different tax and retirement implications.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Why does my in-hand pay differ from CTC?</div>
+      <div class="faq-a">CTC includes Employer PF and Gratuity, which are not paid to you monthly. On top of that, Employee PF, Professional Tax and Income Tax are deducted from your gross pay before you receive it.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How is Employer PF and Gratuity calculated?</div>
+      <div class="faq-a">Both are fixed percentages of your Basic salary: Employer PF is 12% of Basic, and Gratuity is 4.81% of Basic. They are part of CTC but paid later (PF on withdrawal, Gratuity on completion of 5 years).</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is the income-tax estimate accurate?</div>
+      <div class="faq-a">It uses the New Regime slabs for FY 2025-26 with the standard deduction. It ignores HRA exemption, 80C and other deductions, so treat it as a rough lower/upper bound rather than your exact liability.</div>
+    </div>
+  </section>
+
+  <nav class="related" aria-label="More calculators">
+    <a href="emi.html">EMI Calculator</a>
+    <a href="tax.html">Income Tax Calculator</a>
+    <a href="index.html">All calculators</a>
+  </nav>
+
+  <footer data-i18n="footer">Built for practice. Amounts are rounded to two decimals.</footer>
+  <nav class="footer-links"><a href="privacy.html">Privacy Policy</a></nav>
+</div>
+
+<script src="common.js?v=2"></script>
+<script src="offer.js?v=2"></script>
+</body>
+</html>

@@ -39,7 +39,7 @@
     <p data-i18n="irpartSub">Add one-off part payments at any month and see the impact</p>
   </header>
 
-  <main class="layout">
+  <main class="layout irpart">
     <section class="card">
       <label class="field">
         <div class="field-head"><span data-i18n="loanAmount">Loan Amount</span>
@@ -89,24 +89,32 @@
       </div>
     </section>
 
-    <section class="card">
-      <h2 data-i18n="paymentsTitle">Part Payments</h2>
+    <div class="card schedule-card">
+      <div class="schedule-head">
+        <h2 data-i18n="schedule">Payment Schedule</h2>
+        <div class="segmented small" id="viewTabs">
+          <button type="button" class="active" data-view="year" data-i18n="yearWise">Year wise</button>
+          <button type="button" data-view="month" data-i18n="monthWise">Month wise</button>
+        </div>
+      </div>
       <div class="table-wrap">
         <table>
-          <thead><tr><th data-i18n="colMonth">Month</th><th data-i18n="colAmount">Amount</th><th></th></tr></thead>
-          <tbody id="paymentsBody"></tbody>
+            <thead><tr><th id="thPeriod">Year</th><th data-i18n="colPayment">Payment</th><th data-i18n="colPrincipal">Principal</th><th data-i18n="colInterest">Interest</th><th data-i18n="colBalance">Balance</th><th data-i18n="colPrepay">Prepay</th></tr></thead>
+          <tbody id="scheduleBody"></tbody>
         </table>
       </div>
-      <button type="button" id="addPayment" class="btn" data-i18n="addPayment">+ Add payment</button>
-      <p class="hint" data-i18n="payHint">Month = month from loan start (1 = first EMI month). Amount is the one-off part payment made that month.</p>
+    </div>
 
-      <label class="field" style="margin-top:16px">
-        <div class="field-head"><span data-i18n="pasteList">Or paste a list</span></div>
-        <textarea id="pasteArea" rows="4" placeholder="6,50000&#10;18,100000&#10;30,250000"></textarea>
-        <button type="button" id="loadList" class="btn" data-i18n="loadList">Load from list</button>
-        <span class="hint" data-i18n="pasteFmt">One entry per line: Month,Amount (comma or space separated).</span>
-      </label>
-    </section>
+    <div class="card breakup-card">
+      <h2 data-i18n="breakUp">Payment Break-up</h2>
+      <div class="chart-row">
+        <svg id="chart" viewBox="0 0 160 160" width="180" height="180" role="img" aria-label="Principal vs interest breakdown"></svg>
+        <ul class="chart-legend">
+          <li><span class="legend-dot blue"></span><span id="legendPrincipal">Principal: -</span></li>
+          <li><span class="legend-dot amber"></span><span id="legendInterest">Interest: -</span></li>
+        </ul>
+      </div>
+    </div>
 
     <div class="results" id="results">
       <div class="card">
@@ -117,31 +125,6 @@
           <div class="summary-item"><dt data-i18n="totalPayment">Total Payment (Principal + Interest)</dt><dd id="sumPayment">-</dd></div>
           <div class="summary-item"><dt data-i18n="closesIn">Loan closes in</dt><dd id="sumClosesIn">-</dd></div>
         </dl>
-      </div>
-      <div class="card">
-        <h2 data-i18n="breakUp">Payment Break-up</h2>
-        <div class="chart-row">
-          <svg id="chart" viewBox="0 0 160 160" width="180" height="180" role="img" aria-label="Principal vs interest breakdown"></svg>
-          <ul class="chart-legend">
-            <li><span class="legend-dot blue"></span><span id="legendPrincipal">Principal: -</span></li>
-            <li><span class="legend-dot amber"></span><span id="legendInterest">Interest: -</span></li>
-          </ul>
-        </div>
-      </div>
-      <div class="card schedule-card">
-        <div class="schedule-head">
-          <h2 data-i18n="schedule">Payment Schedule</h2>
-          <div class="segmented small" id="viewTabs">
-            <button type="button" class="active" data-view="year" data-i18n="yearWise">Year wise</button>
-            <button type="button" data-view="month" data-i18n="monthWise">Month wise</button>
-          </div>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th id="thPeriod">Year</th><th data-i18n="colPayment">Payment</th><th data-i18n="colPrincipal">Principal</th><th data-i18n="colInterest">Interest</th><th data-i18n="colBalance">Balance</th></tr></thead>
-            <tbody id="scheduleBody"></tbody>
-          </table>
-        </div>
       </div>
       <div class="card preclose-card">
         <h2 data-i18n="precloseTitle">Preclosure / Early Closure</h2>
@@ -188,6 +171,18 @@
         <p class="disclaimer" data-i18n="precloseDisclaimer">The figures shown are estimates. Actual amounts may differ slightly due to rounding, lender-specific charges, or policy changes. Please confirm the final payable amount with your bank.</p>
       </div>
     </div>
+
+    <section class="card">
+      <h2 data-i18n="paymentsTitle">Part Payments</h2>
+      <p class="hint" data-i18n="payHint">Add a part payment right in the Payment Schedule above — type the amount in the <strong>Prepay</strong> column for any month or year. Need to add many at once? Paste a list instead:</p>
+
+      <label class="field" style="margin-top:12px">
+        <div class="field-head"><span data-i18n="pasteList">Or paste a list</span></div>
+        <textarea id="pasteArea" rows="4" placeholder="6,50000&#10;18,100000&#10;30,250000"></textarea>
+        <button type="button" id="loadList" class="btn" data-i18n="loadList">Load from list</button>
+        <span class="hint" data-i18n="pasteFmt">One entry per line: Month,Amount (comma or space separated).</span>
+      </label>
+    </section>
   </main>
 
   <nav class="related" aria-label="More calculators">
