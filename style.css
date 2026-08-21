@@ -31,6 +31,7 @@ body {
 .theme-bmi  { --accent: #e11d48; --accent-2: #f59e0b; }
 .theme-sip  { --accent: #7c3aed; --accent-2: #2563eb; }
 .theme-gst  { --accent: #0d9488; --accent-2: #0891b2; }
+.theme-weightloss { --accent: #0f766e; --accent-2: #16a34a; }
 .theme-payslip { --accent: #0ea5e9; --accent-2: #6366f1; }
 
 .app {
@@ -318,6 +319,15 @@ header p {
 .legend-dot.carbs   { background: #f59e0b; }
 .legend-dot.fat     { background: #0ea5e9; }
 .nutrients-title { margin: 16px 0 8px; font-size: 0.95rem; color: #334155; }
+
+.exercise-list { list-style: none; margin: 6px 0 0; padding: 0; display: grid; gap: 8px; }
+.exercise-list li { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: #f8fafc; border: 1px solid #eef2f7; border-radius: 10px; }
+.exercise-list .ex-name { font-weight: 600; color: #1e293b; }
+.exercise-list .ex-min { color: #0d9488; font-weight: 700; }
+.exercise-list .ex-empty { justify-content: center; color: #64748b; font-style: italic; background: transparent; border-style: dashed; }
+.night .exercise-list li { background: #16202e; border-color: #243042; }
+.night .exercise-list .ex-name { color: #e2e8f0; }
+.night .exercise-list .ex-min { color: #2dd4bf; }
 
 /* ---------- SIP Calculator ---------- */
 .sip-result {

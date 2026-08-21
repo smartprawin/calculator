@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var _l=new URLSearchParams(location.search).get('lang');if(_l==='ta'){document.documentElement.lang='ta';}}catch(e){}</script>
+<meta name="i18n-page" content="weightloss">
+<title>Weight Loss Planner - Calorie &amp; Goal Calculator (Free)</title>
+<meta name="description" content="Plan your weight loss: estimate daily target calories, weeks to your goal weight, and a projected weight-loss chart using BMR and a calorie deficit.">
+<meta name="keywords" content="weight loss planner, calorie deficit calculator, weight loss calculator, goal weight, TDEE, BMR">
+<meta name="author" content="Simple EMI calculator project">
+<meta name="theme-color" content="#0f766e">
+<link rel="icon" type="image/png" href="favicon.png?v=2">
+<link rel="apple-touch-icon" href="favicon.png?v=2">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://simplecalculator.in/weightloss.html">
+<link rel="alternate" hreflang="en" href="https://simplecalculator.in/weightloss.html">
+<link rel="alternate" hreflang="ta" href="https://simplecalculator.in/weightloss.html?lang=ta">
+<link rel="alternate" hreflang="x-default" href="https://simplecalculator.in/weightloss.html">
+<link rel="stylesheet" href="style.css?v=2">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Weight Loss Planner - Calorie &amp; Goal Calculator">
+<meta property="og:description" content="Free planner that estimates target calories, time to goal and a projected weight-loss chart.">
+<meta property="og:site_name" content="Calculators">
+<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://simplecalculator.in/og-image.png">
+<meta name="twitter:image" content="https://simplecalculator.in/og-image.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Weight Loss Planner",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+}
+</script>
+</head>
+<body>
+<div class="app theme-weightloss">
+  <div class="lang-switch">
+    <button type="button" data-lang="en">EN</button>
+    <button type="button" data-lang="ta">தமிழ்</button>
+  </div>
+  <a class="back-link" href="index.html" data-i18n="back">← All calculators</a>
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="index.html">Home</a><span class="sep">›</span><span>Weight Loss Planner</span>
+  </nav>
+  <header>
+    <h1 data-i18n="wlH1">Weight Loss Planner</h1>
+    <p data-i18n="wlSub">Plan your calorie deficit &amp; goal weight</p>
+  </header>
+
+  <main class="layout weightloss">
+    <section class="card">
+      <div class="segmented" id="unitTabs">
+        <button type="button" class="active" data-unit="metric" data-i18n="unitMetric">Metric (cm / kg)</button>
+        <button type="button" data-unit="imperial" data-i18n="unitImperial">Imperial (ft-in / lb)</button>
+      </div>
+
+      <div class="field">
+        <span class="field-head" data-i18n="genderLbl">Gender</span>
+        <div class="segmented" id="genderTabs">
+          <button type="button" class="active" data-gender="male" data-i18n="genderMale">Male</button>
+          <button type="button" data-gender="female" data-i18n="genderFemale">Female</button>
+        </div>
+      </div>
+
+      <label class="field">
+        <div class="field-head"><span data-i18n="heightLbl">Height</span>
+          <span class="input-box"><input type="number" id="heightInput" min="0" step="0.1"><span class="unit" id="heightUnit">cm</span></span>
+        </div>
+        <input type="range" class="slider" id="height" min="100" max="220" step="0.5">
+      </label>
+
+      <label class="field">
+        <div class="field-head"><span data-i18n="weightLbl">Current Weight</span>
+          <span class="input-box"><input type="number" id="weightInput" min="0" step="0.1"><span class="unit" id="weightUnit">kg</span></span>
+        </div>
+        <input type="range" class="slider" id="weight" min="30" max="200" step="0.5">
+      </label>
+
+      <label class="field">
+        <div class="field-head"><span data-i18n="ageLbl">Age</span>
+          <span class="input-box"><input type="number" id="ageInput" min="2" max="100" step="1"><span class="unit">Yr</span></span>
+        </div>
+        <input type="range" class="slider" id="age" min="2" max="100" step="1">
+      </label>
+
+      <div class="field">
+        <span class="field-head" data-i18n="activityLbl">Activity Level</span>
+        <div class="segmented small" id="activityTabs">
+          <button type="button" class="active" data-activity="1.2" data-i18n="actSedentary">Sedentary</button>
+          <button type="button" data-activity="1.375" data-i18n="actLight">Light</button>
+          <button type="button" data-activity="1.55" data-i18n="actModerate">Moderate</button>
+          <button type="button" data-activity="1.725" data-i18n="actActive">Active</button>
+        </div>
+      </div>
+
+      <label class="field">
+        <div class="field-head"><span data-i18n="goalWeightLbl">Goal Weight</span>
+          <span class="input-box"><input type="number" id="goalWeightInput" min="30" step="0.5"><span class="unit" id="goalWeightUnit">kg</span></span>
+        </div>
+        <input type="range" class="slider" id="goalWeight" min="30" max="200" step="0.5">
+      </label>
+
+      <label class="field">
+        <div class="field-head"><span data-i18n="forecastTargetCals">Daily Target Calories</span>
+          <span class="input-box"><input type="number" id="targetCalsInput" min="500" step="10"><span class="unit">kcal</span></span>
+        </div>
+        <input type="range" class="slider" id="targetCals" min="800" max="4000" step="10">
+      </label>
+    </section>
+
+    <div class="results">
+      <div class="card">
+        <h2 data-i18n="wlResult">Your Plan</h2>
+        <dl class="summary-list">
+          <div class="summary-item accent"><dt data-i18n="forecastTargetCals">Daily Target Calories</dt><dd id="fcTarget">-</dd></div>
+          <div class="summary-item"><dt data-i18n="wlMaintain">Maintenance Calories</dt><dd id="wlMaintain">-</dd></div>
+          <div class="summary-item"><dt data-i18n="fcDaily">Daily Deficit</dt><dd id="fcDaily">-</dd></div>
+          <div class="summary-item"><dt data-i18n="weeklyLossLbl">Weekly Weight Loss</dt><dd id="fcWeekly">-</dd></div>
+          <div class="summary-item"><dt data-i18n="forecastWeeks">Time to Goal</dt><dd id="fcWeeks">-</dd></div>
+          <div class="summary-item"><dt data-i18n="fcDateLbl">Estimated Goal Date</dt><dd id="fcDate">-</dd></div>
+          <div class="summary-item"><dt data-i18n="forecastDeficit">Total Deficit Needed</dt><dd id="fcDeficit">-</dd></div>
+          <div class="summary-item"><dt data-i18n="wlBmi">Current → Goal BMI</dt><dd id="wlBmi">-</dd></div>
+        </dl>
+      </div>
+      <div class="card">
+        <h2 data-i18n="wlChart">Projected Weight</h2>
+        <svg id="forecastChart" viewBox="0 0 320 200" width="100%" height="200" role="img" aria-label="Projected weight over time"></svg>
+        <p class="hint" data-i18n="forecastHint">Linear estimate using ~7700 kcal per kg. Real weight loss is rarely perfectly linear — treat as a guide.</p>
+        <h3 class="nutrients-title" data-i18n="exTitle">Exercise to Close the Gap</h3>
+        <p class="hint" data-i18n="exHint">Burn your daily deficit with movement instead of (or in addition to) eating less. Minutes shown are for your current weight.</p>
+        <ul class="exercise-list" id="exerciseList"></ul>
+      </div>
+    </div>
+  </main>
+
+  <nav class="related" aria-label="More calculators">
+    <a href="bmi.html">BMI Calculator</a>
+    <a href="emi.html">EMI Calculator</a>
+    <a href="sip.html">SIP Calculator</a>
+    <a href="index.html">All calculators</a>
+  </nav>
+
+  <footer data-i18n="footer">Built for practice. Amounts are rounded to two decimals.</footer>
+  <nav class="footer-links"><a href="privacy.html">Privacy Policy</a></nav>
+</div>
+
+<script src="common.js?v=2"></script>
+<script src="weightloss.js?v=2"></script>
+</body>
+</html>

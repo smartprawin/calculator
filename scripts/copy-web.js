@@ -6,9 +6,9 @@ const dest = path.join(root, 'www');
 
 const files = [
   'index.html', 'emi.html', 'irpart.html', 'offer.html', 'payslip.html', 'tax.html', 'ebbill.html', 'privacy.html',
-  'bmi.html', 'sip.html', 'gst.html',
+  'bmi.html', 'sip.html', 'gst.html', 'weightloss.html',
   'common.js', 'emi.js', 'irpart.js', 'offer.js', 'payslip.js', 'ebbill.js', 'tax.js', 'style.css',
-  'bmi.js', 'sip.js', 'gst.js',
+  'bmi.js', 'sip.js', 'gst.js', 'weightloss.js',
   'favicon.png', 'og-image.png', 'manifest.webmanifest', 'sw.js',
   'robots.txt', 'sitemap.xml'
 ];

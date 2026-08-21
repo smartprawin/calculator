@@ -1,7 +1,8 @@
 'use strict';
 
 (function () {
-  var state = { unit: 'metric', heightCm: 170, weightKg: 65, gender: 'male', age: 30, activity: 1.2 };
+  var state = { unit: 'metric', heightCm: 170, weightKg: 65, gender: 'male', age: 30, activity: 1.2, goalKg: 62, targetCals: null };
+  var CAL_PER_KG = 7700;
 
   var CM_PER_IN = 2.54;
   var IN_PER_FT = 12;
@@ -76,7 +77,18 @@
     $('age').value = state.age;
     if (document.activeElement !== $('ageInput')) $('ageInput').value = state.age;
 
+    // Goal weight (unit-aware, mirrors the weight field: stored in current unit).
+    var gMin, gMax, gUnit, gVal;
+    if (isImperial) { gMin = 66; gMax = 440; gUnit = 'lb'; gVal = state.goalKg; }
+    else { gMin = 30; gMax = 200; gUnit = 'kg'; gVal = state.goalKg; }
+    $('goalWeight').min = gMin; $('goalWeight').max = gMax; $('goalWeight').step = 0.5;
+    $('goalWeight').value = gVal;
+    $('goalWeightUnit').textContent = gUnit;
+    if (document.activeElement !== $('goalWeightInput')) $('goalWeightInput').value = round(gVal, 1);
     var m = toMetric();
+    var age = state.age;
+    var bmr = (m.kg > 0 && m.cm > 0 && age >= 2 && age <= 100) ? bmrOf(m.kg, m.cm, age, state.gender) : 0;
+    var tdee = bmr * state.activity;
     var h = m.cm / 100;
     var bmi = (m.kg > 0 && h > 0) ? m.kg / (h * h) : 0;
 
@@ -88,6 +100,8 @@
       $('bmiHeight').textContent = '-';
       $('bmiWeight').textContent = '-';
       $('bmiMarker').style.left = '0%';
+      resetDiet();
+      resetForecast();
       return;
     }
 
@@ -116,7 +130,36 @@
     $('bmiMarker').style.left = pos + '%';
     $('bmiMarker').style.background = cat.color;
 
+    // Daily target calories slider (range derived from maintenance calories).
+    var tMin = Math.max(800, Math.round((tdee - 1500) / 10) * 10);
+    var tMax = Math.round((tdee + 200) / 10) * 10;
+    if (tdee <= 0) { tMin = 800; tMax = 4000; }
+    if (state.targetCals == null) state.targetCals = Math.round((tdee - 500) / 10) * 10;
+    state.targetCals = clamp(state.targetCals, tMin, tMax);
+    $('targetCals').min = tMin; $('targetCals').max = tMax; $('targetCals').step = 10;
+    $('targetCals').value = state.targetCals;
+    if (document.activeElement !== $('targetCalsInput')) $('targetCalsInput').value = Math.round(state.targetCals);
+
     renderDiet(m.kg, m.cm, cat.cls);
+    renderForecast(m.kg, m.cm, cat.cls, tdee);
+  }
+
+  function bmrOf(weightKg, heightCm, age, gender) {
+    return 10 * weightKg + 6.25 * heightCm - 5 * age + (gender === 'male' ? 5 : -161);
+  }
+
+  function resetDiet() {
+    $('dietCals').textContent = $('dietMaintain').textContent = $('dietGoal').textContent = '-';
+    $('dietProtein').textContent = $('dietCarbs').textContent = $('dietFat').textContent = '-';
+    $('dietFiber').textContent = $('dietWater').textContent = $('dietSugar').textContent = $('dietSatFat').textContent = '-';
+    $('legendProtein').textContent = $('legendCarbs').textContent = $('legendFat').textContent = '-';
+    var svg = $('dietChart'); if (svg) svg.innerHTML = '';
+  }
+
+  function resetForecast() {
+    $('fcTarget').textContent = $('fcDaily').textContent = $('fcWeekly').textContent = $('fcWeeks').textContent = $('fcDate').textContent = $('fcDeficit').textContent = '-';
+    var svg = $('forecastChart'); if (svg) svg.innerHTML = '';
+    var ex = $('exerciseList'); if (ex) ex.innerHTML = '';
   }
 
   // Mifflin-St Jeor BMR, TDEE, and a goal-adjusted macro split.
@@ -212,6 +255,106 @@
     $('legendFat').textContent = t('macroFat') + ': ' + Math.round(fPct) + '%';
   }
 
+  // Projected weight loss from the current weight to the goal at a weekly rate.
+  function renderForecast(weightKg, heightCm, catCls, tdee) {
+    var age = state.age;
+    var svg = $('forecastChart');
+    if (!(weightKg > 0 && age >= 2 && age <= 100)) { resetForecast(); return; }
+
+    var goal = state.goalKg;
+    var target = state.targetCals;
+    var weeklyLoss = Math.max(0, (tdee - target)) * 7 / CAL_PER_KG;
+
+    if (!(goal > 0 && target > 0 && goal < weightKg)) {
+      $('fcTarget').textContent = $('fcWeekly').textContent = $('fcWeeks').textContent = $('fcDeficit').textContent = '-';
+      svg.innerHTML = '<text x="160" y="84" text-anchor="middle" class="chart-center-label">' + (goal >= weightKg ? t('fcSetGoal') : t('fcSetGoal')) + '</text>';
+      return;
+    }
+
+    if (weeklyLoss <= 0) {
+      $('fcTarget').textContent = Math.round(target) + ' kcal';
+      $('fcDaily').textContent = Math.round(tdee - target) + ' kcal';
+      $('fcWeekly').textContent = '0 kg/wk';
+      $('fcWeeks').textContent = $('fcDate').textContent = $('fcDeficit').textContent = '-';
+      svg.innerHTML = '<text x="160" y="84" text-anchor="middle" class="chart-center-label">' + t('fcBelow') + '</text>';
+      renderExercises(0, weightKg);
+      return;
+    }
+
+    var weeks = (weightKg - goal) / weeklyLoss;
+    var months = weeks / 4.345;
+    var totalDeficit = (weightKg - goal) * CAL_PER_KG;
+    var dailyDeficit = tdee - target;
+
+    $('fcTarget').textContent = Math.round(target) + ' kcal';
+    $('fcDaily').textContent = Math.round(dailyDeficit) + ' kcal';
+    $('fcWeekly').textContent = weeklyLoss.toFixed(2) + ' kg/wk';
+    $('fcWeeks').textContent = Math.round(weeks) + ' wk (' + months.toFixed(1) + ' mo)';
+    $('fcDeficit').textContent = Math.round(totalDeficit).toLocaleString('en-IN') + ' kcal';
+
+    var goalDate = new Date();
+    goalDate.setDate(goalDate.getDate() + Math.round(weeks * 7));
+    $('fcDate').textContent = goalDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+
+    drawForecastChart('forecastChart', weeks, weightKg, goal, weeklyLoss);
+    renderExercises(Math.round(dailyDeficit), weightKg);
+  }
+
+  var EXERCISES = [
+    { key: 'exWalk', met: 3.5 },
+    { key: 'exBrisk', met: 4.8 },
+    { key: 'exCycle', met: 7.5 },
+    { key: 'exRun', met: 8.3 },
+    { key: 'exSwim', met: 6.0 },
+    { key: 'exHiit', met: 8.0 },
+    { key: 'exRope', met: 11 },
+    { key: 'exStrength', met: 6.0 }
+  ];
+
+  function renderExercises(deficit, weightKg) {
+    var ul = $('exerciseList');
+    if (!ul) return;
+    if (!(deficit > 0) || !(weightKg > 0)) {
+      ul.innerHTML = '<li class="ex-empty">' + t('exNone') + '</li>';
+      return;
+    }
+    var html = '';
+    EXERCISES.forEach(function (ex) {
+      var kcalPerMin = ex.met * 3.5 * weightKg / 200;
+      var mins = Math.ceil(deficit / kcalPerMin / 5) * 5;
+      if (mins < 5) mins = 5;
+      html += '<li><span class="ex-name">' + t(ex.key) + '</span><span class="ex-min">~' + mins + ' min/day</span></li>';
+    });
+    ul.innerHTML = html;
+  }
+
+  function drawForecastChart(svgId, weeks, startW, goalW, weeklyLoss) {
+    var svg = $(svgId);
+    var W = 320, H = 160, padL = 34, padR = 10, padT = 12, padB = 22;
+    var plotW = W - padL - padR, plotH = H - padT - padB;
+    var yMin = Math.min(startW, goalW) - 1;
+    var yMax = Math.max(startW, goalW) + 1;
+    if (yMax - yMin < 2) yMax = yMin + 2;
+    function X(w) { return padL + (weeks <= 0 ? 0 : (w / weeks) * plotW); }
+    function Y(v) { return padT + (yMax - v) / (yMax - yMin) * plotH; }
+
+    var step = weeks > 60 ? Math.ceil(weeks / 50) : 1;
+    var pts = [];
+    for (var w = 0; w <= weeks; w += step) {
+      var wt = Math.max(goalW, startW - weeklyLoss * w);
+      pts.push(X(w).toFixed(1) + ',' + Y(wt).toFixed(1));
+    }
+    // ensure final goal point
+    pts.push(X(weeks).toFixed(1) + ',' + Y(goalW).toFixed(1));
+
+    var html = '';
+    // goal weight reference line
+    html += '<line x1="' + padL + '" y1="' + Y(goalW).toFixed(1) + '" x2="' + (W - padR) + '" y2="' + Y(goalW).toFixed(1) + '" stroke="#16a34a" stroke-dasharray="4 3" stroke-width="1"/>';
+    html += '<polyline points="' + pts.join(' ') + '" fill="none" stroke="#e11d48" stroke-width="2.5" stroke-linejoin="round"/>';
+    html += '<text x="' + (W - padR) + '" y="' + (Y(goalW) - 4).toFixed(1) + '" text-anchor="end" class="chart-center-label" fill="#16a34a">' + t('goalWeightLbl') + '</text>';
+    svg.innerHTML = html;
+  }
+
   $('unitTabs').addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b) return;
     var next = b.dataset.unit;
@@ -221,9 +364,11 @@
     if (next === 'imperial') {
       state.heightCm = m.cm / CM_PER_IN;            // inches
       state.weightKg = m.kg / KG_PER_LB;            // pounds
+      state.goalKg = state.goalKg / KG_PER_LB;      // pounds
     } else {
       state.heightCm = m.cm;                        // cm
       state.weightKg = m.kg;                        // kg
+      state.goalKg = state.goalKg * KG_PER_LB;      // kg
     }
     state.unit = next;
     render();
@@ -268,6 +413,22 @@
   $('ageInput').addEventListener('input', function (e) {
     var v = Math.round(Number(e.target.value));
     state.age = isFinite(v) && v >= 0 ? v : 0;
+    render();
+  });
+
+  $('goalWeight').addEventListener('input', function (e) {
+    state.goalKg = parseDigits(e.target.value);
+    render();
+  });
+  $('goalWeightInput').addEventListener('input', function (e) {
+    state.goalKg = parseDigits(e.target.value);
+    render();
+  });
+  $('goalWeightInput').addEventListener('blur', function () { render(); });
+  $('targetCals').addEventListener('input', function (e) { state.targetCals = parseDigits(e.target.value); render(); });
+  $('targetCalsInput').addEventListener('input', function (e) {
+    var v = Number(e.target.value);
+    state.targetCals = isFinite(v) && v > 0 ? v : 0;
     render();
   });
 
