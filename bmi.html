@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var _l=new URLSearchParams(location.search).get('lang');if(_l==='ta'){document.documentElement.lang='ta';}}catch(e){}</script>
+<meta name="i18n-page" content="bmi">
+<title>BMI Calculator - Body Mass Index (Free)</title>
+<meta name="description" content="Calculate your Body Mass Index (BMI) from height and weight with a live slider, category and a colour-coded scale.">
+<meta name="keywords" content="BMI calculator, body mass index, BMI chart, healthy weight, BMI India">
+<meta name="author" content="Simple EMI calculator project">
+<meta name="theme-color" content="#e11d48">
+<link rel="icon" type="image/png" href="favicon.png?v=2">
+<link rel="apple-touch-icon" href="favicon.png?v=2">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://simplecalculator.in/bmi.html">
+<link rel="alternate" hreflang="en" href="https://simplecalculator.in/bmi.html">
+<link rel="alternate" hreflang="ta" href="https://simplecalculator.in/bmi.html?lang=ta">
+<link rel="alternate" hreflang="x-default" href="https://simplecalculator.in/bmi.html">
+<link rel="stylesheet" href="style.css?v=2">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:title" content="BMI Calculator - Body Mass Index">
+<meta property="og:description" content="Free BMI calculator with a live slider, category and colour-coded scale.">
+<meta property="og:site_name" content="Calculators">
+<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://simplecalculator.in/og-image.png">
+<meta name="twitter:image" content="https://simplecalculator.in/og-image.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "BMI Calculator",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+}
+</script>
+</head>
+<body>
+<div class="app theme-bmi">
+  <div class="lang-switch">
+    <button type="button" data-lang="en">EN</button>
+    <button type="button" data-lang="ta">தமிழ்</button>
+  </div>
+  <a class="back-link" href="index.html" data-i18n="back">← All calculators</a>
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="index.html">Home</a><span class="sep">›</span><span>BMI Calculator</span>
+  </nav>
+  <header>
+    <h1 data-i18n="bmiH1">BMI Calculator</h1>
+    <p data-i18n="bmiSub">Body Mass Index from Height &amp; Weight</p>
+  </header>
+
+  <main class="layout bmi">
+    <section class="card">
+      <div class="segmented" id="unitTabs">
+        <button type="button" class="active" data-unit="metric" data-i18n="unitMetric">Metric (cm / kg)</button>
+        <button type="button" data-unit="imperial" data-i18n="unitImperial">Imperial (ft-in / lb)</button>
+      </div>
+
+      <label class="field" id="heightField">
+        <div class="field-head"><span data-i18n="heightLbl">Height</span>
+          <span class="input-box"><input type="number" id="heightInput" min="0" step="0.1"><span class="unit" id="heightUnit">cm</span></span>
+        </div>
+        <input type="range" class="slider" id="height" min="100" max="220" step="0.5">
+        <div class="field-scale"><span id="heightMin">100 cm</span><span id="heightMax">220 cm</span></div>
+      </label>
+
+      <label class="field" id="weightField">
+        <div class="field-head"><span data-i18n="weightLbl">Weight</span>
+          <span class="input-box"><input type="number" id="weightInput" min="0" step="0.1"><span class="unit" id="weightUnit">kg</span></span>
+        </div>
+        <input type="range" class="slider" id="weight" min="30" max="200" step="0.5">
+        <div class="field-scale"><span id="weightMin">30 kg</span><span id="weightMax">200 kg</span></div>
+      </label>
+
+      <div class="field">
+        <span class="field-head" data-i18n="genderLbl">Gender</span>
+        <div class="segmented" id="genderTabs">
+          <button type="button" class="active" data-gender="male" data-i18n="genderMale">Male</button>
+          <button type="button" data-gender="female" data-i18n="genderFemale">Female</button>
+        </div>
+      </div>
+
+      <label class="field">
+        <div class="field-head"><span data-i18n="ageLbl">Age</span>
+          <span class="input-box"><input type="number" id="ageInput" min="2" max="100" step="1"><span class="unit">Yr</span></span>
+        </div>
+        <input type="range" class="slider" id="age" min="2" max="100" step="1">
+        <div class="field-scale"><span>2 yr</span><span>100 yr</span></div>
+      </label>
+
+      <div class="field">
+        <span class="field-head" data-i18n="activityLbl">Activity Level</span>
+        <div class="segmented small" id="activityTabs">
+          <button type="button" class="active" data-activity="1.2" data-i18n="actSedentary">Sedentary</button>
+          <button type="button" data-activity="1.375" data-i18n="actLight">Light</button>
+          <button type="button" data-activity="1.55" data-i18n="actModerate">Moderate</button>
+          <button type="button" data-activity="1.725" data-i18n="actActive">Active</button>
+        </div>
+      </div>
+
+      <p class="hint" data-i18n="bmiHint">BMI is a screening tool, not a diagnosis. It does not distinguish muscle from fat.</p>
+
+      <div class="field">
+        <span class="field-head" data-i18n="bmiScale">BMI Scale</span>
+        <div class="bmi-scale">
+          <div class="bmi-seg under"></div>
+          <div class="bmi-seg normal"></div>
+          <div class="bmi-seg over"></div>
+          <div class="bmi-seg obese"></div>
+          <div class="bmi-marker" id="bmiMarker"></div>
+        </div>
+        <div class="bmi-scale-legend">
+          <span data-i18n="catUnder">Underweight</span>
+          <span data-i18n="catNormal">Normal</span>
+          <span data-i18n="catOver">Overweight</span>
+          <span data-i18n="catObese">Obese</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="results">
+      <div class="card">
+        <h2 data-i18n="bmiResult">Your BMI</h2>
+        <div class="bmi-result" id="bmiValue">-</div>
+        <div class="bmi-category" id="bmiCategory">-</div>
+        <dl class="summary-list">
+          <div class="summary-item"><dt data-i18n="healthyRange">Healthy weight range</dt><dd id="bmiHealthy">-</dd></div>
+          <div class="summary-item"><dt data-i18n="heightLbl">Height</dt><dd id="bmiHeight">-</dd></div>
+          <div class="summary-item"><dt data-i18n="weightLbl">Weight</dt><dd id="bmiWeight">-</dd></div>
+        </dl>
+      </div>
+
+      <div class="card diet-card">
+        <h2 data-i18n="dietTitle">Diet Suggestion</h2>
+        <dl class="summary-list">
+          <div class="summary-item accent"><dt data-i18n="dietCals">Target Calories / day</dt><dd id="dietCals">-</dd></div>
+          <div class="summary-item"><dt data-i18n="dietMaintain">Maintenance Calories</dt><dd id="dietMaintain">-</dd></div>
+          <div class="summary-item"><dt data-i18n="dietGoal">Suggested Goal</dt><dd id="dietGoal">-</dd></div>
+        </dl>
+        <div class="chart-row diet-chart-row">
+          <svg id="dietChart" viewBox="0 0 160 160" width="150" height="150" role="img" aria-label="Macro calorie split"></svg>
+          <ul class="chart-legend">
+            <li><span class="legend-dot protein"></span><span id="legendProtein">Protein: -</span></li>
+            <li><span class="legend-dot carbs"></span><span id="legendCarbs">Carbs: -</span></li>
+            <li><span class="legend-dot fat"></span><span id="legendFat">Fat: -</span></li>
+          </ul>
+        </div>
+        <dl class="summary-list">
+          <div class="summary-item"><dt data-i18n="macroProtein">Protein</dt><dd id="dietProtein">-</dd></div>
+          <div class="summary-item"><dt data-i18n="macroCarbs">Carbohydrates</dt><dd id="dietCarbs">-</dd></div>
+          <div class="summary-item"><dt data-i18n="macroFat">Fats</dt><dd id="dietFat">-</dd></div>
+          <div class="summary-item"><dt data-i18n="fiberLbl">Fiber</dt><dd id="dietFiber">-</dd></div>
+        </dl>
+        <h3 class="nutrients-title" data-i18n="nutrientsTitle">Other Nutrients</h3>
+        <dl class="summary-list">
+          <div class="summary-item"><dt data-i18n="waterLbl">Water</dt><dd id="dietWater">-</dd></div>
+          <div class="summary-item"><dt data-i18n="sugarLbl">Added Sugar (max)</dt><dd id="dietSugar">-</dd></div>
+          <div class="summary-item"><dt data-i18n="satFatLbl">Saturated Fat (max)</dt><dd id="dietSatFat">-</dd></div>
+        </dl>
+        <p class="hint" data-i18n="dietHint">Estimates for guidance only. Calorie and macro needs vary by individual — consult a qualified nutritionist.</p>
+      </div>
+    </div>
+  </main>
+
+  <section class="card faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item">
+      <div class="faq-q" data-i18n="bmiFaqQ1">What is a healthy BMI?</div>
+      <div class="faq-a" data-i18n="bmiFaqA1">A BMI between 18.5 and 24.9 is considered normal. Below 18.5 is underweight, 25–29.9 is overweight, and 30+ is obese.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" data-i18n="bmiFaqQ2">Is BMI accurate for everyone?</div>
+      <div class="faq-a" data-i18n="bmiFaqA2">No. Athletes with high muscle mass may show a high BMI despite low body fat. It is a quick screening measure, not a full health assessment.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" data-i18n="dietFaqQ1">How are the diet calories calculated?</div>
+      <div class="faq-a" data-i18n="dietFaqA1">We first estimate your Basal Metabolic Rate (BMR) with the Mifflin-St Jeor equation: 10×weight(kg) + 6.25×height(cm) − 5×age + 5 (men) or −161 (women). Multiplying BMR by your activity level gives your maintenance calories (TDEE). The target is then adjusted by your BMI category: +300 kcal to gain, 0 to maintain, and −400/−500 kcal to lose.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" data-i18n="dietFaqQ2">How is the macro and nutrient split worked out?</div>
+      <div class="faq-a" data-i18n="dietFaqA2">Protein is set at 1.6–2.0 g per kg of body weight (higher when cutting to preserve muscle). Fat is 25% of target calories, and carbohydrates fill the remainder. Fiber is ~14 g per 1000 kcal, water ~35 ml per kg body weight, added sugar is capped at 5% of energy, and saturated fat at 10%.</div>
+    </div>
+  </section>
+
+  <nav class="related" aria-label="More calculators">
+    <a href="emi.html">EMI Calculator</a>
+    <a href="sip.html">SIP Calculator</a>
+    <a href="gst.html">GST Calculator</a>
+    <a href="index.html">All calculators</a>
+  </nav>
+
+  <footer data-i18n="footer">Built for practice. Amounts are rounded to two decimals.</footer>
+  <nav class="footer-links"><a href="privacy.html">Privacy Policy</a></nav>
+</div>
+
+<script src="common.js?v=2"></script>
+<script src="bmi.js?v=2"></script>
+</body>
+</html>

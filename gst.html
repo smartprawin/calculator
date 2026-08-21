@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var _l=new URLSearchParams(location.search).get('lang');if(_l==='ta'){document.documentElement.lang='ta';}}catch(e){}</script>
+<meta name="i18n-page" content="gst">
+<title>GST Calculator - Add / Remove GST (Free)</title>
+<meta name="description" content="Add or remove GST from a price and split the tax into CGST, SGST and IGST for intra- and inter-state supplies.">
+<meta name="keywords" content="GST calculator, GST rate, CGST, SGST, IGST, GST inclusive, GST exclusive, India GST">
+<meta name="author" content="Simple EMI calculator project">
+<meta name="theme-color" content="#0d9488">
+<link rel="icon" type="image/png" href="favicon.png?v=2">
+<link rel="apple-touch-icon" href="favicon.png?v=2">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://simplecalculator.in/gst.html">
+<link rel="alternate" hreflang="en" href="https://simplecalculator.in/gst.html">
+<link rel="alternate" hreflang="ta" href="https://simplecalculator.in/gst.html?lang=ta">
+<link rel="alternate" hreflang="x-default" href="https://simplecalculator.in/gst.html">
+<link rel="stylesheet" href="style.css?v=2">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:title" content="GST Calculator - Add / Remove GST">
+<meta property="og:description" content="Free GST calculator that adds or removes tax and splits CGST, SGST and IGST.">
+<meta property="og:site_name" content="Calculators">
+<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://simplecalculator.in/og-image.png">
+<meta name="twitter:image" content="https://simplecalculator.in/og-image.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "GST Calculator",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+}
+</script>
+</head>
+<body>
+<div class="app theme-gst">
+  <div class="lang-switch">
+    <button type="button" data-lang="en">EN</button>
+    <button type="button" data-lang="ta">தமிழ்</button>
+  </div>
+  <a class="back-link" href="index.html" data-i18n="back">← All calculators</a>
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="index.html">Home</a><span class="sep">›</span><span>GST Calculator</span>
+  </nav>
+  <header>
+    <h1 data-i18n="gstH1">GST Calculator</h1>
+    <p data-i18n="gstSub">Add or Remove GST from a Price</p>
+  </header>
+
+  <main class="layout gst">
+    <section class="card">
+      <div class="field">
+        <span class="field-head" data-i18n="gstMode">Calculation</span>
+        <div class="segmented" id="modeTabs">
+          <button type="button" class="active" data-mode="add" data-i18n="gstAdd">Add GST</button>
+          <button type="button" data-mode="remove" data-i18n="gstRemove">Remove GST</button>
+        </div>
+      </div>
+
+      <label class="field">
+        <div class="field-head"><span data-i18n="gstAmount" id="amountLabel">Base Amount</span>
+          <span class="input-box"><span class="unit">₹</span><input type="text" id="amountInput" inputmode="numeric" autocomplete="off"></span>
+        </div>
+        <input type="range" class="slider" id="amount" min="0" max="1000000" step="1000">
+        <div class="field-scale"><span>₹0</span><span>₹10,00,000</span></div>
+      </label>
+
+      <label class="field">
+        <div class="field-head"><span data-i18n="gstRate">GST Rate</span>
+          <span class="input-box"><input type="number" id="rateInput" min="0" max="100" step="0.5"><span class="unit">%</span></span>
+        </div>
+        <input type="range" class="slider" id="rate" min="0" max="28" step="0.5">
+        <div class="field-scale"><span>0%</span><span>28%</span></div>
+      </label>
+
+      <div class="field">
+        <span class="field-head" data-i18n="gstType">Supply Type</span>
+        <div class="segmented" id="typeTabs">
+          <button type="button" class="active" data-type="intra" data-i18n="gstIntra">Intra-state (CGST+SGST)</button>
+          <button type="button" data-type="inter" data-i18n="gstInter">Inter-state (IGST)</button>
+        </div>
+      </div>
+
+      <div class="segmented small" id="presetRates">
+        <button type="button" data-preset="5">5%</button>
+        <button type="button" data-preset="12">12%</button>
+        <button type="button" data-preset="18">18%</button>
+        <button type="button" data-preset="28">28%</button>
+      </div>
+    </section>
+
+    <div class="results">
+      <div class="card">
+        <h2 data-i18n="gstBreakup">GST Break-up</h2>
+        <dl class="summary-list">
+          <div class="summary-item"><dt data-i18n="gstBase">Base Amount</dt><dd id="sumBase">-</dd></div>
+          <div class="summary-item"><dt id="gstLabel" data-i18n="gstTaxVal">GST Amount</dt><dd id="sumGst">-</dd></div>
+          <div class="summary-item accent"><dt id="totalLabel" data-i18n="gstTotal">Total Amount</dt><dd id="sumTotal">-</dd></div>
+        </dl>
+      </div>
+      <div class="card" id="splitCard">
+        <h2 data-i18n="gstSplit">Tax Split</h2>
+        <dl class="summary-list" id="splitList"></dl>
+      </div>
+    </div>
+  </main>
+
+  <section class="card faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item">
+      <div class="faq-q" data-i18n="gstFaqQ1">What is the difference between CGST, SGST and IGST?</div>
+      <div class="faq-a" data-i18n="gstFaqA1">For intra-state sales the tax is split equally into CGST (central) and SGST (state). For inter-state sales the whole tax is levied as IGST (integrated).</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" data-i18n="gstFaqQ2">Add GST vs Remove GST?</div>
+      <div class="faq-a" data-i18n="gstFaqA2">"Add GST" treats your amount as the base and adds tax on top. "Remove GST" treats your amount as tax-inclusive and works the tax back out to find the base.</div>
+    </div>
+  </section>
+
+  <nav class="related" aria-label="More calculators">
+    <a href="emi.html">EMI Calculator</a>
+    <a href="bmi.html">BMI Calculator</a>
+    <a href="sip.html">SIP Calculator</a>
+    <a href="index.html">All calculators</a>
+  </nav>
+
+  <footer data-i18n="footer">Built for practice. Amounts are rounded to two decimals.</footer>
+  <nav class="footer-links"><a href="privacy.html">Privacy Policy</a></nav>
+</div>
+
+<script src="common.js?v=2"></script>
+<script src="gst.js?v=2"></script>
+</body>
+</html>

@@ -28,6 +28,9 @@ body {
 .theme-emi  { --accent: #2563eb; --accent-2: #06b6d4; }
 .theme-eb   { --accent: #f59e0b; --accent-2: #ef4444; }
 .theme-tax  { --accent: #16a34a; --accent-2: #0ea5e9; }
+.theme-bmi  { --accent: #e11d48; --accent-2: #f59e0b; }
+.theme-sip  { --accent: #7c3aed; --accent-2: #2563eb; }
+.theme-gst  { --accent: #0d9488; --accent-2: #0891b2; }
 .theme-payslip { --accent: #0ea5e9; --accent-2: #6366f1; }
 
 .app {
@@ -240,6 +243,89 @@ header p {
   accent-color: var(--accent);
   width: 17px;
   height: 17px;
+}
+
+/* ---------- BMI Calculator ---------- */
+.bmi-result {
+  font-size: 3.2rem;
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.bmi-category {
+  display: inline-block;
+  margin: 8px 0 16px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #fff;
+  background: #64748b;
+}
+.bmi-category.under  { background: #0ea5e9; }
+.bmi-category.normal { background: #16a34a; }
+.bmi-category.over   { background: #f59e0b; }
+.bmi-category.obese  { background: #e11d48; }
+
+.bmi-scale {
+  position: relative;
+  display: flex;
+  height: 14px;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+.bmi-seg { height: 100%; }
+.bmi-seg.under  { background: #0ea5e9; flex: 1; }
+.bmi-seg.normal { background: #16a34a; flex: 1.45; }
+.bmi-seg.over   { background: #f59e0b; flex: 1; }
+.bmi-seg.obese  { background: #e11d48; flex: 2; }
+.bmi-marker {
+  position: absolute;
+  top: -4px;
+  width: 5px;
+  height: 22px;
+  border-radius: 3px;
+  background: #0f172a;
+  transform: translateX(-50%);
+  transition: left 0.15s ease;
+  box-shadow: 0 0 0 2px #fff;
+}
+.bmi-scale-legend {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: #94a3b8;
+  margin-top: 6px;
+}
+
+/* ---------- BMI Diet Suggestion ---------- */
+.macro-bar {
+  display: flex;
+  height: 14px;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 4px 0 14px;
+  background: #e2e8f0;
+}
+.macro-seg { height: 100%; transition: width 0.2s ease; }
+.macro-seg.protein { background: #e11d48; }
+.macro-seg.carbs   { background: #f59e0b; }
+.macro-seg.fat     { background: #0ea5e9; }
+
+.legend-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
+.legend-dot.protein { background: #e11d48; }
+.legend-dot.carbs   { background: #f59e0b; }
+.legend-dot.fat     { background: #0ea5e9; }
+.nutrients-title { margin: 16px 0 8px; font-size: 0.95rem; color: #334155; }
+
+/* ---------- SIP Calculator ---------- */
+.sip-result {
+  font-size: 2.6rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
 }
 
 .slider {

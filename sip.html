@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var _l=new URLSearchParams(location.search).get('lang');if(_l==='ta'){document.documentElement.lang='ta';}}catch(e){}</script>
+<meta name="i18n-page" content="sip">
+<title>SIP Calculator - Mutual Fund Returns (Free)</title>
+<meta name="description" content="Calculate the maturity value of your monthly SIP investment with compound growth, total invested and wealth gained.">
+<meta name="keywords" content="SIP calculator, mutual fund SIP, SIP returns, systematic investment plan, SIP maturity">
+<meta name="author" content="Simple EMI calculator project">
+<meta name="theme-color" content="#7c3aed">
+<link rel="icon" type="image/png" href="favicon.png?v=2">
+<link rel="apple-touch-icon" href="favicon.png?v=2">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://simplecalculator.in/sip.html">
+<link rel="alternate" hreflang="en" href="https://simplecalculator.in/sip.html">
+<link rel="alternate" hreflang="ta" href="https://simplecalculator.in/sip.html?lang=ta">
+<link rel="alternate" hreflang="x-default" href="https://simplecalculator.in/sip.html">
+<link rel="stylesheet" href="style.css?v=2">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SIP Calculator - Mutual Fund Returns">
+<meta property="og:description" content="Free SIP calculator with maturity value, invested amount and yearly growth.">
+<meta property="og:site_name" content="Calculators">
+<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://simplecalculator.in/og-image.png">
+<meta name="twitter:image" content="https://simplecalculator.in/og-image.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "SIP Calculator",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+}
+</script>
+</head>
+<body>
+<div class="app theme-sip">
+  <div class="lang-switch">
+    <button type="button" data-lang="en">EN</button>
+    <button type="button" data-lang="ta">தமிழ்</button>
+  </div>
+  <a class="back-link" href="index.html" data-i18n="back">← All calculators</a>
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="index.html">Home</a><span class="sep">›</span><span>SIP Calculator</span>
+  </nav>
+  <header>
+    <h1 data-i18n="sipH1">SIP Calculator</h1>
+    <p data-i18n="sipSub">Mutual Fund Systematic Investment Plan</p>
+  </header>
+
+  <main class="layout sip">
+    <section class="card">
+      <label class="field">
+        <div class="field-head"><span data-i18n="sipMonthly">Monthly Investment</span>
+          <span class="input-box"><span class="unit">₹</span><input type="text" id="amountInput" inputmode="numeric" autocomplete="off"></span>
+        </div>
+        <input type="range" class="slider" id="amount" min="500" max="100000" step="500">
+        <div class="field-scale"><span>₹500</span><span>₹1,00,000</span></div>
+      </label>
+
+      <label class="field">
+        <div class="field-head"><span data-i18n="sipRate">Expected Return (p.a.)</span>
+          <span class="input-box"><input type="number" id="rateInput" min="0" max="50" step="0.1"><span class="unit">%</span></span>
+        </div>
+        <input type="range" class="slider" id="rate" min="1" max="30" step="0.5">
+        <div class="field-scale"><span>1%</span><span>30%</span></div>
+      </label>
+
+      <label class="field">
+        <div class="field-head"><span data-i18n="sipTenure">Investment Period</span>
+          <span class="input-box"><input type="number" id="yearsInput" min="1" max="40" step="1"><span class="unit">Yr</span></span>
+        </div>
+        <input type="range" class="slider" id="years" min="1" max="40" step="1">
+        <div class="field-scale"><span>1 yr</span><span>40 yr</span></div>
+      </label>
+
+      <label class="field">
+        <div class="field-head"><span data-i18n="sipLump">Initial Lump Sum (optional)</span>
+          <span class="input-box"><span class="unit">₹</span><input type="text" id="lumpInput" inputmode="numeric" autocomplete="off" placeholder="0"></span>
+        </div>
+      </label>
+
+      <p class="hint" data-i18n="sipHint">Returns are illustrative. Mutual fund investments are subject to market risk — past performance is not a guarantee of future returns.</p>
+    </section>
+
+    <div class="results">
+      <div class="card">
+        <h2 data-i18n="sipMaturity">Maturity Value</h2>
+        <div class="sip-result" id="sumMaturity">-</div>
+        <dl class="summary-list">
+          <div class="summary-item"><dt data-i18n="sipInvested">Amount Invested</dt><dd id="sumInvested">-</dd></div>
+          <div class="summary-item"><dt data-i18n="sipGains">Wealth Gained</dt><dd id="sumGains">-</dd></div>
+        </dl>
+      </div>
+
+      <div class="card schedule-card">
+        <div class="schedule-head">
+          <h2 data-i18n="sipSchedule">Yearly Growth</h2>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th data-i18n="sipYear">Year</th><th data-i18n="sipInvested">Invested</th><th data-i18n="sipValue">Value</th><th data-i18n="sipGains">Gains</th></tr></thead>
+            <tbody id="scheduleBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <section class="card faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item">
+      <div class="faq-q" data-i18n="sipFaqQ1">How is SIP maturity calculated?</div>
+      <div class="faq-a" data-i18n="sipFaqA1">Each monthly investment grows at the expected annual rate compounded monthly. The maturity is the future value of this annuity plus any initial lump sum.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" data-i18n="sipFaqQ2">Are SIP returns guaranteed?</div>
+      <div class="faq-a" data-i18n="sipFaqA2">No. Equity and debt funds fluctuate with the market. This calculator assumes a constant rate for illustration only.</div>
+    </div>
+  </section>
+
+  <nav class="related" aria-label="More calculators">
+    <a href="emi.html">EMI Calculator</a>
+    <a href="bmi.html">BMI Calculator</a>
+    <a href="gst.html">GST Calculator</a>
+    <a href="index.html">All calculators</a>
+  </nav>
+
+  <footer data-i18n="footer">Built for practice. Amounts are rounded to two decimals.</footer>
+  <nav class="footer-links"><a href="privacy.html">Privacy Policy</a></nav>
+</div>
+
+<script src="common.js?v=2"></script>
+<script src="sip.js?v=2"></script>
+</body>
+</html>
