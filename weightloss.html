@@ -106,10 +106,10 @@
       </label>
 
       <label class="field">
-        <div class="field-head"><span data-i18n="forecastTargetCals">Daily Target Calories</span>
-          <span class="input-box"><input type="number" id="targetCalsInput" min="500" step="10"><span class="unit">kcal</span></span>
+        <div class="field-head"><span data-i18n="intakeCalsLbl">Daily Food Intake</span>
+          <span class="input-box"><input type="number" id="intakeCalsInput" min="0" step="10"><span class="unit">kcal</span></span>
         </div>
-        <input type="range" class="slider" id="targetCals" min="800" max="4000" step="10">
+        <input type="range" class="slider" id="intakeCals" min="0" max="6000" step="10">
       </label>
     </section>
 
@@ -117,9 +117,10 @@
       <div class="card">
         <h2 data-i18n="wlResult">Your Plan</h2>
         <dl class="summary-list">
-          <div class="summary-item accent"><dt data-i18n="forecastTargetCals">Daily Target Calories</dt><dd id="fcTarget">-</dd></div>
+          <div class="summary-item accent"><dt data-i18n="intakeCalsLbl">Daily Food Intake</dt><dd id="fcIntake">-</dd></div>
           <div class="summary-item"><dt data-i18n="wlMaintain">Maintenance Calories</dt><dd id="wlMaintain">-</dd></div>
-          <div class="summary-item"><dt data-i18n="fcDaily">Daily Deficit</dt><dd id="fcDaily">-</dd></div>
+          <div class="summary-item"><dt data-i18n="wlExBurn">Exercise Burned</dt><dd id="fcExercise">-</dd></div>
+          <div class="summary-item"><dt data-i18n="fcNet">Net Daily Deficit</dt><dd id="fcDaily">-</dd></div>
           <div class="summary-item"><dt data-i18n="weeklyLossLbl">Weekly Weight Loss</dt><dd id="fcWeekly">-</dd></div>
           <div class="summary-item"><dt data-i18n="forecastWeeks">Time to Goal</dt><dd id="fcWeeks">-</dd></div>
           <div class="summary-item"><dt data-i18n="fcDateLbl">Estimated Goal Date</dt><dd id="fcDate">-</dd></div>
@@ -127,13 +128,18 @@
           <div class="summary-item"><dt data-i18n="wlBmi">Current → Goal BMI</dt><dd id="wlBmi">-</dd></div>
         </dl>
       </div>
+
       <div class="card">
         <h2 data-i18n="wlChart">Projected Weight</h2>
         <svg id="forecastChart" viewBox="0 0 320 200" width="100%" height="200" role="img" aria-label="Projected weight over time"></svg>
         <p class="hint" data-i18n="forecastHint">Linear estimate using ~7700 kcal per kg. Real weight loss is rarely perfectly linear — treat as a guide.</p>
-        <h3 class="nutrients-title" data-i18n="exTitle">Exercise to Close the Gap</h3>
-        <p class="hint" data-i18n="exHint">Burn your daily deficit with movement instead of (or in addition to) eating less. Minutes shown are for your current weight.</p>
-        <ul class="exercise-list" id="exerciseList"></ul>
+        <h3 class="nutrients-title" data-i18n="wlWorkout">Workout (optional)</h3>
+        <p class="hint" data-i18n="wlWorkoutHint">Add a daily workout to burn extra calories. It combines with your food intake to set your weight-loss pace.</p>
+        <div class="workout-activities" id="workoutActivities"></div>
+        <p class="workout-label" data-i18n="wlMinutes">Duration / day</p>
+        <div class="workout-durations" id="workoutDurations"></div>
+        <p class="hint" id="workoutBurnText">~0 kcal burned/day</p>
+        <p class="hint" data-i18n="fcNetNote">Net Daily Deficit = Maintenance + Exercise Burned − Food Intake</p>
       </div>
     </div>
   </main>
@@ -149,7 +155,7 @@
   <nav class="footer-links"><a href="privacy.html">Privacy Policy</a></nav>
 </div>
 
-<script src="common.js?v=2"></script>
-<script src="weightloss.js?v=2"></script>
+<script src="common.js?v=6"></script>
+<script src="weightloss.js?v=6"></script>
 </body>
 </html>

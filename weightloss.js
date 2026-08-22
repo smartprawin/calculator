@@ -2,7 +2,7 @@
 
 (function () {
   var CAL_PER_KG = 7700;
-  var state = { unit: 'metric', heightCm: 170, weightKg: 80, gender: 'male', age: 30, activity: 1.2, goalKg: 70, targetCals: null };
+  var state = { unit: 'metric', heightCm: 170, weightKg: 80, gender: 'male', age: 30, activity: 1.2, goalKg: 70, intakeCals: null, workouts: [], workoutMins: 30 };
 
   var CM_PER_IN = 2.54, IN_PER_FT = 12, KG_PER_LB = 0.45359237;
 
@@ -89,9 +89,8 @@
     var m = toMetric();
     var age = state.age;
     if (!(m.kg > 0 && m.cm > 0 && age >= 2 && age <= 100)) {
-      $('fcTarget').textContent = $('wlMaintain').textContent = $('fcDaily').textContent = $('fcWeekly').textContent = $('fcWeeks').textContent = $('fcDate').textContent = $('fcDeficit').textContent = $('wlBmi').textContent = '-';
+      $('fcIntake').textContent = $('wlMaintain').textContent = $('fcExercise').textContent = $('fcDaily').textContent = $('fcWeekly').textContent = $('fcWeeks').textContent = $('fcDate').textContent = $('fcDeficit').textContent = $('wlBmi').textContent = '-';
       document.getElementById('forecastChart').innerHTML = '';
-      var ex0 = $('exerciseList'); if (ex0) ex0.innerHTML = '';
       return;
     }
 
@@ -99,47 +98,49 @@
     var tdee = bmr * state.activity;
     var goal = state.goalKg;
 
-    // Daily target calories slider (range derived from maintenance calories).
-    var tMin = Math.max(800, Math.round((tdee - 1500) / 10) * 10);
-    var tMax = Math.round((tdee + 200) / 10) * 10;
-    if (tdee <= 0) { tMin = 800; tMax = 4000; }
-    if (state.targetCals == null) state.targetCals = Math.round((tdee - 500) / 10) * 10;
-    state.targetCals = clamp(state.targetCals, tMin, tMax);
-    $('targetCals').min = tMin; $('targetCals').max = tMax; $('targetCals').step = 10;
-    $('targetCals').value = state.targetCals;
-    if (document.activeElement !== $('targetCalsInput')) $('targetCalsInput').value = Math.round(state.targetCals);
+    // Daily food intake slider (the single driver; replaces "Daily Target Calories").
+    var iMin = 0, iMax = Math.max(6000, Math.round((tdee * 2) / 100) * 100);
+    if (tdee <= 0) { iMin = 0; iMax = 6000; }
+    if (state.intakeCals == null) state.intakeCals = Math.round((tdee - 500) / 10) * 10;
+    state.intakeCals = clamp(state.intakeCals, iMin, iMax);
+    $('intakeCals').min = iMin; $('intakeCals').max = iMax; $('intakeCals').step = 10;
+    $('intakeCals').value = state.intakeCals;
+    if (document.activeElement !== $('intakeCalsInput')) $('intakeCalsInput').value = Math.round(state.intakeCals);
 
     $('wlMaintain').textContent = Math.round(tdee) + ' kcal';
+    $('fcIntake').textContent = Math.round(state.intakeCals) + ' kcal';
 
-    var target = state.targetCals;
-    var weeklyLoss = Math.max(0, (tdee - target)) * 7 / CAL_PER_KG;
+    var intake = state.intakeCals;
+    var exerciseBurned = (m.kg > 0) ? state.workouts.reduce(function (s, k) {
+      return s + metOf(k) * 3.5 * m.kg / 200 * state.workoutMins;
+    }, 0) : 0;
+    var netDeficit = tdee + exerciseBurned - intake;
 
-    if (!(goal > 0 && target > 0 && goal < m.kg)) {
-      $('fcTarget').textContent = $('fcDaily').textContent = $('fcWeekly').textContent = $('fcWeeks').textContent = $('fcDate').textContent = $('fcDeficit').textContent = '-';
+    $('fcExercise').textContent = Math.round(exerciseBurned) + ' kcal';
+    $('fcDaily').textContent = formatDeficit(netDeficit);
+    $('workoutBurnText').textContent = '~' + Math.round(exerciseBurned).toLocaleString('en-IN') + ' kcal burned/day';
+
+    var weeklyLoss = Math.max(0, netDeficit) * 7 / CAL_PER_KG;
+
+    if (!(goal > 0 && intake > 0 && goal < m.kg)) {
+      $('fcWeekly').textContent = $('fcWeeks').textContent = $('fcDate').textContent = $('fcDeficit').textContent = '-';
       $('wlBmi').textContent = bmiOf(m.kg, m.cm).toFixed(1) + ' → -';
       document.getElementById('forecastChart').innerHTML = '<text x="160" y="104" text-anchor="middle" class="chart-center-label">' + t('fcSetGoal') + '</text>';
-      renderExercises(0, m.kg);
       return;
     }
 
-    if (weeklyLoss <= 0) {
-      $('fcTarget').textContent = Math.round(target) + ' kcal';
-      $('fcDaily').textContent = Math.round(tdee - target) + ' kcal';
+    if (netDeficit <= 0) {
       $('fcWeekly').textContent = '0 kg/wk';
       $('fcWeeks').textContent = $('fcDate').textContent = $('fcDeficit').textContent = '-';
       $('wlBmi').textContent = bmiOf(m.kg, m.cm).toFixed(1) + ' → ' + bmiOf(goal, m.cm).toFixed(1);
       document.getElementById('forecastChart').innerHTML = '<text x="160" y="104" text-anchor="middle" class="chart-center-label">' + t('fcBelow') + '</text>';
-      renderExercises(0, m.kg);
       return;
     }
 
     var weeks = (m.kg - goal) / weeklyLoss;
     var months = weeks / 4.345;
     var totalDeficit = (m.kg - goal) * CAL_PER_KG;
-    var dailyDeficit = tdee - target;
 
-    $('fcTarget').textContent = Math.round(target) + ' kcal';
-    $('fcDaily').textContent = Math.round(dailyDeficit) + ' kcal';
     $('fcWeekly').textContent = weeklyLoss.toFixed(2) + ' kg/wk';
     $('fcWeeks').textContent = Math.round(weeks) + ' wk (' + months.toFixed(1) + ' mo)';
     $('fcDeficit').textContent = Math.round(totalDeficit).toLocaleString('en-IN') + ' kcal';
@@ -150,7 +151,17 @@
     $('fcDate').textContent = goalDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 
     drawForecastChart('forecastChart', weeks, m.kg, goal, weeklyLoss);
-    renderExercises(Math.round(dailyDeficit), m.kg);
+  }
+
+  function metOf(key) {
+    for (var i = 0; i < EXERCISES.length; i++) { if (EXERCISES[i].key === key) return EXERCISES[i].met; }
+    return 0;
+  }
+
+  function formatDeficit(n) {
+    if (n > 0) return Math.round(n) + ' kcal';
+    if (n < 0) return 'Surplus ' + Math.round(-n) + ' kcal';
+    return '0 kcal';
   }
 
   var EXERCISES = [
@@ -164,21 +175,18 @@
     { key: 'exStrength', met: 6.0 }
   ];
 
-  function renderExercises(deficit, weightKg) {
-    var ul = $('exerciseList');
-    if (!ul) return;
-    if (!(deficit > 0) || !(weightKg > 0)) {
-      ul.innerHTML = '<li class="ex-empty">' + t('exNone') + '</li>';
-      return;
-    }
-    var html = '';
-    EXERCISES.forEach(function (ex) {
-      var kcalPerMin = ex.met * 3.5 * weightKg / 200;
-      var mins = Math.ceil(deficit / kcalPerMin / 5) * 5;
-      if (mins < 5) mins = 5;
-      html += '<li><span class="ex-name">' + t(ex.key) + '</span><span class="ex-min">~' + mins + ' min/day</span></li>';
+  function renderWorkoutChips() {
+    var wrap = $('workoutActivities');
+    if (!wrap) return;
+    wrap.innerHTML = EXERCISES.map(function (ex) {
+      return '<button type="button" class="chip" data-key="' + ex.key + '">' + t(ex.key) + '</button>';
+    }).join('');
+  }
+
+  function syncChips() {
+    document.querySelectorAll('#workoutActivities .chip').forEach(function (c) {
+      c.classList.toggle('active', c.dataset.key === state.workoutKey);
     });
-    ul.innerHTML = html;
   }
 
   $('unitTabs').addEventListener('click', function (e) {
@@ -196,7 +204,7 @@
   $('weight').addEventListener('input', function (e) { state.weightKg = parseNum(e.target.value); render(); });
   $('goalWeight').addEventListener('input', function (e) { state.goalKg = parseNum(e.target.value); render(); });
   $('age').addEventListener('input', function (e) { state.age = Math.round(parseNum(e.target.value)); render(); });
-  $('targetCals').addEventListener('input', function (e) { state.targetCals = parseNum(e.target.value); render(); });
+  $('intakeCals').addEventListener('input', function (e) { state.intakeCals = parseNum(e.target.value); render(); });
 
   $('heightInput').addEventListener('blur', function (e) {
     var v = String(e.target.value).match(/(\d+)\s*['′]\s*(\d+(?:\.\d+)?)\s*["“”]?/);
@@ -210,8 +218,35 @@
   $('goalWeightInput').addEventListener('input', function (e) { state.goalKg = parseNum(e.target.value); render(); });
   $('goalWeightInput').addEventListener('blur', function () { render(); });
   $('ageInput').addEventListener('input', function (e) { var v = Math.round(Number(e.target.value)); state.age = isFinite(v) && v >= 0 ? v : 0; render(); });
-  $('targetCalsInput').addEventListener('input', function (e) { var v = Number(e.target.value); state.targetCals = isFinite(v) && v > 0 ? v : 0; render(); });
+  $('intakeCalsInput').addEventListener('input', function (e) { var v = Number(e.target.value); state.intakeCals = isFinite(v) && v > 0 ? v : 0; render(); });
 
   document.addEventListener('langchange', render);
   render();
+
+  // ---------- Daily food intake (slider drives the whole plan) ----------
+  $('intakeCals').addEventListener('input', function (e) {
+    state.intakeCals = parseNum(e.target.value);
+    if (document.activeElement !== $('intakeCalsInput')) $('intakeCalsInput').value = Math.round(state.intakeCals);
+    render();
+  });
+  $('intakeCalsInput').addEventListener('input', function (e) {
+    var v = Number(e.target.value);
+    state.intakeCals = isFinite(v) && v > 0 ? v : 0;
+    if (document.activeElement !== $('intakeCals')) $('intakeCals').value = state.intakeCals;
+    render();
+  });
+
+  renderWorkoutChips();
+  syncChips();
+  $('workoutActivities').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    state.workoutKey = b.dataset.key;
+    syncChips(); render();
+  });
+  $('workoutMins').addEventListener('input', function (e) {
+    var v = Number(e.target.value);
+    state.workoutMins = isFinite(v) && v > 0 ? v : 0;
+    render();
+  });
+  document.addEventListener('langchange', function () { renderWorkoutChips(); syncChips(); });
 })();

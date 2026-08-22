@@ -329,6 +329,93 @@ header p {
 .night .exercise-list .ex-name { color: #e2e8f0; }
 .night .exercise-list .ex-min { color: #2dd4bf; }
 
+/* ---------- Weight loss intake tracker ---------- */
+.text-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #fff;
+  color: #1e293b;
+  font: inherit;
+  box-sizing: border-box;
+}
+.night .text-input { background: #0f1925; border-color: #243042; color: #e2e8f0; }
+.intake-row { display: flex; gap: 8px; margin: 10px 0; flex-wrap: wrap; }
+.intake-row .text-input { flex: 1 1 120px; }
+.intake-row .cals-input { flex: 0 1 90px; }
+.btn-add {
+  flex: 0 0 auto;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.btn-add:hover { filter: brightness(1.05); }
+.intake-bar {
+  height: 12px;
+  background: #eef2f7;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 10px 0 4px;
+}
+.night .intake-bar { background: #16202e; }
+.intake-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #0d9488, #16a34a);
+  border-radius: 999px;
+  transition: width .25s ease;
+}
+.intake-bar-fill.over { background: linear-gradient(90deg, #f59e0b, #dc2626); }
+.intake-list { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 8px; }
+.intake-list li { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: #f8fafc; border: 1px solid #eef2f7; border-radius: 10px; }
+.night .intake-list li { background: #16202e; border-color: #243042; }
+.intake-name { font-weight: 600; color: #1e293b; }
+.night .intake-name { color: #e2e8f0; }
+.intake-cals { color: #0d9488; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; }
+.night .intake-cals { color: #2dd4bf; }
+.intake-del { border: none; background: transparent; color: #dc2626; font-size: 1.1rem; line-height: 1; cursor: pointer; padding: 0 4px; }
+.intake-empty { justify-content: center; color: #64748b; font-style: italic; background: transparent; border-style: dashed; }
+.btn-clear {
+  margin-top: 12px;
+  padding: 8px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: transparent;
+  color: #475569;
+  font: inherit;
+  cursor: pointer;
+}
+.night .btn-clear { border-color: #243042; color: #94a3b8; }
+.btn-clear:hover { background: #f1f5f9; }
+.night .btn-clear:hover { background: #16202e; }
+
+/* ---------- Weight loss workout picker ---------- */
+.workout-activities { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 4px; }
+.workout-activities .chip {
+  padding: 7px 11px;
+  border: 1px solid #e2e8f0;
+  border-radius: 999px;
+  background: #fff;
+  color: #475569;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.workout-activities .chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.workout-activities .chip:hover { border-color: var(--accent); }
+.night .workout-activities .chip { background: #0f1925; border-color: #243042; color: #94a3b8; }
+.night .workout-activities .chip.active { background: var(--accent); color: #fff; }
+.workout-row { display: flex; align-items: center; gap: 10px; margin: 8px 0 2px; }
+.workout-row .workout-label { font-weight: 600; color: #334155; white-space: nowrap; }
+.workout-row .text-input { flex: 1 1 auto; max-width: 120px; }
+.night .workout-row .workout-label { color: #cbd5e1; }
+
 /* ---------- SIP Calculator ---------- */
 .sip-result {
   font-size: 2.6rem;
