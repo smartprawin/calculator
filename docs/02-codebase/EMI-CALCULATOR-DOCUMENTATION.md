@@ -481,6 +481,71 @@ matched.
 A verdict banner sits under the table. The **Excel** export (`payslip-offer-comparison.csv`)
 lists both sides, the comparison (with Reason + Status), and an ad block.
 
+## Weight Loss Planner
+
+A goal-based planner in `weightloss.html` (`weightloss.js`, i18n-aware EN/TA). It
+estimates a daily calorie deficit and projects the weight-loss timeline.
+
+### Inputs
+
+| Field | Element | Notes |
+|-------|---------|-------|
+| Gender | `#genderTabs` | male / female (affects BMR) |
+| Height | `#height` / `#heightInput` | cm (metric) or ft-in (imperial) |
+| Current Weight | `#weight` / `#weightInput` | kg / lb |
+| Age | `#age` / `#ageInput` | 2–100 yr |
+| Activity Level | `#activityTabs` | Sedentary → Active (BMR multiplier) |
+| Goal Weight | `#goalWeight` / `#goalWeightInput` | must be below current weight |
+| Goal Time | `#goalWeeks` / `#goalWeeksInput` | target duration in **weeks** (1–104) |
+| Daily Food Intake | `#intakeCals` / `#intakeCalsInput` | kcal/day (slider + textbox) |
+
+### Calculation (`weightloss.js`)
+
+- **BMR** via Mifflin-St Jeor: `10·kg + 6.25·cm − 5·age + (5 male / −161 female)`.
+- **TDEE (maintenance)** = `BMR × activity`.
+- **Required Daily Deficit** = `(current − goal) × 7700 ÷ (goalWeeks × 7)`.
+- **Required Exercise Burn** = `Required Daily Deficit − (TDEE − Daily Intake)`.
+- **Net Daily Deficit** = `TDEE + Exercise Burned − Daily Intake`.
+- **Weekly loss** = `Net Daily Deficit × 7 ÷ 7700`; **weeks to goal** = `(current − goal) ÷ weeklyLoss`.
+
+### Workout plan (Exercise to Close the Gap)
+
+Instead of a manual workout picker, the planner lists **every** activity
+(Walking, Brisk walking, Cycling, Running, Swimming, HIIT, Jump rope, Strength)
+with the **minutes/day** each needs to hit the goal within the fixed Goal Time and
+Daily Food Intake. Tap any row to select it (its burn feeds the forecast). The
+easiest option is auto-highlighted; rows needing > 2 hr/day are flagged as
+impractical. If `Required Exercise Burn ≤ 0`, no extra workout is needed.
+
+### Projected Weight chart
+
+An SVG line/area chart (`drawForecastChart`) shows weight over time with:
+axis labels (weight + weeks/months), a dashed green goal line, start/end markers
+labeled with weights, a midpoint weight marker, and the estimated goal date.
+
+### Key functions
+
+- `updateAutoPlan(kg, tdee, intake)` — computes required deficit/burn, renders the
+  workout list, and reports feasibility (Feasible / Not feasible / low-intake warning).
+- `renderWorkoutList(...)` — builds the per-exercise minutes list.
+- `drawForecastChart(svgId, weeks, startKg, goalKg, weeklyLoss, {unit, goalDateStr})`.
+
+### Outputs
+
+| Element | Value |
+|---------|-------|
+| `#fcIntake` | Daily food intake |
+| `#wlMaintain` | Maintenance calories (TDEE) |
+| `#fcExercise` | Exercise burned |
+| `#fcDaily` | Net daily deficit |
+| `#fcWeekly` | Weekly weight loss |
+| `#fcWeeks` / `#fcDate` | Time to goal / estimated goal date |
+| `#fcDeficit` | Total deficit needed |
+| `#wlBmi` | Current → Goal BMI |
+| `#plReqDeficit` / `#plReqBurn` | Required daily deficit / exercise burn |
+| `#workoutList` | Per-exercise minutes list |
+| `#forecastChart` | Projected weight SVG |
+
 ## Privacy Features
 
 The app stores **no user data**:

@@ -408,6 +408,35 @@ header p {
   cursor: pointer;
 }
 .workout-activities .chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.workout-durations { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 2px; }
+.workout-durations .chip {
+  padding: 7px 14px; border: 1.5px solid #d7dee7; border-radius: 999px; background: #fff;
+  color: #334155; font-size: 13px; cursor: pointer; transition: all .15s ease;
+}
+.workout-durations .chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.workout-durations .chip:hover { border-color: var(--accent); }
+.night .workout-durations .chip { background: #0f1925; border-color: #243042; color: #94a3b8; }
+.night .workout-durations .chip.active { background: var(--accent); color: #fff; }
+.plan-status { font-weight: 600; margin: 8px 0 4px; }
+.plan-status.ok { color: #16a34a; }
+.plan-status.warn { color: #d97706; }
+.plan-status.bad { color: #dc2626; }
+.workout-list { display: flex; flex-direction: column; gap: 6px; margin: 8px 0 2px; }
+.wk-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 14px; border: 1.5px solid #d7dee7; border-radius: 12px;
+  background: #fff; color: #334155; font: inherit; cursor: pointer; text-align: left; width: 100%;
+}
+.wk-row .wk-name { font-weight: 600; }
+.wk-row .wk-mins { color: #64748b; font-size: 13px; }
+.wk-row.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.wk-row.active .wk-mins { color: #e6fffb; }
+.wk-row.too-much .wk-mins { color: #dc2626; }
+.wk-row:hover { border-color: var(--accent); }
+.night .wk-row { background: #0f1925; border-color: #243042; color: #94a3b8; }
+.night .wk-row .wk-mins { color: #64748b; }
+.night .wk-row.active { background: var(--accent); color: #fff; }
+.night .wk-row.too-much .wk-mins { color: #f87171; }
 .workout-activities .chip:hover { border-color: var(--accent); }
 .night .workout-activities .chip { background: #0f1925; border-color: #243042; color: #94a3b8; }
 .night .workout-activities .chip.active { background: var(--accent); color: #fff; }

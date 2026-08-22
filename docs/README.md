@@ -45,3 +45,9 @@ Future docs should go into the matching numbered folder.
 |----------|-------------|
 | [`DEPLOYMENT.md`](04-guides/DEPLOYMENT.md) | Deploy on GitHub Pages, bind the custom domain `simplecalculator.in` (DNS, `CNAME`, Settings), SEO URLs, hreflang/i18n (en/ta), and social sharing |
 | [`MOBILE_APP.md`](04-guides/MOBILE_APP.md) | Turn the site into a PWA + native Android app with Capacitor (manifest, service worker, `capacitor.config.ts`) — same project, no rewrite |
+
+### 05-changelog
+
+| Document | Description |
+|----------|-------------|
+| [`2026-08-23.md`](05-changelog/2026-08-23.md) | Session notes: Weight Loss Planner fixed-time goal, Exercise-to-Close-the-Gap list, chart upgrade, mobile rebuild |
