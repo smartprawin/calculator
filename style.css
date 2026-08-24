@@ -31,6 +31,7 @@ body {
 .theme-bmi  { --accent: #e11d48; --accent-2: #f59e0b; }
 .theme-sip  { --accent: #7c3aed; --accent-2: #2563eb; }
 .theme-gst  { --accent: #0d9488; --accent-2: #0891b2; }
+.theme-food { --accent: #ea580c; --accent-2: #16a34a; }
 .theme-weightloss { --accent: #0f766e; --accent-2: #16a34a; }
 .theme-payslip { --accent: #0ea5e9; --accent-2: #6366f1; }
 
@@ -1609,4 +1610,9 @@ footer {
   .verify-grid { grid-template-columns: 1fr; }
   .compare-row { grid-template-columns: 1fr 0.8fr 0.8fr 1fr 32px; font-size: 0.76rem; padding: 8px 10px; }
   .cmp-reason { font-size: 0.68rem; }
-}
+}/* Food calculator table controls */
+.cell-input { width: 100%; min-width: 56px; padding: 6px 8px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.9rem; font-family: inherit; }
+.cell-input:focus { outline: 2px solid var(--accent, #ea580c); outline-offset: 1px; }
+.row-del { border: none; background: #fee2e2; color: #b91c1c; width: 26px; height: 26px; border-radius: 50%; cursor: pointer; font-weight: 700; line-height: 1; }
+.row-del:hover { background: #fecaca; }
+.table-wrap select.cell-input { width: auto; }

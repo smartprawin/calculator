@@ -26,12 +26,14 @@ Future docs should go into the matching numbered folder.
 | [`01-requirements.md`](01-planning/01-requirements.md) | PRD: features, custom fields, acceptance criteria |
 | [`02-technical-design.md`](01-planning/02-technical-design.md) | Architecture, data model, module layout |
 | [`03-project-plan.md`](01-planning/03-project-plan.md) | Phases, timeline, definition of done |
+| [`04-tech-stack.md`](01-planning/04-tech-stack.md) | Tech stack + how the Capacitor wrapper is built (author → bundle → sync → native build) |
 
 ### 02-codebase
 
 | Document | Description |
 |----------|-------------|
 | [`EMI-CALCULATOR-DOCUMENTATION.md`](02-codebase/EMI-CALCULATOR-DOCUMENTATION.md) | Auto-generated docs of the app (index.html landing + emi.html + ebbill.html + tax.html): engines, UI, and state |
+| [`FOOD-CALCULATOR-DOCUMENTATION.md`](02-codebase/FOOD-CALCULATOR-DOCUMENTATION.md) | Food Calculator: nutrition (calorie/macro targets + food-log counter) and monthly budget planner |
 
 ### 03-calculations
 
@@ -51,3 +53,4 @@ Future docs should go into the matching numbered folder.
 | Document | Description |
 |----------|-------------|
 | [`2026-08-23.md`](05-changelog/2026-08-23.md) | Session notes: Weight Loss Planner fixed-time goal, Exercise-to-Close-the-Gap list, chart upgrade, mobile rebuild |
+| [`2026-08-24.md`](05-changelog/2026-08-24.md) | Food Calculator (191 Indian foods), Irregular Part-Payment savings comparison, App icon update |

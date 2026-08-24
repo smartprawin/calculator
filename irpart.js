@@ -168,6 +168,17 @@
   function renderSchedule(built) {
     var periodLbl = t(state.view);
     var rows = buildViewRows(built.rows);
+    var existing = $('scheduleBody').querySelectorAll('tr');
+    var periodInputs = $('scheduleBody').querySelectorAll('.pp-inline');
+    var focusedPeriod = null;
+    var savedSelStart = null;
+    var savedSelEnd = null;
+    if (document.activeElement && document.activeElement.classList.contains('pp-inline')) {
+      focusedPeriod = document.activeElement.dataset.period;
+      savedSelStart = document.activeElement.selectionStart;
+      savedSelEnd = document.activeElement.selectionEnd;
+    }
+
     $('scheduleBody').innerHTML = rows.map(function (r) {
       var amt = 0;
       state.payments.forEach(function (p) { if (p.period === r.period) amt += p.amount; });
@@ -178,6 +189,16 @@
              '<td data-label="' + t('colBalance') + '">' + currency(r.balance) + '</td>' +
              '<td data-label="' + t('colPrepay') + '" class="prepay-cell"><input type="number" class="pp-inline" data-period="' + r.period + '" min="0" step="1000" value="' + (amt ? amt : '') + '" placeholder="0"></td></tr>';
     }).join('');
+
+    if (focusedPeriod !== null) {
+      var restored = $('scheduleBody').querySelector('.pp-inline[data-period="' + focusedPeriod + '"]');
+      if (restored) {
+        restored.focus();
+        if (savedSelStart !== null && restored.setSelectionRange) {
+          restored.setSelectionRange(savedSelStart, savedSelEnd);
+        }
+      }
+    }
   }
 
   function renderSummary(built) {
@@ -199,6 +220,45 @@
     $('legendInterest').textContent = t('interestLbl') + ': ' + currency(totalInterest) + ' (' + (totalPayment > 0 ? ((totalInterest / totalPayment) * 100).toFixed(1) : 0) + '%)';
     renderChart(state.amount, totalInterest);
     computePreclosure(schedule);
+
+    // Calculate savings: compare with/without prepayments
+    var savedPayments = state.payments.slice();
+    state.payments = [];
+    var baseline = buildSchedule();
+    state.payments = savedPayments;
+
+    var baselineTotal = 0;
+    baseline.rows.forEach(function (row) { baselineTotal += row.payment; });
+    var baselineMonths = baseline.rows.length;
+    var hasPrepayments = state.payments.length > 0;
+
+    if (hasPrepayments) {
+      $('sumWithoutPrepay').textContent = currency(baselineTotal);
+      $('sumWithPrepay').textContent = currency(totalPayment);
+      var saved = baselineTotal - totalPayment;
+      $('sumYouSave').textContent = (saved >= 0 ? currency(saved) : '-' + currency(-saved));
+      $('sumYouSave').style.color = saved >= 0 ? '#16a34a' : '#dc2626';
+      var monthsSaved = baselineMonths - closeMonths;
+      $('sumMonthsSaved').textContent = monthsSaved > 0 ? monthsSaved + ' months' : '0 months';
+      var monthsSavedAmt = monthsSaved * emi;
+      $('sumMonthsSavedAmt').textContent = currency(monthsSavedAmt);
+      var totalSavings = saved + monthsSavedAmt;
+      $('sumTotalSavings').textContent = (totalSavings >= 0 ? currency(totalSavings) : '-' + currency(-totalSavings));
+      $('sumTotalSavings').style.color = totalSavings >= 0 ? '#16a34a' : '#dc2626';
+      $('savingsHint').style.display = 'none';
+      $('savingsCard').style.display = '';
+    } else {
+      $('sumWithoutPrepay').textContent = currency(baselineTotal);
+      $('sumWithPrepay').textContent = '-';
+      $('sumYouSave').textContent = '-';
+      $('sumYouSave').style.color = '';
+      $('sumMonthsSaved').textContent = '-';
+      $('sumMonthsSavedAmt').textContent = '-';
+      $('sumTotalSavings').textContent = '-';
+      $('sumTotalSavings').style.color = '';
+      $('savingsHint').style.display = '';
+      $('savingsCard').style.display = '';
+    }
   }
 
   function liveUpdateSchedule(built) {
@@ -249,6 +309,7 @@
       $('legendPrincipal').textContent = t('principalLbl') + ': -';
       $('legendInterest').textContent = t('interestLbl') + ': -';
       $('scheduleBody').innerHTML = '<tr><td colspan="5" style="text-align:center;color:#64748b;padding:24px">' + t('validMsg') + '</td></tr>';
+      $('savingsCard').style.display = 'none';
       renderChart(0, 0);
       return;
     }
@@ -307,7 +368,10 @@
 
   $('scheduleBody').addEventListener('blur', function (e) {
     var el = e.target;
-    if (el && el.classList && el.classList.contains('pp-inline')) renderResults();
+    if (el && el.classList && el.classList.contains('pp-inline')) {
+      var built = buildSchedule();
+      renderSummary(built);
+    }
   }, true);
 
   $('loadList').addEventListener('click', function () {

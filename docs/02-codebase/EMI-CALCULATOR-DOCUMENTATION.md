@@ -373,6 +373,7 @@ principal and shorten the tenure / interest. It reuses the same EMI math
 - **Repay / part-payment textboxes** were enlarged for mobile (`#ppInline`,
   `.input-box input` font sizes bumped; `.pp-inline` width 84→100px, larger
   font on phones).
+- **Prepayment Savings Summary:** Shows a comparison of total payments with and without prepayments, including the amount saved and months saved.
 - Output is the same schedule/summary family as the EMI calculator.
 
 ## Offer Letter Salary Split-up Generator & Verifier

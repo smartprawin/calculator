@@ -477,7 +477,46 @@ var TRANSLATIONS = {
     gstFaqQ2: 'Add GST vs Remove GST?',
     gstFaqA2: '"Add GST" treats your amount as the base and adds tax on top. "Remove GST" treats your amount as tax-inclusive and works the tax back out to find the base.',
     pgGstTitle: 'GST Calculator - Add / Remove GST (Free)',
-    pgGstDesc: 'Add or remove GST from a price and split the tax into CGST, SGST and IGST for intra- and inter-state supplies.'
+    pgGstDesc: 'Add or remove GST from a price and split the tax into CGST, SGST and IGST for intra- and inter-state supplies.',
+
+    foodTitle: 'Food Calculator',
+    foodDesc: 'Plan daily calories & macros from your profile and food log, and estimate your monthly food budget.',
+    foodCta: 'Open calculator →',
+    foodH1: 'Food Calculator',
+    foodSub: 'Daily calories & macros + monthly food budget',
+    foodMode: 'Mode',
+    nutritionLbl: 'Nutrition',
+    budgetLbl: 'Monthly Budget',
+    nutritionTitle: 'Calorie & Macro Targets',
+    foodLogTitle: 'Food Calorie Counter',
+    foodSelect: 'Food / Drink',
+    foodGrams: 'Quantity (g / ml)',
+    foodKcal: 'kcal',
+    foodAddItem: '+ Add item',
+    foodTotal: 'Total from log',
+    foodVsTarget: 'vs daily target',
+    foodUnderNote: 'Under target — room left for today.',
+    foodOverNote: 'Over target — consider a lighter next meal or extra movement.',
+    foodEmpty: 'No items logged yet. Pick a food and enter the quantity.',
+    foodCustom: 'Custom (enter kcal)',
+    foodCustomKcal: 'kcal per 100g',
+    budgetTitle: 'Monthly Food Budget',
+    budgetPeople: 'Number of people',
+    budgetItem: 'Item / Category',
+    budgetPrice: 'Price (₹)',
+    budgetQty: 'Qty / month',
+    budgetFreq: 'Frequency',
+    freqDaily: 'Daily',
+    freqWeekly: 'Weekly',
+    freqMonthly: 'Monthly',
+    budgetAdd: '+ Add item',
+    budgetTotal: 'Total Monthly Food Cost',
+    budgetPerDay: 'Per day',
+    budgetPerPerson: 'Per person / month',
+    budgetEmpty: 'No budget items yet. Add a row to start.',
+    budgetHint: 'Each row is one item you buy for food. Pick how often you buy it; the monthly cost is worked out automatically.',
+    pgFoodTitle: 'Food Calculator - Calories, Macros & Monthly Budget (Free)',
+    pgFoodDesc: 'Estimate daily calorie & macro targets from your profile and a food log, and plan your monthly food budget.'
   },
   ta: {
     heroTitle: '\u0b95\u0bbe\u0bb2\u0bcd\u0b95\u0bc1\u0bb2\u0bc7\u0b9f\u0bcd\u0b9f\u0bb0\u0bcd\u0b95\u0bb3\u0bcd',
@@ -845,7 +884,46 @@ var TRANSLATIONS = {
     gstFaqQ2: 'ஜிஎஸ்டி சேர் vs நீக்கு?',
     gstFaqA2: '"ஜிஎஸ்டி சேர்" உங்கள் தொகையை அடிப்படையாகக் கருதி மேலே வரியைச் சேர்க்கிறது. "ஜிஎஸ்டி நீக்கு" உங்கள் தொகையை வரி உள்ளடக்கியதாகக் கருதி, அடிப்படையைக் கண்டறிய வரியைப் பின்னுக்குப் பெறுகிறது.',
     pgGstTitle: 'ஜிஎஸ்டி கால்குலேட்டர் - ஜிஎஸ்டியைச் சேர் / நீக்கு (இலவசம்)',
-    pgGstDesc: 'விலையில் ஜிஎஸ்டியைச் சேர்க்கவோ அல்லது நீக்கவோ செய்து, மாநில உள் மற்றும் மாநிலங்களுக்கு இடையேயான வழங்கல்களுக்கு சிஜிஎஸ்டி, எஸ்ஜிஎஸ்டி மற்றும் ஐஜிஎஸ்டியாக வரியைப் பிரிக்கவும்.'
+    pgGstDesc: 'விலையில் ஜிஎஸ்டியைச் சேர்க்கவோ அல்லது நீக்கவோ செய்து, மாநில உள் மற்றும் மாநிலங்களுக்கு இடையேயான வழங்கல்களுக்கு சிஜிஎஸ்டி, எஸ்ஜிஎஸ்டி மற்றும் ஐஜிஎஸ்டியாக வரியைப் பிரிக்கவும்.',
+
+    foodTitle: 'உணவு கால்குலேட்டர்',
+    foodDesc: 'உங்கள் சுயவிவரம் மற்றும் உணவுப் பதிவிலிருந்து தினசரி கலோரிகள் & மேக்ரோக்களைத் திட்டமிடவும், மாதாந்திர உணவுப் பட்ஜெட்டை மதிப்பிடவும்.',
+    foodCta: 'கால்குலேட்டரைத் திறக்க →',
+    foodH1: 'உணவு கால்குலேட்டர்',
+    foodSub: 'தினசரி கலோரிகள் & மேக்ரோக்கள் + மாதாந்திர உணவுப் பட்ஜெட்',
+    foodMode: 'பயன்முறை',
+    nutritionLbl: 'ஊட்டச்சத்து',
+    budgetLbl: 'மாதாந்திர பட்ஜெட்',
+    nutritionTitle: 'கலோரி & மேக்ரோ இலக்குகள்',
+    foodLogTitle: 'உணவு கலோரி கணிப்பான்',
+    foodSelect: 'உணவு / பானம்',
+    foodGrams: 'அளவு (g / ml)',
+    foodKcal: 'கலோரி',
+    foodAddItem: '+ உருப்படியைச் சேர்',
+    foodTotal: 'பதிவிலிருந்து மொத்தம்',
+    foodVsTarget: 'தினசரி இலக்குக்கு எதிராக',
+    foodUnderNote: 'இலக்குக்குக் கீழே — இன்று இடம் மீதமுள்ளது.',
+    foodOverNote: 'இலக்கை மீறியது — அடுத்த உணவை இலலாக எடுத்துக்கொள்ளவும் அல்லது கூடுதல் இயக்கத்தைக் கருத்தில் கொள்ளவும்.',
+    foodEmpty: 'இதுவரை உருப்படிகள் பதிவு செய்யப்படவில்லை. உணவைத் தேர்ந்தெடுத்து அளவை உள்ளிடவும்.',
+    foodCustom: 'தனிப்பயன் (கலோரியை உள்ளிடவும்)',
+    foodCustomKcal: '100g உள்ள கலோரிகள்',
+    budgetTitle: 'மாதாந்திர உணவுப் பட்ஜெட்',
+    budgetPeople: 'நபர்களின் எண்ணிக்கை',
+    budgetItem: 'உருப்படி / வகை',
+    budgetPrice: 'விலை (₹)',
+    budgetQty: 'அளவு / மாதம்',
+    budgetFreq: 'அடிக்கடித் தன்மை',
+    freqDaily: 'தினசரி',
+    freqWeekly: 'வாராந்திர',
+    freqMonthly: 'மாதாந்திர',
+    budgetAdd: '+ உருப்படியைச் சேர்',
+    budgetTotal: 'மொத்த மாதாந்திர உணவுச் செலவு',
+    budgetPerDay: 'நாள் ஒன்றுக்கு',
+    budgetPerPerson: 'நபர் ஒருவருக்கு / மாதம்',
+    budgetEmpty: 'இதுவரை பட்ஜெட் உருப்படிகள் இல்லை. தொடங்க ஒரு வரிசையைச் சேர்க்கவும்.',
+    budgetHint: 'உணவுக்காக நீங்கள் வாங்கும் ஒவ்வொரு உருப்படியும் ஒரு வரிசை. நீங்கள் எவ்வளவு அடிக்கடி வாங்குகிறீர்கள் என்பதைத் தேர்ந்தெடுங்கள்; மாதாந்திர செலவு தானாகக் கணக்கிடப்படும்.',
+    pgFoodTitle: 'உணவு கால்குலேட்டர் - கலோரிகள், மேக்ரோக்கள் & மாதாந்திர பட்ஜெட் (இலவசம்)',
+    pgFoodDesc: 'உங்கள் சுயவிவரம் மற்றும் உணவுப் பதிவிலிருந்து தினசரி கலோரி & மேக்ரோ இலக்குகளை மதிப்பிட்டு, உங்கள் மாதாந்திர உணவுப் பட்ஜெட்டைத் திட்டமிடுங்கள்.'
   }
 };
 
@@ -888,7 +966,8 @@ var META_KEYS = {
   bmi: ['pgBmiTitle', 'pgBmiDesc'],
   sip: ['pgSipTitle', 'pgSipDesc'],
   gst: ['pgGstTitle', 'pgGstDesc'],
-  weightloss: ['pgWlTitle', 'pgWlDesc']
+  weightloss: ['pgWlTitle', 'pgWlDesc'],
+  food: ['pgFoodTitle', 'pgFoodDesc']
 };
 
 function setMetaContent(name, content) {
@@ -1043,7 +1122,8 @@ var CALCULATORS = [
   { id: 'bmi', href: 'bmi.html', icon: '🏃', accent: '#e11d48', titleKey: 'bmiTitle', descKey: 'bmiDesc', ctaKey: 'bmiCta' },
   { id: 'sip', href: 'sip.html', icon: '📈', accent: '#7c3aed', titleKey: 'sipTitle', descKey: 'sipDesc', ctaKey: 'sipCta' },
   { id: 'gst', href: 'gst.html', icon: '🧮', accent: '#0d9488', titleKey: 'gstTitle', descKey: 'gstDesc', ctaKey: 'gstCta' },
-  { id: 'weightloss', href: 'weightloss.html', icon: '🏋️', accent: '#0f766e', titleKey: 'wlH1', descKey: 'wlDesc', ctaKey: 'wlCta' }
+  { id: 'weightloss', href: 'weightloss.html', icon: '🏋️', accent: '#0f766e', titleKey: 'wlH1', descKey: 'wlDesc', ctaKey: 'wlCta' },
+  { id: 'food', href: 'food.html', icon: '🍱', accent: '#ea580c', titleKey: 'foodTitle', descKey: 'foodDesc', ctaKey: 'foodCta' }
 ];
 
 function renderLanding() {
