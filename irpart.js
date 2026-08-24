@@ -161,6 +161,7 @@
         map[y] = agg;
       });
       rows = Object.keys(map).map(function (k) { return map[k]; });
+      while (rows.length > 1 && rows[rows.length - 1].balance <= 0) rows.pop();
     }
     return rows;
   }
@@ -264,13 +265,16 @@
   function liveUpdateSchedule(built) {
     var trs = $('scheduleBody').querySelectorAll('tr');
     var rows = buildViewRows(built.rows);
-    if (trs.length !== rows.length) return;
-    for (var i = 0; i < trs.length; i++) {
+    var len = Math.min(trs.length, rows.length);
+    for (var i = 0; i < len; i++) {
       var tds = trs[i].querySelectorAll('td');
       tds[1].textContent = currency(rows[i].payment);
       tds[2].textContent = currency(rows[i].principal);
       tds[3].textContent = currency(rows[i].interest);
       tds[4].textContent = currency(rows[i].balance);
+    }
+    for (var i = trs.length - 1; i >= rows.length; i--) {
+      trs[i].remove();
     }
   }
 

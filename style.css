@@ -1616,3 +1616,296 @@ footer {
 .row-del { border: none; background: #fee2e2; color: #b91c1c; width: 26px; height: 26px; border-radius: 50%; cursor: pointer; font-weight: 700; line-height: 1; }
 .row-del:hover { background: #fecaca; }
 .table-wrap select.cell-input { width: auto; }
+
+/* Food add row */
+.food-add-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.food-combobox {
+  flex: 1;
+  position: relative;
+  min-width: 0;
+}
+#foodSearch {
+  width: 100%;
+  padding: 9px 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+#foodSearch:focus { outline: 2px solid var(--accent, #ea580c); outline-offset: 1px; }
+.food-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  z-index: 100;
+  max-height: 220px;
+  overflow-y: auto;
+  margin-top: 4px;
+}
+.food-dd-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #f1f5f9;
+  transition: background 0.12s;
+}
+.food-dd-item:last-child { border-bottom: none; }
+.food-dd-item:hover { background: #fff7ed; }
+.food-dd-name { font-weight: 500; color: #0f172a; font-size: 0.88rem; }
+.food-dd-cals { font-size: 0.76rem; color: #64748b; white-space: nowrap; margin-left: 8px; }
+.food-qty-input {
+  width: 64px;
+  flex: 0 0 64px;
+  padding: 9px 6px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  text-align: center;
+  font-family: inherit;
+}
+.food-qty-input:focus { outline: 2px solid var(--accent, #ea580c); outline-offset: 1px; }
+.food-unit-select {
+  padding: 9px 6px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-family: inherit;
+  background: #fff;
+  cursor: pointer;
+}
+.food-unit-select:focus { outline: 2px solid var(--accent, #ea580c); outline-offset: 1px; }
+.food-add-btn {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent, #ea580c);
+  color: #fff;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity 0.15s;
+}
+.food-add-btn:hover { opacity: 0.85; }
+
+/* ---------- Food Calculator Mobile Layout ---------- */
+@media (max-width: 640px) {
+  .layout.food {
+    gap: 16px;
+  }
+
+  .layout.food .card {
+    padding: 14px 12px;
+  }
+
+  .layout.food .card h2 {
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+
+  /* Segmented controls full width on mobile */
+  .layout.food .segmented {
+    flex-wrap: wrap;
+  }
+
+  .layout.food .segmented button {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 10px 8px;
+    font-size: 0.82rem;
+  }
+
+  /* Food add row stacking on mobile */
+  .food-add-row {
+    flex-wrap: wrap;
+  }
+
+  .food-combobox {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+
+  .food-qty-input {
+    flex: 1 1 60px;
+    width: auto;
+    min-width: 60px;
+  }
+
+  .food-unit-select {
+    flex: 1 1 80px;
+    width: auto;
+    min-width: 80px;
+  }
+
+  .food-add-btn {
+    flex: 0 0 42px;
+    height: 42px;
+    font-size: 1.4rem;
+  }
+
+  /* Table improvements */
+  .layout.food table {
+    font-size: 0.78rem;
+  }
+
+  .layout.food th,
+  .layout.food td {
+    padding: 8px 6px;
+  }
+
+  /* Summary items larger on mobile */
+  .layout.food .summary-item {
+    padding: 10px 0;
+  }
+
+  .layout.food .summary-item dt {
+    font-size: 0.85rem;
+  }
+
+  .layout.food .summary-item dd {
+    font-size: 1rem;
+  }
+
+  .layout.food .summary-item.accent dd {
+    font-size: 1.3rem;
+  }
+
+  /* Chart row centering */
+  .layout.food .chart-row {
+    justify-content: center;
+  }
+
+  /* FAQ section */
+  .layout.food .faq {
+    padding: 14px 12px;
+  }
+
+  .layout.food .faq-q {
+    font-size: 0.92rem;
+  }
+
+  .layout.food .faq-a {
+    font-size: 0.88rem;
+  }
+}
+
+/* ---------- Food Calculator Card Sizing ---------- */
+/* Make Food Calorie Counter card same size as Target Calories card */
+@media (min-width: 900px) {
+  .layout.food {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+
+  .layout.food > section.card:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .layout.food > div.card,
+  .layout.food > section.card:nth-child(3) {
+    min-height: 480px;
+  }
+}
+
+/* On tablets, keep single column but consistent card height */
+@media (min-width: 641px) and (max-width: 899px) {
+  .layout.food {
+    grid-template-columns: 1fr;
+  }
+
+  .layout.food > div.card,
+  .layout.food > section.card:nth-child(3) {
+    min-height: 420px;
+  }
+}
+
+/* On mobile, single column with consistent card height */
+@media (max-width: 640px) {
+  .layout.food > div.card,
+  .layout.food > section.card:nth-child(3) {
+    min-height: 380px;
+  }
+}
+
+/* ---------- Food Calculator Comparison Table ---------- */
+.comparison-card {
+  grid-column: 1 / -1;
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.comparison-table th,
+.comparison-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.comparison-table th {
+  background: #f8fafc;
+  font-weight: 600;
+  color: #475569;
+  font-size: 0.85rem;
+}
+
+.comparison-table td:nth-child(2),
+.comparison-table td:nth-child(3) {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.comparison-table td:nth-child(4) {
+  text-align: center;
+  font-weight: 600;
+}
+
+.comparison-table tr:last-child td {
+  border-bottom: none;
+}
+
+.comparison-table tr:hover {
+  background: #f8fafc;
+}
+
+/* Status colors */
+.status-good { color: #16a34a; }
+.status-warning { color: #d97706; }
+.status-bad { color: #dc2626; }
+.status-neutral { color: #64748b; }
+
+/* Mobile comparison table */
+@media (max-width: 640px) {
+  .comparison-table {
+    font-size: 0.8rem;
+  }
+
+  .comparison-table th,
+  .comparison-table td {
+    padding: 10px 8px;
+  }
+
+  .comparison-table td:nth-child(2),
+  .comparison-table td:nth-child(3) {
+    font-size: 0.85rem;
+  }
+}

@@ -60,6 +60,21 @@
     { name: 'Potato (boiled)', kcal: 87, protein: 2.0, carbs: 20.0, fat: 0.1, fiber: 1.5 },
     { name: 'Sweet potato', kcal: 90, protein: 2.0, carbs: 21.0, fat: 0.1, fiber: 3.0 },
     { name: 'Corn (cooked)', kcal: 96, protein: 3.4, carbs: 19.0, fat: 1.5, fiber: 2.4 },
+    { name: 'Cucumber', kcal: 16, protein: 0.7, carbs: 3.6, fat: 0.1, fiber: 0.5 },
+    { name: 'Tomato', kcal: 18, protein: 0.9, carbs: 3.9, fat: 0.2, fiber: 1.2 },
+    { name: 'Onion', kcal: 40, protein: 1.1, carbs: 9.3, fat: 0.1, fiber: 1.7 },
+    { name: 'Lettuce', kcal: 15, protein: 1.4, carbs: 2.9, fat: 0.2, fiber: 1.3 },
+    { name: 'Broccoli', kcal: 34, protein: 2.8, carbs: 7.0, fat: 0.4, fiber: 2.6 },
+    { name: 'Cauliflower', kcal: 25, protein: 1.9, carbs: 5.0, fat: 0.3, fiber: 2.0 },
+    { name: 'Raw carrot', kcal: 41, protein: 0.9, carbs: 9.6, fat: 0.2, fiber: 2.8 },
+    { name: 'Raw beetroot', kcal: 43, protein: 1.6, carbs: 9.6, fat: 0.2, fiber: 2.8 },
+    { name: 'Mixed salad', kcal: 20, protein: 1.5, carbs: 3.5, fat: 0.3, fiber: 1.5 },
+    { name: 'Sprouts (moong)', kcal: 31, protein: 3.0, carbs: 5.0, fat: 0.2, fiber: 1.8 },
+    { name: 'Capsicum (raw)', kcal: 31, protein: 1.0, carbs: 6.0, fat: 0.3, fiber: 2.1 },
+    { name: 'Spinach (raw)', kcal: 23, protein: 2.9, carbs: 3.6, fat: 0.4, fiber: 2.2 },
+    { name: 'Radish', kcal: 16, protein: 0.7, carbs: 3.4, fat: 0.1, fiber: 1.6 },
+    { name: 'Celery', kcal: 14, protein: 0.7, carbs: 3.0, fat: 0.2, fiber: 1.6 },
+    { name: 'Avocado', kcal: 160, protein: 2.0, carbs: 8.5, fat: 14.7, fiber: 6.7 },
     { name: 'Paneer butter masala', kcal: 220, protein: 10.0, carbs: 12.0, fat: 15.0, fiber: 1.5 },
     { name: 'Palak paneer', kcal: 180, protein: 10.0, carbs: 8.0, fat: 12.0, fiber: 3.0 },
     { name: 'Chole masala', kcal: 150, protein: 7.0, carbs: 20.0, fat: 5.0, fiber: 6.0 },
@@ -194,7 +209,63 @@
     { name: 'Tofu', kcal: 76, protein: 8.0, carbs: 1.9, fat: 4.8, fiber: 0.3 },
     { name: 'Mushroom', kcal: 22, protein: 3.1, carbs: 3.3, fat: 0.3, fiber: 1.0 },
     { name: 'Sweet corn', kcal: 86, protein: 3.2, carbs: 19.0, fat: 1.2, fiber: 2.7 },
-    { name: 'Sprouts', kcal: 80, protein: 7.0, carbs: 12.0, fat: 0.5, fiber: 3.0 }
+    { name: 'Sprouts', kcal: 80, protein: 7.0, carbs: 12.0, fat: 0.5, fiber: 3.0 },
+    { name: 'Chinese Noodles (fried)', kcal: 198, protein: 5.0, carbs: 28.0, fat: 8.0, fiber: 1.5 },
+    { name: 'Hakka Noodles', kcal: 180, protein: 4.5, carbs: 26.0, fat: 7.0, fiber: 1.2 },
+    { name: 'Schezwan Fried Rice', kcal: 195, protein: 4.0, carbs: 30.0, fat: 7.5, fiber: 1.5 },
+    { name: 'Manchurian Gravy', kcal: 120, protein: 3.0, carbs: 14.0, fat: 6.0, fiber: 1.0 },
+    { name: 'Manchurian Dry', kcal: 150, protein: 3.5, carbs: 16.0, fat: 8.0, fiber: 1.0 },
+    { name: 'Chilli Chicken', kcal: 220, protein: 15.0, carbs: 10.0, fat: 14.0, fiber: 1.0 },
+    { name: 'Chicken Fried Rice', kcal: 200, protein: 10.0, carbs: 25.0, fat: 8.0, fiber: 1.0 },
+    { name: 'Sweet Corn Soup', kcal: 65, protein: 2.0, carbs: 10.0, fat: 2.0, fiber: 1.0 },
+    { name: 'Hot and Sour Soup', kcal: 45, protein: 2.5, carbs: 6.0, fat: 1.5, fiber: 0.5 },
+    { name: 'Momos (veg, 6 pcs)', kcal: 240, protein: 6.0, carbs: 32.0, fat: 9.0, fiber: 2.0 },
+    { name: 'Momos (chicken, 6 pcs)', kcal: 270, protein: 12.0, carbs: 28.0, fat: 12.0, fiber: 1.5 },
+    { name: 'Spring Roll (2 pcs)', kcal: 280, protein: 5.0, carbs: 30.0, fat: 16.0, fiber: 2.0 },
+    { name: 'Grilled Chicken Breast', kcal: 165, protein: 31.0, carbs: 0, fat: 3.6, fiber: 0 },
+    { name: 'Tandoori Chicken (1 pc)', kcal: 210, protein: 22.0, carbs: 4.0, fat: 12.0, fiber: 0.5 },
+    { name: 'Chicken Tikka Kebab (3 pcs)', kcal: 190, protein: 20.0, carbs: 5.0, fat: 10.0, fiber: 0.5 },
+    { name: 'Seekh Kebab (2 pcs)', kcal: 220, protein: 18.0, carbs: 4.0, fat: 15.0, fiber: 0.5 },
+    { name: 'Shawarma (chicken)', kcal: 250, protein: 16.0, carbs: 22.0, fat: 12.0, fiber: 2.0 },
+    { name: 'Shawarma (beef)', kcal: 280, protein: 18.0, carbs: 20.0, fat: 16.0, fiber: 1.5 },
+    { name: 'Falafel (4 pcs)', kcal: 200, protein: 8.0, carbs: 20.0, fat: 10.0, fiber: 4.0 },
+    { name: 'Hummus', kcal: 166, protein: 8.0, carbs: 14.0, fat: 10.0, fiber: 6.0 },
+    { name: 'Pita Bread (1 pc)', kcal: 165, protein: 5.5, carbs: 33.0, fat: 1.0, fiber: 1.5 },
+    { name: 'Gulab Jamun (2 pcs)', kcal: 175, protein: 2.0, carbs: 30.0, fat: 5.0, fiber: 0.5 },
+    { name: 'Rasgulla (2 pcs)', kcal: 120, protein: 3.0, carbs: 22.0, fat: 1.0, fiber: 0 },
+    { name: 'Jalebi (3 pcs)', kcal: 180, protein: 1.5, carbs: 35.0, fat: 4.0, fiber: 0 },
+    { name: 'Barfi (2 pcs)', kcal: 150, protein: 2.0, carbs: 20.0, fat: 7.0, fiber: 0 },
+    { name: 'Rasmalai (1 pc)', kcal: 140, protein: 5.0, carbs: 18.0, fat: 6.0, fiber: 0 },
+    { name: 'Kulfi (1 pc)', kcal: 150, protein: 4.0, carbs: 20.0, fat: 7.0, fiber: 0 },
+    { name: 'Chocolate Ice Cream (1 scoop)', kcal: 150, protein: 2.5, carbs: 18.0, fat: 8.0, fiber: 0.5 },
+    { name: 'Butter Chicken (1 serving)', kcal: 280, protein: 20.0, carbs: 10.0, fat: 18.0, fiber: 1.0 },
+    { name: 'Palak Paneer (1 serving)', kcal: 180, protein: 10.0, carbs: 8.0, fat: 12.0, fiber: 3.0 },
+    { name: 'Chole Bhature (1 set)', kcal: 450, protein: 12.0, carbs: 55.0, fat: 20.0, fiber: 6.0 },
+    { name: 'Pav Bhaji (1 plate)', kcal: 350, protein: 8.0, carbs: 45.0, fat: 16.0, fiber: 5.0 },
+    { name: 'Vada Pav (1 pc)', kcal: 300, protein: 6.0, carbs: 38.0, fat: 14.0, fiber: 2.5 },
+    { name: 'Chicken Shawarma Plate', kcal: 400, protein: 25.0, carbs: 35.0, fat: 18.0, fiber: 3.0 },
+    { name: 'Chicken Shawarma Wrap', kcal: 320, protein: 18.0, carbs: 30.0, fat: 15.0, fiber: 2.5 },
+    { name: 'Beef Shawarma Wrap', kcal: 350, protein: 20.0, carbs: 28.0, fat: 18.0, fiber: 2.0 },
+    { name: 'Grilled Paneer Sandwich', kcal: 280, protein: 12.0, carbs: 28.0, fat: 14.0, fiber: 2.0 },
+    { name: 'Chicken Grill Plate', kcal: 350, protein: 28.0, carbs: 15.0, fat: 20.0, fiber: 2.0 },
+    { name: 'Veg Grill Sandwich', kcal: 250, protein: 8.0, carbs: 30.0, fat: 11.0, fiber: 3.0 },
+    { name: 'Chicken Burger', kcal: 350, protein: 18.0, carbs: 32.0, fat: 18.0, fiber: 2.0 },
+    { name: 'Veg Burger', kcal: 280, protein: 8.0, carbs: 35.0, fat: 12.0, fiber: 3.0 },
+    { name: 'French Fries (medium)', kcal: 310, protein: 3.5, carbs: 40.0, fat: 16.0, fiber: 3.0 },
+    { name: 'Cheese Fries', kcal: 380, protein: 8.0, carbs: 42.0, fat: 20.0, fiber: 2.5 },
+    { name: 'Chicken Wings (4 pcs)', kcal: 280, protein: 24.0, carbs: 5.0, fat: 18.0, fiber: 0.5 },
+    { name: 'Chicken 65', kcal: 250, protein: 18.0, carbs: 10.0, fat: 16.0, fiber: 0.5 },
+    { name: 'Fish Fry', kcal: 200, protein: 20.0, carbs: 5.0, fat: 12.0, fiber: 0.5 },
+    { name: 'Prawn Fry', kcal: 180, protein: 18.0, carbs: 6.0, fat: 10.0, fiber: 0.5 },
+    { name: 'Mutton Rogan Josh (1 serving)', kcal: 250, protein: 18.0, carbs: 6.0, fat: 18.0, fiber: 1.0 },
+    { name: 'Chicken Korma (1 serving)', kcal: 230, protein: 15.0, carbs: 8.0, fat: 16.0, fiber: 1.0 },
+    { name: 'Bhindi Masala (1 serving)', kcal: 120, protein: 3.0, carbs: 12.0, fat: 7.0, fiber: 3.0 },
+    { name: 'Aloo Gobi (1 serving)', kcal: 130, protein: 3.0, carbs: 16.0, fat: 6.0, fiber: 3.0 },
+    { name: 'Dal Fry (1 serving)', kcal: 125, protein: 6.0, carbs: 16.0, fat: 4.0, fiber: 3.5 },
+    { name: 'Egg Roll', kcal: 260, protein: 10.0, carbs: 28.0, fat: 12.0, fiber: 1.5 },
+    { name: 'Paneer Roll', kcal: 300, protein: 10.0, carbs: 32.0, fat: 15.0, fiber: 2.5 },
+    { name: 'Malai Kofta (1 serving)', kcal: 200, protein: 5.0, carbs: 18.0, fat: 12.0, fiber: 2.0 },
+    { name: 'Kadai Paneer (1 serving)', kcal: 210, protein: 9.0, carbs: 12.0, fat: 15.0, fiber: 2.0 }
   ];
 
   var state = {
@@ -290,43 +361,67 @@
     $('satFat').textContent = round(n.satFat, 0) + ' g';
     renderMacroChart(n);
     renderFoodVsTarget(n.target);
+    renderComparison();
   }
 
   // ---------- food log ----------
-  function buildFoodSelect() {
-    var sel = $('foodSelect');
-    if (sel.options.length) return;
-    FOOD_DB.forEach(function (f, i) {
-      var o = document.createElement('option');
-      o.value = String(i);
-      o.textContent = f.name + ' (' + f.kcal + ' kcal/100g)';
-      sel.appendChild(o);
-    });
-    var c = document.createElement('option');
-    c.value = 'custom';
-    c.textContent = t('foodCustom');
-    sel.appendChild(c);
+  var selectedFood = null;
+
+  var GRAM_FACTOR = {
+    'g': 1, 'ml': 1, 'pcs': 1, 'cup': 240, 'spoon': 15,
+    'tbsp': 15, 'tsp': 5, 'serving': 150, 'bowl': 200,
+    'plate': 300, 'glass': 250, 'slice': 30
+  };
+
+  function renderFoodDropdown(query) {
+    var dd = $('foodDropdown');
+    if (!dd) return;
+    var q = (query || '').toLowerCase();
+    var items = q.length > 0
+      ? FOOD_DB.filter(function (f) { return f.name.toLowerCase().indexOf(q) !== -1; }).slice(0, 10)
+      : FOOD_DB.slice(0, 10);
+    if (items.length === 0) { dd.innerHTML = ''; dd.style.display = 'none'; return; }
+    dd.innerHTML = items.map(function (f) {
+      return '<div class="food-dd-item" data-name="' + f.name.replace(/"/g, '&quot;') + '">' +
+        '<span class="food-dd-name">' + f.name + '</span>' +
+        '<span class="food-dd-cals">~' + f.kcal + ' kcal/100g</span>' +
+        '</div>';
+    }).join('');
+    dd.style.display = 'block';
   }
 
-  function currentNutrients() {
-    var v = $('foodSelect').value;
-    if (v === 'custom') {
-      var kcal = parseDigits($('customKcalInput').value) || 0;
-      return { kcal: kcal, protein: 0, carbs: 0, fat: 0, fiber: 0 };
+  function tryAutoMatch(query) {
+    if (!query) return null;
+    var q = query.toLowerCase().trim();
+    for (var i = 0; i < FOOD_DB.length; i++) {
+      if (FOOD_DB[i].name.toLowerCase() === q) return FOOD_DB[i];
     }
-    return FOOD_DB[parseInt(v, 10)];
+    return null;
   }
 
   function addFood() {
-    var v = $('foodSelect').value;
-    var food = FOOD_DB[parseInt(v, 10)];
-    var name = v === 'custom' ? t('foodCustom') : food.name;
-    var nutrients = currentNutrients();
-    var grams = parseDigits($('foodGramsInput').value) || 0;
-    var factor = grams / 100;
+    var name, nutrients;
+    var qty = parseDigits($('foodQtyInput').value) || 1;
+    var unit = $('foodUnitSelect').value;
+
+    if (selectedFood) {
+      name = selectedFood.name;
+      nutrients = selectedFood;
+    } else {
+      var typed = $('foodSearch').value.trim();
+      var match = tryAutoMatch(typed);
+      if (match) { name = match.name; nutrients = match; }
+    }
+
+    if (!nutrients) return;
+
+    var gramsEquivalent = qty * (GRAM_FACTOR[unit] || 1);
+    var factor = gramsEquivalent / 100;
     state.log.push({
       name: name,
-      grams: grams,
+      grams: gramsEquivalent,
+      qty: qty,
+      unit: unit,
       kcal: nutrients.kcal * factor,
       protein: nutrients.protein * factor,
       carbs: nutrients.carbs * factor,
@@ -334,6 +429,12 @@
       fiber: nutrients.fiber * factor
     });
     renderFoodLog();
+    $('foodSearch').value = '';
+    selectedFood = null;
+    $('foodDropdown').innerHTML = '';
+    $('foodDropdown').style.display = 'none';
+    $('foodQtyInput').value = 1;
+    renderComparison();
   }
 
   function renderFoodLog() {
@@ -356,8 +457,9 @@
       totalC += r.carbs;
       totalF += r.fat;
       totalFb += r.fiber;
-      return '<tr><td>' + r.name + '</td><td>' + r.grams + ' g</td><td>' + Math.round(r.kcal) +
-             '</td><td><button type="button" class="row-del" data-i="' + i + '" aria-label="Remove">✕</button></td></tr>';
+      var qtyStr = r.qty + ' ' + r.unit;
+      return '<tr><td>' + r.name + '</td><td>' + qtyStr + '</td><td>' + Math.round(r.kcal) +
+             '</td><td><button type="button" class="row-del" data-i="' + i + '" aria-label="Remove">\u2715</button></td></tr>';
     }).join('');
     $('foodTotalKcal').textContent = Math.round(total) + ' kcal';
     $('foodTotalProtein').textContent = round(totalP, 0) + ' g';
@@ -365,6 +467,7 @@
     $('foodTotalFat').textContent = round(totalF, 0) + ' g';
     $('foodTotalFiber').textContent = round(totalFb, 0) + ' g';
     renderFoodVsTarget(computeNutrition() ? computeNutrition().target : 0, total);
+    renderComparison();
   }
 
   function renderFoodVsTarget(target, logTotal) {
@@ -373,6 +476,84 @@
     var diff = target - logTotal;
     $('foodVsTarget').textContent = (diff >= 0 ? '+' : '') + Math.round(diff) + ' kcal';
     $('foodNote').textContent = diff >= 0 ? t('foodUnderNote') : t('foodOverNote');
+  }
+
+  function renderComparison() {
+    var n = computeNutrition();
+    var log = state.log;
+    
+    // Calculate actual totals from food log
+    var actualCal = 0, actualProtein = 0, actualCarbs = 0, actualFat = 0, actualFiber = 0;
+    log.forEach(function(r) {
+      actualCal += r.kcal;
+      actualProtein += r.protein;
+      actualCarbs += r.carbs;
+      actualFat += r.fat;
+      actualFiber += r.fiber;
+    });
+
+    // Update comparison table
+    if (n) {
+      // Calories
+      $('compTargetCal').textContent = Math.round(n.target) + ' kcal';
+      $('compActualCal').textContent = Math.round(actualCal) + ' kcal';
+      var calDiff = n.target - actualCal;
+      $('compStatusCal').textContent = calDiff >= 0 ? '+' + Math.round(calDiff) : Math.round(calDiff);
+      $('compStatusCal').className = calDiff >= 0 ? 'status-good' : 'status-bad';
+
+      // Protein
+      $('compTargetProtein').textContent = round(n.proteinG, 0) + ' g';
+      $('compActualProtein').textContent = round(actualProtein, 0) + ' g';
+      var protDiff = n.proteinG - actualProtein;
+      $('compStatusProtein').textContent = protDiff >= 0 ? '+' + round(protDiff, 0) : round(protDiff, 0);
+      $('compStatusProtein').className = protDiff >= 0 ? 'status-good' : 'status-warning';
+
+      // Carbs
+      $('compTargetCarbs').textContent = round(n.carbsG, 0) + ' g';
+      $('compActualCarbs').textContent = round(actualCarbs, 0) + ' g';
+      var carbsDiff = n.carbsG - actualCarbs;
+      $('compStatusCarbs').textContent = carbsDiff >= 0 ? '+' + round(carbsDiff, 0) : round(carbsDiff, 0);
+      $('compStatusCarbs').className = carbsDiff >= 0 ? 'status-good' : 'status-warning';
+
+      // Fat
+      $('compTargetFat').textContent = round(n.fatG, 0) + ' g';
+      $('compActualFat').textContent = round(actualFat, 0) + ' g';
+      var fatDiff = n.fatG - actualFat;
+      $('compStatusFat').textContent = fatDiff >= 0 ? '+' + round(fatDiff, 0) : round(fatDiff, 0);
+      $('compStatusFat').className = fatDiff >= 0 ? 'status-good' : 'status-warning';
+
+      // Fiber
+      $('compTargetFiber').textContent = round(n.fiber, 0) + ' g';
+      $('compActualFiber').textContent = round(actualFiber, 0) + ' g';
+      var fiberDiff = n.fiber - actualFiber;
+      $('compStatusFiber').textContent = fiberDiff >= 0 ? '+' + round(fiberDiff, 0) : round(fiberDiff, 0);
+      $('compStatusFiber').className = fiberDiff >= 0 ? 'status-good' : 'status-bad';
+
+      // Water (estimated from food)
+      var actualWater = actualCal * 0.001; // rough estimate
+      $('compTargetWater').textContent = Math.round(n.water) + ' ml';
+      $('compActualWater').textContent = '~' + Math.round(actualWater) + ' ml';
+      $('compStatusWater').textContent = '-';
+      $('compStatusWater').className = 'status-neutral';
+
+      // Sugar (max)
+      $('compTargetSugar').textContent = round(n.sugar, 0) + ' g';
+      $('compActualSugar').textContent = '-';
+      $('compStatusSugar').textContent = 'log food';
+      $('compStatusSugar').className = 'status-neutral';
+
+      // Saturated Fat (max)
+      $('compTargetSatFat').textContent = round(n.satFat, 0) + ' g';
+      $('compActualSatFat').textContent = '-';
+      $('compStatusSatFat').textContent = 'log food';
+      $('compStatusSatFat').className = 'status-neutral';
+    } else {
+      // No nutrition data yet
+      $('compTargetCal').textContent = '-';
+      $('compActualCal').textContent = Math.round(actualCal) + ' kcal';
+      $('compStatusCal').textContent = '-';
+      $('compStatusCal').className = 'status-neutral';
+    }
   }
 
   // ---------- budget ----------
@@ -426,7 +607,6 @@
   }
 
   // ---------- wire up ----------
-  buildFoodSelect();
 
   $('modeTabs').addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b) return;
@@ -452,21 +632,53 @@
     renderNutrition();
   });
 
-  $('ageInput').addEventListener('input', function (e) { state.age = parseDigits(e.target.value); renderNutrition(); });
-  $('weightInput').addEventListener('input', function (e) { state.weight = parseDigits(e.target.value); renderNutrition(); });
-  $('heightInput').addEventListener('input', function (e) { state.height = parseDigits(e.target.value); renderNutrition(); });
+  $('ageInput').addEventListener('input', function (e) { state.age = parseDigits(e.target.value); $('ageSlider').value = state.age; renderNutrition(); });
+  $('ageSlider').addEventListener('input', function (e) { state.age = Number(e.target.value); $('ageInput').value = state.age; renderNutrition(); });
+  $('weightInput').addEventListener('input', function (e) { state.weight = parseDigits(e.target.value); $('weightSlider').value = state.weight; renderNutrition(); });
+  $('weightSlider').addEventListener('input', function (e) { state.weight = Number(e.target.value); $('weightInput').value = state.weight; renderNutrition(); });
+  $('heightInput').addEventListener('input', function (e) { state.height = parseDigits(e.target.value); $('heightSlider').value = state.height; renderNutrition(); });
+  $('heightSlider').addEventListener('input', function (e) { state.height = Number(e.target.value); $('heightInput').value = state.height; renderNutrition(); });
 
-  $('foodSelect').addEventListener('change', function () {
-    $('customKcalRow').style.display = $('foodSelect').value === 'custom' ? '' : 'none';
+  $('foodSearch').addEventListener('focus', function () {
+    renderFoodDropdown($('foodSearch').value.trim());
   });
-  $('customKcalInput').addEventListener('input', function () { if ($('foodSelect').value === 'custom') renderFoodVsTarget(0); });
+
+  $('foodSearch').addEventListener('input', function (e) {
+    var v = e.target.value.trim();
+    selectedFood = null;
+    renderFoodDropdown(v);
+    var match = tryAutoMatch(v);
+    if (match) { selectedFood = match; }
+  });
+
+  $('foodDropdown').addEventListener('mousedown', function (e) {
+    e.preventDefault();
+    var item = e.target.closest('.food-dd-item');
+    if (!item) return;
+    var name = item.dataset.name;
+    var food = FOOD_DB.find(function (f) { return f.name === name; });
+    if (!food) return;
+    selectedFood = food;
+    $('foodSearch').value = food.name;
+    $('foodDropdown').innerHTML = '';
+    $('foodDropdown').style.display = 'none';
+  });
+
   $('addFoodBtn').addEventListener('click', addFood);
-  $('foodGramsInput').addEventListener('input', function () { /* recompute on add */ });
+  $('foodQtyInput').addEventListener('keydown', function (e) { if (e.key === 'Enter') addFood(); });
+  $('foodSearch').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); addFood(); } });
 
   $('foodLogBody').addEventListener('click', function (e) {
     var b = e.target.closest('.row-del'); if (!b) return;
     state.log.splice(parseInt(b.dataset.i, 10), 1);
     renderFoodLog();
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.food-combobox')) {
+      var dd = $('foodDropdown');
+      if (dd) { dd.innerHTML = ''; dd.style.display = 'none'; }
+    }
   });
 
   $('peopleInput').addEventListener('input', renderBudget);
@@ -491,14 +703,15 @@
   }
 
   document.addEventListener('langchange', function () {
-    buildFoodSelect();
     renderNutrition();
     renderFoodLog();
     renderBudget();
+    renderComparison();
   });
 
   setMode('nutrition');
   renderNutrition();
   renderFoodLog();
   renderBudget();
+  renderComparison();
 })();
