@@ -1843,8 +1843,23 @@ footer {
 }
 
 /* ---------- Food Calculator Comparison Table ---------- */
-.comparison-card {
+.layout.food > .comparison-card {
   grid-column: 1 / -1;
+}
+
+/* Comparison + Suggested Meal Plan shown side by side on wider screens */
+.compare-plan-row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+@media (max-width: 899px) {
+  .compare-plan-row {
+    grid-template-columns: 1fr;
+  }
 }
 
 .comparison-table {
@@ -1868,14 +1883,14 @@ footer {
 }
 
 .comparison-table td:nth-child(2),
-.comparison-table td:nth-child(3) {
-  text-align: right;
+.comparison-table td:nth-child(3),
+.comparison-table td:nth-child(4) {
+  text-align: left;
   font-variant-numeric: tabular-nums;
   font-weight: 600;
 }
 
 .comparison-table td:nth-child(4) {
-  text-align: center;
   font-weight: 600;
 }
 
@@ -1892,6 +1907,26 @@ footer {
 .status-warning { color: #d97706; }
 .status-bad { color: #dc2626; }
 .status-neutral { color: #64748b; }
+
+/* Suggested meal plan */
+.suggestion-card .meal-title {
+  margin: 16px 0 6px;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #0f172a;
+}
+.suggestion-card .meal-cal {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 600;
+}
+.suggestion-card .table-wrap table th,
+.suggestion-card .table-wrap table td {
+  padding: 8px 12px;
+  font-size: 0.85rem;
+}
 
 /* Mobile comparison table */
 @media (max-width: 640px) {

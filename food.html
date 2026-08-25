@@ -162,7 +162,7 @@
         <select id="foodUnitSelect" class="food-unit-select">
           <option value="g">g</option>
           <option value="ml">ml</option>
-          <option value="pcs">pcs</option>
+          <option value="nos">nos</option>
           <option value="cup">cup</option>
           <option value="spoon">spoon</option>
           <option value="tbsp">tbsp</option>
@@ -193,6 +193,7 @@
       <p class="hint" id="foodNote"></p>
     </section>
 
+    <div class="compare-plan-row">
     <section class="card comparison-card">
       <h2>Target vs Actual Comparison</h2>
       <div class="table-wrap">
@@ -218,6 +219,13 @@
         </table>
       </div>
     </section>
+
+    <section class="card suggestion-card">
+      <h2>Suggested Meal Plan</h2>
+      <p class="hint">A sample day of eating built to land near your target of <span id="suggTarget">-</span>. Tweak portions to taste — it's a starting point, not a prescription.</p>
+      <div id="suggestionBody"></div>
+    </section>
+    </div>
   </main>
 
   <!-- ================= BUDGET ================= -->

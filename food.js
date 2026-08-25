@@ -7,11 +7,12 @@
     { name: 'White rice (cooked)', kcal: 130, protein: 2.7, carbs: 28.2, fat: 0.3, fiber: 0.4 },
     { name: 'Brown rice (cooked)', kcal: 123, protein: 2.7, carbs: 25.8, fat: 1.0, fiber: 1.6 },
     { name: 'Basmati rice (cooked)', kcal: 121, protein: 2.5, carbs: 26.3, fat: 0.3, fiber: 0.4 },
-    { name: 'Wheat roti/Chapati', kcal: 297, protein: 11.8, carbs: 52.2, fat: 4.1, fiber: 6.0 },
-    { name: 'Naan (plain)', kcal: 310, protein: 10.0, carbs: 50.0, fat: 8.0, fiber: 3.0 },
-    { name: 'Paratha (plain)', kcal: 320, protein: 8.0, carbs: 45.0, fat: 13.0, fiber: 3.0 },
+    { name: 'Wheat roti/Chapati', kcal: 297, protein: 11.8, carbs: 52.2, fat: 4.1, fiber: 6.0, piece: 35 },
+    { name: 'Parotta', kcal: 320, protein: 7.0, carbs: 42.0, fat: 15.0, fiber: 2.0, piece: 70 },
+    { name: 'Naan (plain)', kcal: 310, protein: 10.0, carbs: 50.0, fat: 8.0, fiber: 3.0, piece: 90 },
+    { name: 'Paratha (plain)', kcal: 320, protein: 8.0, carbs: 45.0, fat: 13.0, fiber: 3.0, piece: 55 },
     { name: 'Puri', kcal: 360, protein: 8.0, carbs: 50.0, fat: 16.0, fiber: 3.0 },
-    { name: 'Bread (white)', kcal: 265, protein: 9.0, carbs: 49.0, fat: 3.2, fiber: 2.7 },
+    { name: 'Bread (white)', kcal: 265, protein: 9.0, carbs: 49.0, fat: 3.2, fiber: 2.7, piece: 30 },
     { name: 'Bread (whole wheat)', kcal: 247, protein: 13.0, carbs: 41.0, fat: 3.4, fiber: 7.0 },
     { name: 'Oats (cooked)', kcal: 68, protein: 2.5, carbs: 12.0, fat: 1.4, fiber: 1.7 },
     { name: 'Maida (refined flour)', kcal: 364, protein: 10.3, carbs: 76.3, fat: 1.0, fiber: 2.7 },
@@ -22,8 +23,8 @@
     { name: 'Lemon rice', kcal: 160, protein: 3.5, carbs: 28.0, fat: 4.5, fiber: 1.0 },
     { name: 'Tamarind rice', kcal: 165, protein: 3.5, carbs: 29.0, fat: 4.5, fiber: 1.2 },
     { name: 'Curd rice', kcal: 115, protein: 3.0, carbs: 18.0, fat: 3.5, fiber: 0.5 },
-    { name: 'Idli', kcal: 110, protein: 3.5, carbs: 22.0, fat: 0.5, fiber: 1.0 },
-    { name: 'Dosa (plain)', kcal: 168, protein: 4.0, carbs: 28.0, fat: 4.5, fiber: 1.5 },
+    { name: 'Idli', kcal: 110, protein: 3.5, carbs: 22.0, fat: 0.5, fiber: 1.0, piece: 40 },
+    { name: 'Dosa (plain)', kcal: 168, protein: 4.0, carbs: 28.0, fat: 4.5, fiber: 1.5, piece: 45 },
     { name: 'Masala dosa', kcal: 195, protein: 5.0, carbs: 30.0, fat: 6.5, fiber: 2.0 },
     { name: 'Uttapam', kcal: 155, protein: 5.0, carbs: 25.0, fat: 4.0, fiber: 2.0 },
     { name: 'Vada (medu)', kcal: 185, protein: 8.0, carbs: 22.0, fat: 8.0, fiber: 3.0 },
@@ -117,10 +118,10 @@
     { name: 'Ghee', kcal: 900, protein: 0, carbs: 0, fat: 100.0, fiber: 0 },
     { name: 'Cheese (processed)', kcal: 350, protein: 20.0, carbs: 3.0, fat: 28.0, fiber: 0 },
     { name: 'Khoya', kcal: 340, protein: 18.0, carbs: 25.0, fat: 20.0, fiber: 0 },
-    { name: 'Banana', kcal: 89, protein: 1.1, carbs: 23.0, fat: 0.3, fiber: 2.6 },
-    { name: 'Apple', kcal: 52, protein: 0.3, carbs: 14.0, fat: 0.2, fiber: 2.4 },
-    { name: 'Orange', kcal: 47, protein: 0.9, carbs: 12.0, fat: 0.1, fiber: 2.4 },
-    { name: 'Mango', kcal: 60, protein: 0.8, carbs: 15.0, fat: 0.4, fiber: 1.6 },
+    { name: 'Banana', kcal: 89, protein: 1.1, carbs: 23.0, fat: 0.3, fiber: 2.6, piece: 118 },
+    { name: 'Apple', kcal: 52, protein: 0.3, carbs: 14.0, fat: 0.2, fiber: 2.4, piece: 150 },
+    { name: 'Orange', kcal: 47, protein: 0.9, carbs: 12.0, fat: 0.1, fiber: 2.4, piece: 130 },
+    { name: 'Mango', kcal: 60, protein: 0.8, carbs: 15.0, fat: 0.4, fiber: 1.6, piece: 200 },
     { name: 'Grapes', kcal: 69, protein: 0.7, carbs: 18.0, fat: 0.2, fiber: 0.9 },
     { name: 'Papaya', kcal: 43, protein: 0.5, carbs: 11.0, fat: 0.3, fiber: 1.7 },
     { name: 'Pineapple', kcal: 50, protein: 0.5, carbs: 13.0, fat: 0.1, fiber: 1.4 },
@@ -135,7 +136,7 @@
     { name: 'Chicken breast (cooked)', kcal: 165, protein: 31.0, carbs: 0, fat: 3.6, fiber: 0 },
     { name: 'Chicken thigh (cooked)', kcal: 209, protein: 26.0, carbs: 0, fat: 10.9, fiber: 0 },
     { name: 'Mutton (cooked)', kcal: 250, protein: 25.0, carbs: 0, fat: 17.0, fiber: 0 },
-    { name: 'Egg (boiled)', kcal: 155, protein: 13.0, carbs: 1.1, fat: 11.0, fiber: 0 },
+    { name: 'Egg (boiled)', kcal: 155, protein: 13.0, carbs: 1.1, fat: 11.0, fiber: 0, piece: 50 },
     { name: 'Egg (omelette)', kcal: 154, protein: 11.0, carbs: 0.7, fat: 12.0, fiber: 0 },
     { name: 'Fish (rohu)', kcal: 120, protein: 18.0, carbs: 0, fat: 5.0, fiber: 0 },
     { name: 'Prawns', kcal: 105, protein: 20.0, carbs: 0, fat: 2.0, fiber: 0 },
@@ -265,7 +266,117 @@
     { name: 'Egg Roll', kcal: 260, protein: 10.0, carbs: 28.0, fat: 12.0, fiber: 1.5 },
     { name: 'Paneer Roll', kcal: 300, protein: 10.0, carbs: 32.0, fat: 15.0, fiber: 2.5 },
     { name: 'Malai Kofta (1 serving)', kcal: 200, protein: 5.0, carbs: 18.0, fat: 12.0, fiber: 2.0 },
-    { name: 'Kadai Paneer (1 serving)', kcal: 210, protein: 9.0, carbs: 12.0, fat: 15.0, fiber: 2.0 }
+    { name: 'Kadai Paneer (1 serving)', kcal: 210, protein: 9.0, carbs: 12.0, fat: 15.0, fiber: 2.0 },
+
+    { name: 'Poha (cooked)', kcal: 130, protein: 2.5, carbs: 27.0, fat: 0.5, fiber: 1.0 },
+    { name: 'Khichdi', kcal: 140, protein: 4.5, carbs: 22.0, fat: 4.0, fiber: 2.0 },
+    { name: 'Bisibelebath', kcal: 160, protein: 4.0, carbs: 26.0, fat: 5.0, fiber: 2.0 },
+    { name: 'Oats (dry)', kcal: 389, protein: 16.9, carbs: 66.0, fat: 6.9, fiber: 10.6 },
+    { name: 'Cornflakes (dry)', kcal: 370, protein: 7.0, carbs: 83.0, fat: 1.0, fiber: 3.0 },
+    { name: 'Muesli (dry)', kcal: 370, protein: 11.0, carbs: 66.0, fat: 6.0, fiber: 8.0 },
+    { name: 'Bread (multigrain)', kcal: 250, protein: 12.0, carbs: 43.0, fat: 4.0, fiber: 7.0 },
+    { name: 'Bagel', kcal: 250, protein: 10.0, carbs: 48.0, fat: 1.5, fiber: 2.0 },
+    { name: 'Pancake', kcal: 227, protein: 6.0, carbs: 28.0, fat: 9.0, fiber: 1.0 },
+    { name: 'Waffle', kcal: 290, protein: 7.0, carbs: 35.0, fat: 12.0, fiber: 1.0 },
+
+    { name: 'Sabudana (cooked)', kcal: 120, protein: 0.2, carbs: 30.0, fat: 0.1, fiber: 0.3 },
+    { name: 'Rajgira (amaranth)', kcal: 371, protein: 14.0, carbs: 65.0, fat: 7.0, fiber: 7.0 },
+    { name: 'Kuttu (buckwheat)', kcal: 343, protein: 13.0, carbs: 71.0, fat: 3.4, fiber: 10.0 },
+    { name: 'Ragi (finger millet)', kcal: 328, protein: 7.3, carbs: 72.0, fat: 1.3, fiber: 11.0 },
+    { name: 'Jowar (sorghum)', kcal: 349, protein: 11.0, carbs: 72.0, fat: 3.5, fiber: 6.7 },
+    { name: 'Bajra (pearl millet)', kcal: 363, protein: 12.0, carbs: 67.0, fat: 4.2, fiber: 9.0 },
+    { name: 'Varagu (kodo millet)', kcal: 353, protein: 9.0, carbs: 74.0, fat: 2.5, fiber: 5.0 },
+    { name: 'Thinai (foxtail millet)', kcal: 350, protein: 12.0, carbs: 70.0, fat: 3.0, fiber: 8.0 },
+    { name: 'Singhara (water chestnut)', kcal: 97, protein: 1.4, carbs: 24.0, fat: 0.1, fiber: 3.0 },
+
+    { name: 'Pasta (cooked)', kcal: 131, protein: 5.0, carbs: 25.0, fat: 1.1, fiber: 1.8 },
+    { name: 'Spaghetti (cooked)', kcal: 158, protein: 6.0, carbs: 31.0, fat: 0.9, fiber: 1.8 },
+    { name: 'Macaroni (cooked)', kcal: 140, protein: 5.0, carbs: 27.0, fat: 1.0, fiber: 1.5 },
+    { name: 'Pizza (cheese, 1 slice)', kcal: 266, protein: 11.0, carbs: 33.0, fat: 10.0, fiber: 2.0 },
+    { name: 'Pizza (veg, 1 slice)', kcal: 240, protein: 9.0, carbs: 30.0, fat: 9.0, fiber: 2.0 },
+    { name: 'Veg Sandwich', kcal: 250, protein: 8.0, carbs: 30.0, fat: 11.0, fiber: 3.0 },
+    { name: 'Cheese Sandwich', kcal: 320, protein: 12.0, carbs: 30.0, fat: 16.0, fiber: 2.0 },
+    { name: 'Hot Dog', kcal: 290, protein: 10.0, carbs: 24.0, fat: 17.0, fiber: 1.0 },
+    { name: 'Fried Rice (veg)', kcal: 180, protein: 4.0, carbs: 30.0, fat: 5.0, fiber: 2.0 },
+    { name: 'Fried Rice (egg)', kcal: 200, protein: 7.0, carbs: 30.0, fat: 6.0, fiber: 2.0 },
+
+    { name: 'Orange Juice', kcal: 45, protein: 0.7, carbs: 10.0, fat: 0.2, fiber: 0.2 },
+    { name: 'Apple Juice', kcal: 46, protein: 0.1, carbs: 11.0, fat: 0.1, fiber: 0.2 },
+    { name: 'Mango Juice', kcal: 60, protein: 0.4, carbs: 14.0, fat: 0.2, fiber: 0.3 },
+    { name: 'Grape Juice', kcal: 62, protein: 0.4, carbs: 15.0, fat: 0.1, fiber: 0.2 },
+    { name: 'Sugarcane Juice', kcal: 61, protein: 0.2, carbs: 15.0, fat: 0.1, fiber: 0.3 },
+    { name: 'Cola', kcal: 41, protein: 0, carbs: 10.6, fat: 0, fiber: 0 },
+    { name: 'Lemon Soda', kcal: 40, protein: 0, carbs: 10.0, fat: 0, fiber: 0 },
+    { name: 'Green Tea (no sugar)', kcal: 2, protein: 0, carbs: 0.3, fat: 0, fiber: 0 },
+    { name: 'Coffee (black)', kcal: 2, protein: 0.1, carbs: 0, fat: 0, fiber: 0 },
+    { name: 'Cold Coffee (with milk)', kcal: 90, protein: 2.0, carbs: 14.0, fat: 3.0, fiber: 0 },
+    { name: 'Mango Milkshake', kcal: 110, protein: 3.0, carbs: 18.0, fat: 3.0, fiber: 0.5 },
+    { name: 'Coconut Water', kcal: 19, protein: 0.2, carbs: 4.0, fat: 0.2, fiber: 0.5 },
+    { name: 'Tender Coconut Meat', kcal: 150, protein: 1.5, carbs: 7.0, fat: 14.0, fiber: 4.0 },
+
+    { name: 'Cheese (cheddar)', kcal: 402, protein: 25.0, carbs: 1.3, fat: 33.0, fiber: 0 },
+    { name: 'Cheese (mozzarella)', kcal: 280, protein: 22.0, carbs: 2.2, fat: 20.0, fiber: 0 },
+    { name: 'Butter', kcal: 717, protein: 0.9, carbs: 0.1, fat: 81.0, fiber: 0 },
+    { name: 'Fresh Cream', kcal: 198, protein: 2.1, carbs: 3.3, fat: 19.0, fiber: 0 },
+    { name: 'Condensed Milk (sweetened)', kcal: 321, protein: 8.0, carbs: 54.0, fat: 8.0, fiber: 0 },
+    { name: 'Milk Powder (full cream)', kcal: 496, protein: 26.0, carbs: 38.0, fat: 27.0, fiber: 0 },
+    { name: 'Ice Cream (vanilla)', kcal: 207, protein: 3.5, carbs: 24.0, fat: 11.0, fiber: 0.7 },
+
+    { name: 'Chocolate (milk)', kcal: 535, protein: 7.7, carbs: 59.0, fat: 30.0, fiber: 3.4 },
+    { name: 'Chocolate (dark 70%)', kcal: 598, protein: 7.8, carbs: 46.0, fat: 43.0, fiber: 11.0 },
+    { name: 'Biscuit (plain)', kcal: 452, protein: 6.5, carbs: 68.0, fat: 17.0, fiber: 2.5 },
+    { name: 'Biscuit (cream)', kcal: 480, protein: 5.0, carbs: 68.0, fat: 21.0, fiber: 1.5 },
+    { name: 'Cake (plain)', kcal: 350, protein: 5.0, carbs: 55.0, fat: 13.0, fiber: 1.0 },
+    { name: 'Donut', kcal: 452, protein: 5.0, carbs: 51.0, fat: 25.0, fiber: 1.5 },
+    { name: 'Pastry', kcal: 400, protein: 5.0, carbs: 50.0, fat: 20.0, fiber: 1.5 },
+
+    { name: 'Plum', kcal: 46, protein: 0.7, carbs: 11.0, fat: 0.3, fiber: 1.4 },
+    { name: 'Cherry', kcal: 63, protein: 1.0, carbs: 16.0, fat: 0.2, fiber: 2.1 },
+    { name: 'Pear', kcal: 57, protein: 0.4, carbs: 15.0, fat: 0.1, fiber: 3.1 },
+    { name: 'Strawberry', kcal: 32, protein: 0.7, carbs: 7.7, fat: 0.3, fiber: 2.0 },
+    { name: 'Kiwi', kcal: 61, protein: 1.1, carbs: 15.0, fat: 0.5, fiber: 3.0 },
+    { name: 'Lychee', kcal: 66, protein: 0.8, carbs: 17.0, fat: 0.4, fiber: 1.3 },
+    { name: 'Musk Melon', kcal: 34, protein: 0.8, carbs: 8.0, fat: 0.2, fiber: 0.9 },
+
+    { name: 'Pistachios', kcal: 562, protein: 20.0, carbs: 27.0, fat: 45.0, fiber: 10.0 },
+    { name: 'Apricot (dried)', kcal: 241, protein: 3.4, carbs: 62.0, fat: 0.5, fiber: 7.0 },
+    { name: 'Prunes (dried plum)', kcal: 240, protein: 2.2, carbs: 64.0, fat: 0.4, fiber: 7.0 },
+    { name: 'Flax Seeds', kcal: 534, protein: 18.0, carbs: 29.0, fat: 42.0, fiber: 27.0 },
+    { name: 'Chia Seeds', kcal: 486, protein: 17.0, carbs: 42.0, fat: 31.0, fiber: 34.0 },
+    { name: 'Pumpkin Seeds', kcal: 559, protein: 30.0, carbs: 11.0, fat: 49.0, fiber: 6.0 },
+    { name: 'Pine Nuts', kcal: 673, protein: 14.0, carbs: 13.0, fat: 68.0, fiber: 3.7 },
+
+    { name: 'Soybeans (cooked)', kcal: 173, protein: 16.0, carbs: 10.0, fat: 9.0, fiber: 6.0 },
+    { name: 'Horse Gram (cooked)', kcal: 100, protein: 7.0, carbs: 17.0, fat: 0.5, fiber: 5.0 },
+    { name: 'Black Gram (cooked)', kcal: 105, protein: 7.5, carbs: 17.0, fat: 0.5, fiber: 4.0 },
+    { name: 'Green Gram (cooked)', kcal: 105, protein: 7.0, carbs: 17.0, fat: 0.6, fiber: 4.0 },
+
+    { name: 'Crab (cooked)', kcal: 97, protein: 19.0, carbs: 0, fat: 1.5, fiber: 0 },
+    { name: 'Squid (calamari)', kcal: 92, protein: 16.0, carbs: 3.0, fat: 1.4, fiber: 0 },
+    { name: 'Salmon', kcal: 208, protein: 20.0, carbs: 0, fat: 13.0, fiber: 0 },
+    { name: 'Tuna (canned)', kcal: 200, protein: 25.0, carbs: 0, fat: 11.0, fiber: 0 },
+    { name: 'Pomfret', kcal: 130, protein: 18.0, carbs: 0, fat: 6.0, fiber: 0 },
+    { name: 'Sardine', kcal: 160, protein: 20.0, carbs: 0, fat: 9.0, fiber: 0 },
+    { name: 'Egg (fried)', kcal: 196, protein: 13.0, carbs: 1.0, fat: 15.0, fiber: 0 },
+    { name: 'Egg (scrambled)', kcal: 160, protein: 12.0, carbs: 1.5, fat: 12.0, fiber: 0 },
+    { name: 'Chicken Liver', kcal: 120, protein: 17.0, carbs: 0.5, fat: 5.0, fiber: 0 },
+    { name: 'Mutton Liver', kcal: 140, protein: 21.0, carbs: 3.0, fat: 4.5, fiber: 0 },
+    { name: 'Pork (cooked)', kcal: 250, protein: 27.0, carbs: 0, fat: 15.0, fiber: 0 },
+    { name: 'Bacon', kcal: 541, protein: 37.0, carbs: 1.4, fat: 42.0, fiber: 0 },
+    { name: 'Sausage', kcal: 300, protein: 12.0, carbs: 2.0, fat: 27.0, fiber: 0 },
+
+    { name: 'Tomato Ketchup', kcal: 114, protein: 1.3, carbs: 27.0, fat: 0.1, fiber: 0.4 },
+    { name: 'Mayonnaise', kcal: 680, protein: 1.0, carbs: 0.6, fat: 75.0, fiber: 0 },
+    { name: 'Soy Sauce', kcal: 53, protein: 8.0, carbs: 4.9, fat: 0.6, fiber: 0.8 },
+    { name: 'Chilli Sauce', kcal: 112, protein: 1.0, carbs: 25.0, fat: 0.1, fiber: 0.6 },
+    { name: 'Jam', kcal: 250, protein: 0.4, carbs: 62.0, fat: 0.1, fiber: 0.4 },
+    { name: 'Peanut Butter', kcal: 588, protein: 25.0, carbs: 20.0, fat: 50.0, fiber: 6.0 },
+    { name: 'Almond Butter', kcal: 614, protein: 21.0, carbs: 19.0, fat: 53.0, fiber: 10.0 },
+
+    { name: 'Tomato Soup (cream)', kcal: 70, protein: 1.5, carbs: 9.0, fat: 3.0, fiber: 1.0 },
+    { name: 'Vegetable Soup', kcal: 40, protein: 1.5, carbs: 6.0, fat: 1.0, fiber: 1.5 },
+    { name: 'Chicken Soup', kcal: 60, protein: 5.0, carbs: 4.0, fat: 3.0, fiber: 0.5 },
+    { name: 'Mushroom Soup', kcal: 80, protein: 2.0, carbs: 8.0, fat: 4.0, fiber: 1.0 }
   ];
 
   var state = {
@@ -296,6 +407,34 @@
   }
 
   function round(n, d) { var p = Math.pow(10, d || 0); return Math.round(n * p) / p; }
+
+  // Saturated fat (g per 100g) derived from the food's fat content and food group.
+  // Animal fats, dairy fat and tropical oils are highly saturated; vegetable oils and nuts are low.
+  function deriveSatFat(f) {
+    var fat = f.fat || 0;
+    if (fat <= 0) return 0;
+    var n = f.name.toLowerCase();
+    if (/coconut|palm/.test(n)) return fat * 0.85;
+    if (/(oil|ghee|butter|cream|margarine)/.test(n)) {
+      if (/vegetable|sunflower|safflower|corn|soy|mustard|groundnut|peanut oil|olive/.test(n)) return fat * 0.15;
+      return fat * 0.6;
+    }
+    if (/(mutton|pork|beef|lamb|goat|chicken|egg|fish|prawn|meat|keema|sausage|bacon)/.test(n)) return fat * 0.35;
+    if (/(paneer|cheese|milk|curd|yogurt|lassi|kheer|payasam)/.test(n)) return fat * 0.6;
+    if (/(cashew|almond|peanut|walnut|nuts?|seed)/.test(n)) return fat * 0.15;
+    return fat * 0.3;
+  }
+
+  // Added sugar (g per 100g). Only sweets / sweetened / processed foods carry added sugar;
+  // whole foods (grains, veg, fruit, plain dairy, meats) count as 0 added sugar.
+  function deriveSugar(f) {
+    var n = f.name.toLowerCase();
+    var carbs = f.carbs || 0;
+    if (/(gulab|jalebi|barfi|laddu|mysore|halwa|kheer|payasam|rasgulla|sandesh|shrikhand|modak|jamun|kulfi|ice cream|chocolate|biscuit|cake|donut|pastry|sugar|jaggery|honey|jam|ketchup|cola|juice|lassi|milkshake|soda|toffee|candy|sweet)/.test(n)) {
+      return carbs * 0.7;
+    }
+    return 0;
+  }
 
   // ---------- nutrition ----------
   function computeNutrition() {
@@ -362,16 +501,19 @@
     renderMacroChart(n);
     renderFoodVsTarget(n.target);
     renderComparison();
+    renderSuggestion();
   }
 
   // ---------- food log ----------
   var selectedFood = null;
 
   var GRAM_FACTOR = {
-    'g': 1, 'ml': 1, 'pcs': 1, 'cup': 240, 'spoon': 15,
+    'g': 1, 'ml': 1, 'cup': 240, 'spoon': 15,
     'tbsp': 15, 'tsp': 5, 'serving': 150, 'bowl': 200,
     'plate': 300, 'glass': 250, 'slice': 30
   };
+  // Default grams per "nos" (piece) when a food has no explicit piece weight
+  var DEFAULT_PIECE_G = 50;
 
   function renderFoodDropdown(query) {
     var dd = $('foodDropdown');
@@ -415,7 +557,13 @@
 
     if (!nutrients) return;
 
-    var gramsEquivalent = qty * (GRAM_FACTOR[unit] || 1);
+    var gramsEquivalent;
+    if (unit === 'nos') {
+      var pieceG = (nutrients.piece != null) ? nutrients.piece : DEFAULT_PIECE_G;
+      gramsEquivalent = qty * pieceG;
+    } else {
+      gramsEquivalent = qty * (GRAM_FACTOR[unit] || 1);
+    }
     var factor = gramsEquivalent / 100;
     state.log.push({
       name: name,
@@ -426,7 +574,9 @@
       protein: nutrients.protein * factor,
       carbs: nutrients.carbs * factor,
       fat: nutrients.fat * factor,
-      fiber: nutrients.fiber * factor
+      fiber: nutrients.fiber * factor,
+      sugar: deriveSugar(nutrients) * factor,
+      satFat: deriveSatFat(nutrients) * factor
     });
     renderFoodLog();
     $('foodSearch').value = '';
@@ -478,13 +628,52 @@
     $('foodNote').textContent = diff >= 0 ? t('foodUnderNote') : t('foodOverNote');
   }
 
+  function statusOf(actual, target, kind, unit) {
+    if (target == null || isNaN(target)) return { text: 'n/a', cls: 'status-neutral' };
+    var diff = target - actual;
+    if (kind === 'min') {
+      if (actual + 1e-9 >= target) return { text: '✓ met', cls: 'status-good' };
+      return { text: '−' + round(target - actual, 0) + ' ' + unit, cls: 'status-warning' };
+    }
+    if (kind === 'max') {
+      if (actual <= target + 1e-9) return { text: '✓ within', cls: 'status-good' };
+      return { text: '+' + round(actual - target, 0) + ' ' + unit, cls: 'status-warning' };
+    }
+    // 'level' (calories on maintain goal)
+    if (Math.abs(diff) <= Math.max(50, target * 0.1)) return { text: '✓ on track', cls: 'status-good' };
+    return { text: (diff >= 0 ? '−' : '+') + round(Math.abs(diff), 0) + ' kcal', cls: 'status-warning' };
+  }
+
+  function setComparisonRow(targetId, actualId, statusId, targetVal, actualVal, kind, unit) {
+    $(targetId).textContent = targetVal == null ? '-' : round(targetVal, 0) + ' ' + unit;
+    if (actualVal == null) {
+      $(actualId).textContent = '-';
+      $(statusId).textContent = '-';
+      $(statusId).className = 'status-neutral';
+      return;
+    }
+    $(actualId).textContent = round(actualVal, 0) + ' ' + unit;
+    var r = statusOf(actualVal, targetVal, kind, unit);
+    $(statusId).textContent = r.text;
+    $(statusId).className = r.cls;
+  }
+
   function renderComparison() {
     var n = computeNutrition();
-    var log = state.log;
-    
+
+    if (!n) {
+      ['compTargetCal', 'compTargetProtein', 'compTargetCarbs', 'compTargetFat', 'compTargetFiber',
+       'compTargetWater', 'compTargetSugar', 'compTargetSatFat'].forEach(function (id) { $(id).textContent = '-'; });
+      ['compActualCal', 'compActualProtein', 'compActualCarbs', 'compActualFat', 'compActualFiber',
+       'compActualWater', 'compActualSugar', 'compActualSatFat'].forEach(function (id) { $(id).textContent = '-'; });
+      ['compStatusCal', 'compStatusProtein', 'compStatusCarbs', 'compStatusFat', 'compStatusFiber',
+       'compStatusWater', 'compStatusSugar', 'compStatusSatFat'].forEach(function (id) { $(id).textContent = '-'; $(id).className = 'status-neutral'; });
+      return;
+    }
+
     // Calculate actual totals from food log
     var actualCal = 0, actualProtein = 0, actualCarbs = 0, actualFat = 0, actualFiber = 0;
-    log.forEach(function(r) {
+    state.log.forEach(function (r) {
       actualCal += r.kcal;
       actualProtein += r.protein;
       actualCarbs += r.carbs;
@@ -492,68 +681,93 @@
       actualFiber += r.fiber;
     });
 
-    // Update comparison table
-    if (n) {
-      // Calories
-      $('compTargetCal').textContent = Math.round(n.target) + ' kcal';
-      $('compActualCal').textContent = Math.round(actualCal) + ' kcal';
-      var calDiff = n.target - actualCal;
-      $('compStatusCal').textContent = calDiff >= 0 ? '+' + Math.round(calDiff) : Math.round(calDiff);
-      $('compStatusCal').className = calDiff >= 0 ? 'status-good' : 'status-bad';
+    // Calories: treat target as a ceiling when losing, a floor when gaining, a level when maintaining
+    var calKind = state.goal === 'gain' ? 'min' : state.goal === 'lose' ? 'max' : 'level';
 
-      // Protein
-      $('compTargetProtein').textContent = round(n.proteinG, 0) + ' g';
-      $('compActualProtein').textContent = round(actualProtein, 0) + ' g';
-      var protDiff = n.proteinG - actualProtein;
-      $('compStatusProtein').textContent = protDiff >= 0 ? '+' + round(protDiff, 0) : round(protDiff, 0);
-      $('compStatusProtein').className = protDiff >= 0 ? 'status-good' : 'status-warning';
+    // When nothing is logged, don't report false mismatches — show Actual/Status as n/a
+    var calActual = state.log.length > 0 ? actualCal : null;
+    var protActual = state.log.length > 0 ? actualProtein : null;
+    var carbsActual = state.log.length > 0 ? actualCarbs : null;
+    var fatActual = state.log.length > 0 ? actualFat : null;
+    var fiberActual = state.log.length > 0 ? actualFiber : null;
 
-      // Carbs
-      $('compTargetCarbs').textContent = round(n.carbsG, 0) + ' g';
-      $('compActualCarbs').textContent = round(actualCarbs, 0) + ' g';
-      var carbsDiff = n.carbsG - actualCarbs;
-      $('compStatusCarbs').textContent = carbsDiff >= 0 ? '+' + round(carbsDiff, 0) : round(carbsDiff, 0);
-      $('compStatusCarbs').className = carbsDiff >= 0 ? 'status-good' : 'status-warning';
+    setComparisonRow('compTargetCal', 'compActualCal', 'compStatusCal', n.target, calActual, calKind, 'kcal');
+    setComparisonRow('compTargetProtein', 'compActualProtein', 'compStatusProtein', n.proteinG, protActual, 'min', 'g');
+    setComparisonRow('compTargetCarbs', 'compActualCarbs', 'compStatusCarbs', n.carbsG, carbsActual, 'max', 'g');
+    setComparisonRow('compTargetFat', 'compActualFat', 'compStatusFat', n.fatG, fatActual, 'max', 'g');
+    setComparisonRow('compTargetFiber', 'compActualFiber', 'compStatusFiber', n.fiber, fiberActual, 'min', 'g');
+    // Actual added sugar and saturated fat are summed from the log via per-food values
+    var actualSugar = 0, actualSatFat = 0;
+    state.log.forEach(function (r) {
+      actualSugar += r.sugar || 0;
+      actualSatFat += r.satFat || 0;
+    });
 
-      // Fat
-      $('compTargetFat').textContent = round(n.fatG, 0) + ' g';
-      $('compActualFat').textContent = round(actualFat, 0) + ' g';
-      var fatDiff = n.fatG - actualFat;
-      $('compStatusFat').textContent = fatDiff >= 0 ? '+' + round(fatDiff, 0) : round(fatDiff, 0);
-      $('compStatusFat').className = fatDiff >= 0 ? 'status-good' : 'status-warning';
+    // Water is a target only — the food DB does not track intake per item
+    setComparisonRow('compTargetWater', 'compActualWater', 'compStatusWater', n.water, null, 'max', 'ml');
+    setComparisonRow('compTargetSugar', 'compActualSugar', 'compStatusSugar', n.sugar, actualSugar, 'max', 'g');
+    setComparisonRow('compTargetSatFat', 'compActualSatFat', 'compStatusSatFat', n.satFat, actualSatFat, 'max', 'g');
+  }
 
-      // Fiber
-      $('compTargetFiber').textContent = round(n.fiber, 0) + ' g';
-      $('compActualFiber').textContent = round(actualFiber, 0) + ' g';
-      var fiberDiff = n.fiber - actualFiber;
-      $('compStatusFiber').textContent = fiberDiff >= 0 ? '+' + round(fiberDiff, 0) : round(fiberDiff, 0);
-      $('compStatusFiber').className = fiberDiff >= 0 ? 'status-good' : 'status-bad';
+  // ---------- suggested meal plan ----------
+  var MEAL_TEMPLATE = [
+    { meal: 'Breakfast', items: [['Oats (cooked)', 250], ['Milk (toned)', 250], ['Banana', 120]] },
+    { meal: 'Mid-morning', items: [['Apple', 150]] },
+    { meal: 'Lunch', items: [['White rice (cooked)', 300], ['Toor dal (cooked)', 150], ['Aloo gobi', 150], ['Curd/Yogurt', 150], ['Wheat roti/Chapati', 100]] },
+    { meal: 'Snack', items: [['Almonds', 30], ['Chai (milk tea)', 250]] },
+    { meal: 'Dinner', items: [['Wheat roti/Chapati', 100], ['Palak paneer', 200], ['Mixed salad', 150], ['Curd/Yogurt', 100]] }
+  ];
 
-      // Water (estimated from food)
-      var actualWater = actualCal * 0.001; // rough estimate
-      $('compTargetWater').textContent = Math.round(n.water) + ' ml';
-      $('compActualWater').textContent = '~' + Math.round(actualWater) + ' ml';
-      $('compStatusWater').textContent = '-';
-      $('compStatusWater').className = 'status-neutral';
+  function foodByName(name) {
+    for (var i = 0; i < FOOD_DB.length; i++) { if (FOOD_DB[i].name === name) return FOOD_DB[i]; }
+    return null;
+  }
 
-      // Sugar (max)
-      $('compTargetSugar').textContent = round(n.sugar, 0) + ' g';
-      $('compActualSugar').textContent = '-';
-      $('compStatusSugar').textContent = 'log food';
-      $('compStatusSugar').className = 'status-neutral';
+  function renderSuggestion() {
+    var n = computeNutrition();
+    var body = $('suggestionBody');
+    if (!n || !body) { if (body) body.innerHTML = ''; var st = $('suggTarget'); if (st) st.textContent = '-'; return; }
 
-      // Saturated Fat (max)
-      $('compTargetSatFat').textContent = round(n.satFat, 0) + ' g';
-      $('compActualSatFat').textContent = '-';
-      $('compStatusSatFat').textContent = 'log food';
-      $('compStatusSatFat').className = 'status-neutral';
-    } else {
-      // No nutrition data yet
-      $('compTargetCal').textContent = '-';
-      $('compActualCal').textContent = Math.round(actualCal) + ' kcal';
-      $('compStatusCal').textContent = '-';
-      $('compStatusCal').className = 'status-neutral';
-    }
+    // 1) Compute the template's totals from the live database
+    var tK = 0, tP = 0, tC = 0, tF = 0, tFb = 0;
+    MEAL_TEMPLATE.forEach(function (m) {
+      m.items.forEach(function (it) {
+        var f = foodByName(it[0]); if (!f) return;
+        var k = it[1] / 100;
+        tK += f.kcal * k; tP += f.protein * k; tC += f.carbs * k; tF += f.fat * k; tFb += f.fiber * k;
+      });
+    });
+    if (tK <= 0) { body.innerHTML = ''; return; }
+
+    // 2) Scale every portion so the day lands near the target calories
+    var scale = n.target / tK;
+    var html = '', totK = 0, totP = 0, totC = 0, totF = 0, totFb = 0;
+
+    MEAL_TEMPLATE.forEach(function (m) {
+      var rows = '', mealK = 0, mealP = 0, mealC = 0, mealF = 0, mealFb = 0;
+      m.items.forEach(function (it) {
+        var f = foodByName(it[0]); if (!f) return;
+        var g = Math.max(5, Math.round(it[1] * scale / 5) * 5);
+        var k = g / 100;
+        var kcal = f.kcal * k, p = f.protein * k, c = f.carbs * k, fa = f.fat * k, fb = f.fiber * k;
+        mealK += kcal; mealP += p; mealC += c; mealF += fa; mealFb += fb;
+        totK += kcal; totP += p; totC += c; totF += fa; totFb += fb;
+        rows += '<tr><td>' + f.name + '</td><td>' + g + ' g</td><td>' + Math.round(kcal) + ' kcal</td></tr>';
+      });
+      html += '<h3 class="meal-title">' + m.meal + ' <span class="meal-cal">' + Math.round(mealK) + ' kcal</span></h3>';
+      html += '<div class="table-wrap"><table><thead><tr><th>Food</th><th>Qty</th><th>kcal</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
+    });
+
+    var diffK = n.target - totK;
+    html += '<dl class="summary-list" style="margin-top:14px">'
+      + '<div class="summary-item accent"><dt>Total</dt><dd>' + Math.round(totK) + ' kcal</dd></div>'
+      + '<div class="summary-item"><dt>vs target</dt><dd>' + (diffK >= 0 ? '+' : '') + Math.round(diffK) + ' kcal</dd></div>'
+      + '<div class="summary-item"><dt>Protein</dt><dd>' + round(totP, 0) + ' g / ' + round(n.proteinG, 0) + ' g</dd></div>'
+      + '<div class="summary-item"><dt>Carbs</dt><dd>' + round(totC, 0) + ' g / ' + round(n.carbsG, 0) + ' g</dd></div>'
+      + '<div class="summary-item"><dt>Fat</dt><dd>' + round(totF, 0) + ' g / ' + round(n.fatG, 0) + ' g</dd></div>'
+      + '</dl>';
+    body.innerHTML = html;
+    $('suggTarget').textContent = Math.round(n.target) + ' kcal';
   }
 
   // ---------- budget ----------
@@ -604,6 +818,7 @@
     $('modeTabs').querySelectorAll('button').forEach(function (b) { b.classList.toggle('active', b.dataset.mode === mode); });
     $('nutritionView').style.display = mode === 'nutrition' ? '' : 'none';
     $('budgetView').style.display = mode === 'budget' ? '' : 'none';
+    if (mode === 'nutrition') renderSuggestion();
   }
 
   // ---------- wire up ----------
