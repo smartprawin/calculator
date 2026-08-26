@@ -1,53 +1,35 @@
 'use strict';
 
 (function () {
-  var state = { value: 500000, months: 40, foreman: 5, div: 18, win: 12 };
+  // 6% p.a. assumed finance/reinvest rate for the MIRR-based return.
+  var ASSUMED_RATE = 0.06 / 12;
+  var state = { value: 500000, members: 40, months: 40, foreman: 5, div: 18, win: 12 };
 
-  function clampWin() {
-    if (state.win < 1) state.win = 1;
-    if (state.win > state.months) state.win = state.months;
+  // Modified IRR: single-valued and stable even when the cashflow has
+  // several sign changes (many outflows + one prize inflow).
+  function mirr(cashflows, n, rate) {
+    var fvPos = 0, pvNeg = 0;
+    for (var i = 0; i < cashflows.length; i++) {
+      var cf = cashflows[i];
+      if (cf >= 0) fvPos += cf * Math.pow(1 + rate, n - (i + 1));
+      else pvNeg += cf / Math.pow(1 + rate, i + 1);
+    }
+    if (pvNeg === 0) return null;
+    return Math.pow(fvPos / -pvNeg, 1 / n) - 1;
   }
 
-  function irr(cashflows) {
-    // cashflows: array of numbers indexed 1..n (month). Solve sum cf_i/(1+r)^i = 0.
-    function npv(r) {
-      var s = 0;
-      for (var i = 0; i < cashflows.length; i++) {
-        s += cashflows[i] / Math.pow(1 + r, i + 1);
-      }
-      return s;
-    }
-    // NPV can have multiple roots; scan for sign changes then refine each.
-    var roots = [];
-    var step = 0.005, a = -0.95, prev = npv(a);
-    for (var x = a + step; x <= 3; x += step) {
-      var cur = npv(x);
-      if (prev === 0) { roots.push(x - step); }
-      else if (prev * cur < 0) {
-        var lo = x - step, hi = x, fLo = prev, fHi = cur;
-        for (var k = 0; k < 100; k++) {
-          var mid = (lo + hi) / 2, fMid = npv(mid);
-          if (Math.abs(fMid) < 1e-9) { lo = mid; break; }
-          if (fLo * fMid < 0) { hi = mid; fHi = fMid; }
-          else { lo = mid; fLo = fMid; }
-        }
-        roots.push((lo + hi) / 2);
-      }
-      prev = cur;
-    }
-    if (roots.length === 0) return null;
-    var positive = roots.filter(function (r) { return r > 0; });
-    if (positive.length) return Math.min.apply(null, positive);
-    return Math.max.apply(null, roots);
+  function row(label, formula, value) {
+    return '<div class="step"><span>' + label + ' <em>(' + formula + ')</em></span><b>' + value + '</b></div>';
   }
 
   function compute() {
     var n = state.months;
-    var installment = state.value / n;
+    var m = state.members;
+    var installment = state.value / m;
     var discount = state.value * (state.div / 100);
     var foremanAmt = state.value * (state.foreman / 100);
     var dividendPool = Math.max(0, discount - foremanAmt);
-    var divPerMember = dividendPool / n;
+    var divPerMember = dividendPool / m;
     var effInstallment = installment - divPerMember;
     var prize = state.value * (1 - state.div / 100);
 
@@ -60,7 +42,7 @@
       if (i === state.win) flow += prize;
       cf.push(flow);
     }
-    var r = irr(cf);
+    var r = mirr(cf, n, ASSUMED_RATE);
     var annual = (r === null) ? null : (Math.pow(1 + r, 12) - 1) * 100;
 
     $('sumInstallment').textContent = currency(installment);
@@ -69,7 +51,40 @@
     $('winLabel').textContent = state.win + (currentLang === 'ta' ? ' மாதம்' : '');
     $('sumPrize').textContent = currency(prize);
     $('sumPaid').textContent = currency(totalPaid);
-    $('sumReturn').textContent = (annual === null) ? '—' : (annual >= 0 ? '' : '') + annual.toFixed(2) + '%';
+    $('sumReturn').textContent = (annual === null) ? '—' : (annual >= 0 ? '+' : '') + annual.toFixed(2) + '%';
+
+    // --- Effective Annual Return breakdown (transparency) ---
+    var fvPrize = prize * Math.pow(1 + ASSUMED_RATE, n - state.win);
+    var pvInst = 0;
+    for (var bi = 1; bi <= n; bi++) pvInst += effInstallment / Math.pow(1 + ASSUMED_RATE, bi);
+    var mirrMonthly = Math.pow(fvPrize / pvInst, 1 / n) - 1;
+    var netAmount = prize - totalPaid;
+    var perYear = netAmount / (n / 12);
+    $('calcBreakdown').innerHTML =
+      row('Monthly installment / member', 'value ÷ members', currency(installment)) +
+      row('Discount amount', 'value × ' + state.div + '%', currency(discount)) +
+      row('Foreman commission', 'value × ' + state.foreman + '%', currency(foremanAmt)) +
+      row('Dividend pool', 'discount − foreman', currency(dividendPool)) +
+      row('Dividend / member / month', 'dividend pool ÷ members', currency(divPerMember)) +
+      row('Effective installment', 'installment − dividend', currency(effInstallment)) +
+      row('Prize (if you win)', 'value − discount', currency(prize)) +
+      row('Total paid (net)', 'effective installment × ' + n + ' months', currency(totalPaid)) +
+      '<div class="step"><span>Cashflow</span><b>−' + currency(effInstallment) + ' every month, +' + currency(prize) + ' in month ' + state.win + '</b></div>' +
+      '<div class="step"><span>Effective Annual Return (MIRR)</span><b>' + (annual === null ? '—' : (annual >= 0 ? '+' : '') + annual.toFixed(2) + '%') + '</b></div>' +
+      '<div class="step sub"><span>· FV of prize @' + (ASSUMED_RATE * 12 * 100) + '% p.a. to end</span><b>' + currency(fvPrize) + '</b></div>' +
+      '<div class="step sub"><span>· PV of installments @' + (ASSUMED_RATE * 12 * 100) + '% p.a.</span><b>' + currency(pvInst) + '</b></div>' +
+      '<div class="step sub"><span>· Monthly rate = (FV ÷ PV)<sup>1/' + n + '</sup> − 1</span><b>' + (mirrMonthly * 100).toFixed(4) + '%</b></div>' +
+      '<div class="step"><span>Net amount (gain / loss)</span><b>' + currency(netAmount) + '</b></div>' +
+      '<div class="step sub"><span>· ≈ per year over ' + (n / 12).toFixed(1) + ' yrs</span><b>' + currency(perYear) + '</b></div>' +
+      '<div class="note">The rate is time-weighted (MIRR, assumed 6% p.a. finance/reinvest). The net amount is the actual rupee difference: prize − total paid (the dividend is already built into the lower installment). They can differ in sign because the large prize arrives early (month ' + state.win + ') while installments are spread out.</div>';
+
+    // Non-winner outcome: pays the same discounted installments every month,
+    // collects dividends, but never receives a prize.
+    var totalDivNW = divPerMember * n;
+    $('sumPrizeNW').textContent = currency(0);
+    $('sumDivNW').textContent = currency(totalDivNW);
+    $('sumPaidNW').textContent = currency(totalPaid);
+    $('sumNetNW').textContent = currency(-totalPaid);
 
     var rows = [];
     for (var m = 1; m <= n; m++) {
@@ -99,6 +114,8 @@
     state.win = Math.min(state.win, state.months);
     $('value').value = state.value;
     if (document.activeElement !== $('valueInput')) $('valueInput').value = groupIndian(state.value);
+    $('members').value = state.members;
+    $('membersInput').value = state.members;
     $('months').value = state.months;
     $('monthsInput').value = state.months;
     $('foreman').value = state.foreman;
@@ -109,13 +126,16 @@
     $('win').value = state.win;
     $('winInput').value = state.win;
 
-    var valid = state.value > 0 && state.months >= 1 && state.months <= 100 &&
+    var valid = state.value > 0 && state.members >= 1 && state.members <= 1000 &&
+                state.months >= 1 && state.months <= 100 &&
                 state.foreman >= 0 && state.foreman <= 100 &&
                 state.div >= 0 && state.div <= 100 && state.win >= 1 && state.win <= state.months;
     if (!valid) {
-      ['sumInstallment', 'sumDiv', 'sumEff', 'sumPrize', 'sumPaid', 'sumReturn'].forEach(function (id) {
+      ['sumInstallment', 'sumDiv', 'sumEff', 'sumPrize', 'sumPaid', 'sumReturn',
+       'sumPrizeNW', 'sumDivNW', 'sumPaidNW', 'sumNetNW'].forEach(function (id) {
         $(id).textContent = '-';
       });
+      $('calcBreakdown').innerHTML = '';
       $('winLabel').textContent = '';
       $('scheduleBody').innerHTML = '<tr><td colspan="5" style="text-align:center;color:#64748b;padding:24px">' + t('validMsg') + '</td></tr>';
       return;
@@ -126,6 +146,12 @@
   $('value').addEventListener('input', function (e) { state.value = parseDigits(e.target.value); render(); });
   $('valueInput').addEventListener('input', function (e) { state.value = parseDigits(e.target.value); render(); });
   $('valueInput').addEventListener('blur', function () { $('valueInput').value = groupIndian(state.value); });
+  $('members').addEventListener('input', function (e) { state.members = Math.round(parseDigits(e.target.value)); render(); });
+  $('membersInput').addEventListener('input', function (e) {
+    var v = Math.round(Number(e.target.value));
+    state.members = isFinite(v) && v >= 1 ? v : 1;
+    render();
+  });
   $('months').addEventListener('input', function (e) { state.months = Math.round(parseDigits(e.target.value)); render(); });
   $('monthsInput').addEventListener('input', function (e) {
     var v = Math.round(Number(e.target.value));

@@ -63,6 +63,14 @@
       </label>
 
       <label class="field">
+        <div class="field-head"><span data-i18n="chitMembers">Total Members</span>
+          <span class="input-box"><input type="number" id="membersInput" min="1" max="1000" step="1"><span class="unit">No</span></span>
+        </div>
+        <input type="range" class="slider" id="members" min="5" max="200" step="1">
+        <div class="field-scale"><span>5</span><span>200</span></div>
+      </label>
+
+      <label class="field">
         <div class="field-head"><span data-i18n="chitTenure">Tenure (Months)</span>
           <span class="input-box"><input type="number" id="monthsInput" min="1" max="100" step="1"><span class="unit">Mo</span></span>
         </div>
@@ -115,7 +123,21 @@
           <div class="summary-item"><dt data-i18n="chitTotalPaid">Total Installments Paid</dt><dd id="sumPaid">-</dd></div>
           <div class="summary-item accent"><dt data-i18n="chitEffectiveReturn">Effective Annual Return</dt><dd id="sumReturn">-</dd></div>
         </dl>
-        <p class="hint" id="neverWinNote" data-i18n="chitNeverWinNote">Staying the full term without winning, you pay the discounted installments and receive no prize — it behaves like a forced saving plan.</p>
+        <details class="calc-details">
+          <summary data-i18n="chitShowCalc">How is the Effective Annual Return calculated?</summary>
+          <div id="calcBreakdown" class="calc-body"></div>
+        </details>
+      </div>
+
+      <div class="card">
+        <h2 data-i18n="chitNeverWinTitle">If You Never Win</h2>
+        <dl class="summary-list">
+          <div class="summary-item"><dt data-i18n="chitPrize">Prize Amount Received</dt><dd id="sumPrizeNW">-</dd></div>
+          <div class="summary-item"><dt data-i18n="chitTotalDiv">Total Dividend Received</dt><dd id="sumDivNW">-</dd></div>
+          <div class="summary-item"><dt data-i18n="chitTotalPaid">Total Installments Paid</dt><dd id="sumPaidNW">-</dd></div>
+          <div class="summary-item accent"><dt data-i18n="chitNetOutcome">Net Outcome</dt><dd id="sumNetNW">-</dd></div>
+        </dl>
+        <p class="hint" data-i18n="chitNeverWinNote">Without winning, your discounted installments are never returned as a lump sum — the return only comes from the dividend, and your capital funds the winners' prizes.</p>
       </div>
 
       <div class="card schedule-card">
@@ -136,7 +158,7 @@
     <h2>Frequently asked questions</h2>
     <div class="faq-item">
       <div class="faq-q" data-i18n="chitFaqQ1">How is the monthly installment calculated?</div>
-      <div class="faq-a" data-i18n="chitFaqA1">The chit value is divided equally among the number of members (which equals the tenure in months). Each member pays that share every month.</div>
+      <div class="faq-a" data-i18n="chitFaqA1">The chit value is divided equally among all members, so each member pays that share every month for the full tenure. The tenure is the number of months the chit runs (often equal to the number of members).</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" data-i18n="chitFaqQ2">What does the effective annual return mean?</div>
