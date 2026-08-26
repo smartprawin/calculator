@@ -24,6 +24,7 @@
   .calc-card.emi { border-top: 5px solid #2563eb; }
   .calc-card.eb  { border-top: 5px solid #f59e0b; }
   .calc-card.tax { border-top: 5px solid #16a34a; }
+  .calc-card.chit { border-top: 5px solid #c026d3; }
   .calc-card h2 { margin: 0 0 6px; font-size: 1.2rem; }
   .calc-card p { margin: 0; color: #64748b; font-size: 0.9rem; flex: 1; }
   .calc-cta { display: inline-block; align-self: flex-start; margin-top: 16px; padding: 8px 16px;
@@ -31,6 +32,16 @@
   footer { margin-top: 32px; text-align: center; color: #64748b; font-size: 0.8rem; }
 </style>
 <script>try{var _l=new URLSearchParams(location.search).get('lang');if(_l==='ta'){document.documentElement.lang='ta';}}catch(e){}</script>
+<script>
+(function () {
+  if (location.search.indexOf('swreset') > -1 && 'serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function (regs) {
+      regs.forEach(function (r) { r.unregister(); });
+      location.href = 'index.html';
+    });
+  }
+})();
+</script>
 <meta name="i18n-page" content="index">
 <title>Calculators - Free EMI &amp; EB Bill Calculator</title>
 <meta name="description" content="Free online calculators: EMI calculator for home, car and personal loans, and an EB electricity bill calculator with editable slab tariffs.">
@@ -87,6 +98,12 @@
       <h2 data-i18n="taxH1">Income Tax Calculator</h2>
       <p data-i18n="taxDesc">Estimate Indian income tax and compare New vs Old regime for FY 2025-26.</p>
       <span class="calc-cta" data-i18n="taxCta">Open calculator →</span>
+    </a>
+    <a class="calc-card chit" href="chit.html">
+      <div class="calc-icon">🔔</div>
+      <h2 data-i18n="chitTitle">Chit Fund Calculator</h2>
+      <p data-i18n="chitDesc">Estimate your chit fund monthly installment, dividend and the effective return if you win the auction.</p>
+      <span class="calc-cta" data-i18n="chitCta">Open calculator →</span>
     </a>
   </main>
 

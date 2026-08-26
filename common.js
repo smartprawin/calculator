@@ -516,7 +516,41 @@ var TRANSLATIONS = {
     budgetEmpty: 'No budget items yet. Add a row to start.',
     budgetHint: 'Each row is one item you buy for food. Pick how often you buy it; the monthly cost is worked out automatically.',
     pgFoodTitle: 'Food Calculator - Calories, Macros & Monthly Budget (Free)',
-    pgFoodDesc: 'Estimate daily calorie & macro targets from your profile and a food log, and plan your monthly food budget.'
+    pgFoodDesc: 'Estimate daily calorie & macro targets from your profile and a food log, and plan your monthly food budget.',
+
+    chitTitle: 'Chit Fund Calculator',
+    chitDesc: 'Estimate your chit fund monthly installment, dividend and the effective return if you win the auction.',
+    chitCta: 'Open calculator →',
+    chitH1: 'Chit Fund Calculator',
+    chitSub: 'Monthly Installment, Dividend & Effective Return',
+    chitValue: 'Chit Value',
+    chitTenure: 'Tenure (Months)',
+    chitForeman: 'Foreman Commission',
+    chitDividend: 'Avg. Dividend / Discount',
+    chitWinMonth: 'Month You Win The Chit',
+    chitHint: 'Dividend is the auction discount left after the foreman’s commission, shared equally among all members and reduces your monthly installment. Assumes a steady discount each month for illustration.',
+    chitInstallment: 'Monthly Installment',
+    chitDivPerMember: 'Dividend / Member / Month',
+    chitEffInstallment: 'Effective Installment (after dividend)',
+    chitIfWin: 'If You Win In Month',
+    chitPrize: 'Prize Amount Received',
+    chitTotalPaid: 'Total Installments Paid',
+    chitEffectiveReturn: 'Effective Annual Return',
+    chitNeverWin: 'If You Never Win',
+    chitNeverWinNote: 'Staying the full term without winning, you pay the discounted installments and receive no prize — it behaves like a forced saving plan.',
+    chitSchedule: 'Month-wise Cashflow',
+    chitColMonth: 'Month',
+    chitColInstall: 'Installment',
+    chitColDiv: 'Dividend',
+    chitColNet: 'Net Outflow',
+    chitColPrize: 'Prize',
+    chitWinner: 'You win',
+    chitFaqQ1: 'How is the monthly installment calculated?',
+    chitFaqA1: 'The chit value is divided equally among the number of members (which equals the tenure in months). Each member pays that share every month.',
+    chitFaqQ2: 'What does the effective annual return mean?',
+    chitFaqA2: 'When you win, you receive the prize amount (chit value minus the discount) early while you keep paying smaller, dividend-adjusted installments. The effective return annualises that cashflow into a comparable yearly rate.',
+    pgChitTitle: 'Chit Fund Calculator - Installment, Dividend & Return (Free)',
+    pgChitDesc: 'Estimate your chit fund monthly installment, per-member dividend and the effective annual return if you win the auction in a given month.'
   },
   ta: {
     heroTitle: '\u0b95\u0bbe\u0bb2\u0bcd\u0b95\u0bc1\u0bb2\u0bc7\u0b9f\u0bcd\u0b9f\u0bb0\u0bcd\u0b95\u0bb3\u0bcd',
@@ -923,7 +957,41 @@ var TRANSLATIONS = {
     budgetEmpty: 'இதுவரை பட்ஜெட் உருப்படிகள் இல்லை. தொடங்க ஒரு வரிசையைச் சேர்க்கவும்.',
     budgetHint: 'உணவுக்காக நீங்கள் வாங்கும் ஒவ்வொரு உருப்படியும் ஒரு வரிசை. நீங்கள் எவ்வளவு அடிக்கடி வாங்குகிறீர்கள் என்பதைத் தேர்ந்தெடுங்கள்; மாதாந்திர செலவு தானாகக் கணக்கிடப்படும்.',
     pgFoodTitle: 'உணவு கால்குலேட்டர் - கலோரிகள், மேக்ரோக்கள் & மாதாந்திர பட்ஜெட் (இலவசம்)',
-    pgFoodDesc: 'உங்கள் சுயவிவரம் மற்றும் உணவுப் பதிவிலிருந்து தினசரி கலோரி & மேக்ரோ இலக்குகளை மதிப்பிட்டு, உங்கள் மாதாந்திர உணவுப் பட்ஜெட்டைத் திட்டமிடுங்கள்.'
+    pgFoodDesc: 'உங்கள் சுயவிவரம் மற்றும் உணவுப் பதிவிலிருந்து தினசரி கலோரி & மேக்ரோ இலக்குகளை மதிப்பிட்டு, உங்கள் மாதாந்திர உணவுப் பட்ஜெட்டைத் திட்டமிடுங்கள்.',
+
+    chitTitle: 'சிட் ஃபண்ட் கால்குலேட்டர்',
+    chitDesc: 'சிட் ஃபண்ட் மாதாந்திர தவணை, டிவிடெண்ட் மற்றும் நீங்கள் ஏலத்தை வென்றால் கிடைக்கும் நிகர வருவாயை மதிப்பிடுங்கள்.',
+    chitCta: 'கால்குலேட்டரைத் திறக்க →',
+    chitH1: 'சிட் ஃபண்ட் கால்குலேட்டர்',
+    chitSub: 'மாதாந்திர தவணை, டிவிடெண்ட் & நிகர வருவாய்',
+    chitValue: 'சிட் மதிப்பு',
+    chitTenure: 'கால அவகாசம் (மாதங்கள்)',
+    chitForeman: 'மேலாளர் கமிஷன்',
+    chitDividend: 'சராசரி டிவிடெண்ட் / தள்ளுபடி',
+    chitWinMonth: 'நீங்கள் சிட்டை வெல்லும் மாதம்',
+    chitHint: 'டிவிடெண்ட் என்பது மேலாளர் கமிஷனுக்குப் பிறகு மீதமுள்ள ஏலத் தள்ளுபடி; அது அனைத்து உறுப்பினர்களுக்கும் சமமாகப் பகிரப்பட்டு உங்கள் மாதாந்திர தவணையைக் குறைக்கிறது. விளக்கத்திற்காக ஒவ்வொரு மாதமும் நிலையான தள்ளுபடி எனக் கொள்ளப்படுகிறது.',
+    chitInstallment: 'மாதாந்திர தவணை',
+    chitDivPerMember: 'உறுப்பினர் / மாதம் டிவிடெண்ட்',
+    chitEffInstallment: 'நிகர தவணை (டிவிடெண்டுக்குப் பிறகு)',
+    chitIfWin: 'நீங்கள் மாதத்தில் வென்றால்',
+    chitPrize: 'பரிசுத் தொகை பெறப்பட்டது',
+    chitTotalPaid: 'செலுத்தப்பட்ட மொத்த தவணைகள்',
+    chitEffectiveReturn: 'நிகர ஆண்டு வருவாய்',
+    chitNeverWin: 'நீங்கள் ஒருபோதும் வெல்லவில்லை எனில்',
+    chitNeverWinNote: 'முழு காலத்தையும் வெல்லாமல் இருந்தால், நீங்கள் தள்ளுபடி செய்யப்பட்ட தவணைகளைச் செலுத்துவீர்கள்; பரிசு எதுவும் கிடைக்காது — இது கட்டாய சேமிப்புத் திட்டம் போல் செயல்படும்.',
+    chitSchedule: 'மாதவாரி பணப்புழக்கம்',
+    chitColMonth: 'மாதம்',
+    chitColInstall: 'தவணை',
+    chitColDiv: 'டிவிடெண்ட்',
+    chitColNet: 'நிகர வெளிப்போக்கு',
+    chitColPrize: 'பரிசு',
+    chitWinner: 'நீங்கள் வெற்றி',
+    chitFaqQ1: 'மாதாந்திர தவணை எவ்வாறு கணக்கிடப்படுகிறது?',
+    chitFaqA1: 'சிட் மதிப்பு உறுப்பினர்களின் எண்ணிக்கையால் (கால அவகாச மாதங்களுக்குச் சமம்) சரியாகப் பிரிக்கப்படுகிறது. ஒவ்வொரு உறுப்பினரும் ஒவ்வொரு மாதமும் அந்தப் பங்கைச் செலுத்துவார்.',
+    chitFaqQ2: 'நிகர ஆண்டு வருவாய் என்றால் என்ன?',
+    chitFaqA2: 'நீங்கள் வென்றால், பரிசுத் தொகை (சிட் மதிப்பிலிருந்து தள்ளுபடி கழித்தது) முன்கூட்டியே கிடைக்கும், அதே சமயம் நீங்கள் சிறிய, டிவிடெண்ட் சரிசெய்யப்பட்ட தவணைகளைத் தொடர்ந்து செலுத்துவீர்கள். நிகர வருவாய் அந்தப் பணப்புழக்கை ஒப்பிடத்தக்க ஆண்டு விகிதமாக மாற்றுகிறது.',
+    pgChitTitle: 'சிட் ஃபண்ட் கால்குலேட்டர் - தவணை, டிவிடெண்ட் & வருவாய் (இலவசம்)',
+    pgChitDesc: 'உங்கள் சிட் ஃபண்ட் மாதாந்திர தவணை, உறுப்பினர் டிவிடெண்ட் மற்றும் ஒரு குறிப்பிட்ட மாதத்தில் வென்றால் கிடைக்கும் நிகர ஆண்டு வருவாயை மதிப்பிடுங்கள்.'
   }
 };
 
@@ -967,7 +1035,8 @@ var META_KEYS = {
   sip: ['pgSipTitle', 'pgSipDesc'],
   gst: ['pgGstTitle', 'pgGstDesc'],
   weightloss: ['pgWlTitle', 'pgWlDesc'],
-  food: ['pgFoodTitle', 'pgFoodDesc']
+  food: ['pgFoodTitle', 'pgFoodDesc'],
+  chit: ['pgChitTitle', 'pgChitDesc']
 };
 
 function setMetaContent(name, content) {
@@ -1122,6 +1191,7 @@ var CALCULATORS = [
   { id: 'bmi', href: 'bmi.html', icon: '🏃', accent: '#e11d48', titleKey: 'bmiTitle', descKey: 'bmiDesc', ctaKey: 'bmiCta' },
   { id: 'sip', href: 'sip.html', icon: '📈', accent: '#7c3aed', titleKey: 'sipTitle', descKey: 'sipDesc', ctaKey: 'sipCta' },
   { id: 'gst', href: 'gst.html', icon: '🧮', accent: '#0d9488', titleKey: 'gstTitle', descKey: 'gstDesc', ctaKey: 'gstCta' },
+  { id: 'chit', href: 'chit.html', icon: '🔔', accent: '#c026d3', titleKey: 'chitTitle', descKey: 'chitDesc', ctaKey: 'chitCta' },
   { id: 'weightloss', href: 'weightloss.html', icon: '🏋️', accent: '#0f766e', titleKey: 'wlH1', descKey: 'wlDesc', ctaKey: 'wlCta' },
   { id: 'food', href: 'food.html', icon: '🍱', accent: '#ea580c', titleKey: 'foodTitle', descKey: 'foodDesc', ctaKey: 'foodCta' }
 ];

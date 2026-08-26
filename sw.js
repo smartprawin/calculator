@@ -1,11 +1,8 @@
-const CACHE = 'calc-v2';
+const CACHE = 'calc-v4';
 const ASSETS = [
-  'index.html', 'emi.html', 'tax.html', 'ebbill.html', 'privacy.html',
-  'weightloss.html', 'irpart.html', 'sip.html', 'bmi.html', 'offer.html',
-  'payslip.html', 'gst.html',
   'common.js?v=2', 'emi.js?v=2', 'ebbill.js?v=2', 'tax.js?v=2',
   'weightloss.js?v=2', 'irpart.js?v=2', 'sip.js?v=2', 'bmi.js?v=2',
-  'offer.js?v=2', 'payslip.js?v=2', 'gst.js?v=2',
+  'offer.js?v=2', 'payslip.js?v=2', 'gst.js?v=2', 'chit.js?v=2',
   'style.css?v=2', 'favicon.png?v=2', 'og-image.png', 'manifest.webmanifest'
 ];
 
@@ -25,16 +22,28 @@ self.addEventListener('activate', function (e) {
 
 self.addEventListener('fetch', function (e) {
   if (e.request.method !== 'GET') return;
+  var url = new URL(e.request.url);
+  if (url.origin !== self.location.origin) return;
+
+  // HTML pages are always fetched fresh from the network (no stale cache).
+  if (e.request.mode === 'navigate' || url.pathname.endsWith('.html')) {
+    e.respondWith(
+      fetch(e.request).catch(function () { return caches.match(e.request); })
+    );
+    return;
+  }
+
+  // Assets: network-first, fall back to cache when offline.
   e.respondWith(
     fetch(e.request).then(function (res) {
-      if (res && res.ok && new URL(e.request.url).origin === self.location.origin) {
+      if (res && res.ok) {
         var copy = res.clone();
         caches.open(CACHE).then(function (c) { c.put(e.request, copy); });
       }
       return res;
     }).catch(function () {
       return caches.match(e.request).then(function (hit) {
-        return hit || (e.request.mode === 'navigate' ? caches.match('index.html') : new Response('', { status: 503 }));
+        return hit || new Response('', { status: 503 });
       });
     })
   );

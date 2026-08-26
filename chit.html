@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var _l=new URLSearchParams(location.search).get('lang');if(_l==='ta'){document.documentElement.lang='ta';}}catch(e){}</script>
+<meta name="i18n-page" content="chit">
+<title>Chit Fund Calculator - Installment, Dividend & Return</title>
+<meta name="description" content="Calculate your chit fund monthly installment, per-member dividend and the effective annual return if you win the auction in a given month.">
+<meta name="keywords" content="chit fund calculator, chit calculator, chit fund returns, chit installment, chit dividend, chit fund India">
+<meta name="author" content="Simple EMI calculator project">
+<meta name="theme-color" content="#c026d3">
+<link rel="icon" type="image/png" href="favicon.png?v=2">
+<link rel="apple-touch-icon" href="favicon.png?v=2">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://simplecalculator.in/chit.html">
+<link rel="alternate" hreflang="en" href="https://simplecalculator.in/chit.html">
+<link rel="alternate" hreflang="ta" href="https://simplecalculator.in/chit.html?lang=ta">
+<link rel="alternate" hreflang="x-default" href="https://simplecalculator.in/chit.html">
+<link rel="stylesheet" href="style.css?v=2">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Chit Fund Calculator - Installment, Dividend & Return">
+<meta property="og:description" content="Free chit fund calculator with monthly installment, dividend and effective annual return if you win the auction.">
+<meta property="og:site_name" content="Calculators">
+<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://simplecalculator.in/og-image.png">
+<meta name="twitter:image" content="https://simplecalculator.in/og-image.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Chit Fund Calculator",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+}
+</script>
+</head>
+<body>
+<div class="app theme-chit">
+  <div class="lang-switch">
+    <button type="button" data-lang="en">EN</button>
+    <button type="button" data-lang="ta">தமிழ்</button>
+  </div>
+  <a class="back-link" href="index.html" data-i18n="back">← All calculators</a>
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="index.html">Home</a><span class="sep">›</span><span>Chit Fund Calculator</span>
+  </nav>
+  <header>
+    <h1 data-i18n="chitH1">Chit Fund Calculator</h1>
+    <p data-i18n="chitSub">Monthly Installment, Dividend & Effective Return</p>
+  </header>
+
+  <main class="layout chit">
+    <section class="card">
+      <label class="field">
+        <div class="field-head"><span data-i18n="chitValue">Chit Value</span>
+          <span class="input-box"><span class="unit">₹</span><input type="text" id="valueInput" inputmode="numeric" autocomplete="off"></span>
+        </div>
+        <input type="range" class="slider" id="value" min="10000" max="5000000" step="10000">
+        <div class="field-scale"><span>₹10,000</span><span>₹50,00,000</span></div>
+      </label>
+
+      <label class="field">
+        <div class="field-head"><span data-i18n="chitTenure">Tenure (Months)</span>
+          <span class="input-box"><input type="number" id="monthsInput" min="1" max="100" step="1"><span class="unit">Mo</span></span>
+        </div>
+        <input type="range" class="slider" id="months" min="6" max="60" step="1">
+        <div class="field-scale"><span>6 mo</span><span>60 mo</span></div>
+      </label>
+
+      <label class="field">
+        <div class="field-head"><span data-i18n="chitForeman">Foreman Commission</span>
+          <span class="input-box"><input type="number" id="foremanInput" min="0" max="20" step="0.5"><span class="unit">%</span></span>
+        </div>
+        <input type="range" class="slider" id="foreman" min="0" max="15" step="0.5">
+        <div class="field-scale"><span>0%</span><span>15%</span></div>
+      </label>
+
+      <label class="field">
+        <div class="field-head"><span data-i18n="chitDividend">Avg. Dividend / Discount</span>
+          <span class="input-box"><input type="number" id="divInput" min="0" max="50" step="0.5"><span class="unit">%</span></span>
+        </div>
+        <input type="range" class="slider" id="div" min="1" max="40" step="0.5">
+        <div class="field-scale"><span>1%</span><span>40%</span></div>
+      </label>
+
+      <label class="field">
+        <div class="field-head"><span data-i18n="chitWinMonth">Month You Win The Chit</span>
+          <span class="input-box"><input type="number" id="winInput" min="1" max="60" step="1"><span class="unit">Mo</span></span>
+        </div>
+        <input type="range" class="slider" id="win" min="1" max="60" step="1">
+        <div class="field-scale"><span>1 mo</span><span>60 mo</span></div>
+      </label>
+
+      <p class="hint" data-i18n="chitHint">Dividend is the auction discount left after the foreman’s commission, shared equally among all members and reduces your monthly installment. Assumes a steady discount each month for illustration.</p>
+    </section>
+
+    <div class="results">
+      <div class="card">
+        <h2 data-i18n="chitInstallment">Monthly Installment</h2>
+        <div class="sip-result" id="sumInstallment">-</div>
+        <dl class="summary-list">
+          <div class="summary-item"><dt data-i18n="chitDivPerMember">Dividend / Member / Month</dt><dd id="sumDiv">-</dd></div>
+          <div class="summary-item accent"><dt data-i18n="chitEffInstallment">Effective Installment</dt><dd id="sumEff">-</dd></div>
+        </dl>
+      </div>
+
+      <div class="card">
+        <h2><span data-i18n="chitIfWin">If You Win In Month</span> <span id="winLabel" style="color:var(--accent)"></span></h2>
+        <dl class="summary-list">
+          <div class="summary-item"><dt data-i18n="chitPrize">Prize Amount Received</dt><dd id="sumPrize">-</dd></div>
+          <div class="summary-item"><dt data-i18n="chitTotalPaid">Total Installments Paid</dt><dd id="sumPaid">-</dd></div>
+          <div class="summary-item accent"><dt data-i18n="chitEffectiveReturn">Effective Annual Return</dt><dd id="sumReturn">-</dd></div>
+        </dl>
+        <p class="hint" id="neverWinNote" data-i18n="chitNeverWinNote">Staying the full term without winning, you pay the discounted installments and receive no prize — it behaves like a forced saving plan.</p>
+      </div>
+
+      <div class="card schedule-card">
+        <div class="schedule-head">
+          <h2 data-i18n="chitSchedule">Month-wise Cashflow</h2>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th data-i18n="chitColMonth">Month</th><th data-i18n="chitColInstall">Installment</th><th data-i18n="chitColDiv">Dividend</th><th data-i18n="chitColNet">Net Outflow</th><th data-i18n="chitColPrize">Prize</th></tr></thead>
+            <tbody id="scheduleBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <section class="card faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item">
+      <div class="faq-q" data-i18n="chitFaqQ1">How is the monthly installment calculated?</div>
+      <div class="faq-a" data-i18n="chitFaqA1">The chit value is divided equally among the number of members (which equals the tenure in months). Each member pays that share every month.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" data-i18n="chitFaqQ2">What does the effective annual return mean?</div>
+      <div class="faq-a" data-i18n="chitFaqA2">When you win, you receive the prize amount (chit value minus the discount) early while you keep paying smaller, dividend-adjusted installments. The effective return annualises that cashflow into a comparable yearly rate.</div>
+    </div>
+  </section>
+
+  <nav class="related" aria-label="More calculators">
+    <a href="sip.html">SIP Calculator</a>
+    <a href="emi.html">EMI Calculator</a>
+    <a href="gst.html">GST Calculator</a>
+    <a href="index.html">All calculators</a>
+  </nav>
+
+  <footer data-i18n="footer">Built for practice. Amounts are rounded to two decimals.</footer>
+  <nav class="footer-links"><a href="privacy.html">Privacy Policy</a></nav>
+</div>
+
+<script src="common.js?v=2"></script>
+<script src="chit.js?v=2"></script>
+</body>
+</html>
