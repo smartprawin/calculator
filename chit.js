@@ -104,7 +104,8 @@
     $('foreman').value = state.foreman;
     $('foremanInput').value = state.foreman.toFixed(1);
     $('div').value = state.div;
-    $('divInput').value = state.div.toFixed(1);
+    if (document.activeElement !== $('divInput')) $('divInput').value = groupIndian(Math.round(state.value * state.div / 100));
+    $('divPct').textContent = state.div.toFixed(1) + '%';
     $('win').value = state.win;
     $('winInput').value = state.win;
 
@@ -139,10 +140,12 @@
   });
   $('div').addEventListener('input', function (e) { state.div = parseDigits(e.target.value); render(); });
   $('divInput').addEventListener('input', function (e) {
-    var v = Number(e.target.value);
-    state.div = isFinite(v) && v >= 0 ? v : 0;
+    var amt = parseDigits(e.target.value);
+    var pct = state.value > 0 ? (amt / state.value) * 100 : 0;
+    state.div = isFinite(pct) && pct >= 0 ? pct : 0;
     render();
   });
+  $('divInput').addEventListener('blur', function () { $('divInput').value = groupIndian(Math.round(state.value * state.div / 100)); });
   $('win').addEventListener('input', function (e) { state.win = Math.round(parseDigits(e.target.value)); render(); });
   $('winInput').addEventListener('input', function (e) {
     var v = Math.round(Number(e.target.value));
