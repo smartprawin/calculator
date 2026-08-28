@@ -56,7 +56,10 @@
   // Dividend per eligible member in month k (1-indexed).
   function monthDividend(k) {
     var pool = Math.max(0, (state.value - state.prizes[k - 1]) - state.value * (state.foreman / 100));
-    var elig = (state.payout === 'B') ? (state.members - 1) : (state.members - k);
+    var elig;
+    if (state.payout === 'B') elig = state.members - 1;
+    else if (state.payout === 'everyone') elig = state.members;
+    else elig = state.members - k;
     if (elig <= 0) return 0;
     return pool / elig;
   }
@@ -71,7 +74,8 @@
       var pays = !(state.payout === 'C' && k > w); // winner exits after winning
       if (pays) { flow -= inst; paid += inst; }
       var getsDiv = false;
-      if (k < w) getsDiv = true;
+      if (state.payout === 'everyone') getsDiv = true;
+      else if (k < w) getsDiv = true;
       else if (k === w) getsDiv = false;
       else getsDiv = (state.payout === 'B'); // all except winner get dividend
       if (getsDiv) { var d = monthDividend(k); flow += d; divEarned += d; }
@@ -200,11 +204,19 @@
     $('foreman').value = state.foreman;
     $('payout').value = state.payout;
     $('applyDiv').value = DEFAULT_DIV;
+    syncDiscountAmount();
+  }
+
+  // Keep the discount amount (₹) in sync with the discount % and chit value.
+  function syncDiscountAmount() {
+    var pct = parseFloat($('applyDiv').value);
+    if (!isFinite(pct)) pct = DEFAULT_DIV;
+    $('applyAmt').value = groupIndian(Math.round(state.value * pct / 100));
   }
 
   function bind() {
     $('valueInput').addEventListener('input', function (e) { state.value = parseDigits(e.target.value); render(); });
-    $('value').addEventListener('input', function (e) { state.value = parseDigits(e.target.value); $('valueInput').value = groupIndian(state.value); render(); });
+    $('value').addEventListener('input', function (e) { state.value = parseDigits(e.target.value); $('valueInput').value = groupIndian(state.value); syncDiscountAmount(); render(); });
 
     $('membersInput').addEventListener('input', function (e) {
       var v = Math.round(Number(e.target.value)); state.members = isFinite(v) && v >= 1 ? v : 1; render();
@@ -220,6 +232,17 @@
     $('foreman').addEventListener('input', function (e) { state.foreman = parseDigits(e.target.value); $('foremanInput').value = state.foreman; render(); });
 
     $('payout').addEventListener('change', function (e) { state.payout = e.target.value; render(); });
+
+    $('applyDiv').addEventListener('input', function (e) {
+      var pct = parseFloat(e.target.value);
+      if (isFinite(pct)) $('applyAmt').value = groupIndian(Math.round(state.value * pct / 100));
+    });
+    $('applyAmt').addEventListener('input', function (e) {
+      var amt = parseDigits(e.target.value);
+      if (!isFinite(amt) || amt <= 0) return;
+      var pct = amt / state.value * 100;
+      $('applyDiv').value = (pct < 10 ? pct.toFixed(2) : pct.toFixed(1));
+    });
 
     $('applyAll').addEventListener('click', function () {
       var x = parseFloat($('applyDiv').value);

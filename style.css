@@ -862,6 +862,16 @@ tbody tr.last {
   margin-bottom: 8px;
 }
 
+.apply-inputs {
+  display: flex;
+  gap: 10px;
+}
+
+.apply-inputs .input-box {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
 .btn {
   align-self: flex-start;
   margin-top: 4px;
