@@ -137,23 +137,6 @@
   }
 
   function renderResults(data) {
-    var rows = [];
-    for (var i = 0; i < data.rows.length; i++) {
-      var r = data.rows[i];
-      var isLast = (i === data.rows.length - 1);
-      rows.push(
-        '<tr' + (isLast ? ' class="last"' : '') + '>' +
-          '<td>' + r.month + (isLast ? ' ★' : '') + '</td>' +
-          '<td>' + currency(r.prize) + '</td>' +
-          '<td>' + currency(r.divEarned) + '</td>' +
-          '<td>' + currency(r.paid) + '</td>' +
-          '<td class="' + (r.net >= 0 ? 'pos' : 'neg') + '">' + fmtNet(r.net) + '</td>' +
-          '<td>' + fmtRet(r.ret) + '</td>' +
-        '</tr>'
-      );
-    }
-    $('posBody').innerHTML = rows.join('');
-
     $('sumInstallment').textContent = currency(state.value / state.members);
     $('avgDiv').textContent = currency(data.avgDiv);
 
