@@ -827,6 +827,62 @@ input[type='number'] {
   font-size: 0.78rem;
 }
 
+.prize-input {
+  width: 92px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 4px 6px;
+  font: inherit;
+  text-align: right;
+  background: #fff;
+}
+
+.prize-input:focus {
+  outline: 2px solid var(--accent);
+  border-color: var(--accent);
+}
+
+.schedule-card tbody tr.win,
+tbody tr.last {
+  background: rgba(192, 38, 211, 0.08);
+  font-weight: 600;
+}
+
+.select {
+  width: 100%;
+  padding: 9px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font: inherit;
+  background: #fff;
+  color: var(--text);
+}
+
+.apply-row .field-head {
+  margin-bottom: 8px;
+}
+
+.btn {
+  align-self: flex-start;
+  margin-top: 4px;
+  padding: 9px 14px;
+  border: none;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn:hover { filter: brightness(1.05); }
+
+.results .card.wide,
+.wide { grid-column: 1 / -1; }
+
+.pos { color: #15803d; font-weight: 600; }
+.neg { color: #be123c; font-weight: 600; }
+
 .chart-row {
   display: flex;
   align-items: center;
